@@ -3,7 +3,6 @@ import { AppProps } from "next/app";
 import { RecoilRoot } from "recoil";
 import ApolloSetting from "../src/commons/apollo";
 import { globalStyles } from "../src/commons/styles/globalStyles";
-import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -11,7 +10,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ApolloSetting>
         <>
           <Global styles={globalStyles} />
-          <Component {...pageProps} />;
+          <Component {...pageProps} />
         </>
       </ApolloSetting>
     </RecoilRoot>
