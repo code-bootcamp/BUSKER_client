@@ -23,13 +23,15 @@ const LoginPageWriteUI = ({
                   placeholder="이메일을 입력해 주세요"
                   register={register("email")}
                 />
-                <div>{formState.errors.email?.message}</div>
+                <S.ErrorStyle>{formState.errors.email?.message}</S.ErrorStyle>
                 <Input01
                   type="password"
                   placeholder="비밀번호를 입력해 주세요"
                   register={register("password")}
                 />
-                <div>{formState.errors.password?.message}</div>
+                <S.ErrorStyle>
+                  {formState.errors.password?.message}
+                </S.ErrorStyle>
                 <S.LoginBtnStyle>Login</S.LoginBtnStyle>
               </S.LoginInputWrapper>
               <S.LoginOptionWrapper>
