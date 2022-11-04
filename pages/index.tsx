@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import KakaoMap from "../src/components/common/kakaoMap";
 
+
 export default function Home() {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
