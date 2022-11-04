@@ -1,16 +1,14 @@
-import { useEffect } from "react";
-import KakaoMap from "../src/components/common/kakaoMap";
+import { useRouter } from "next/router";
 
 export default function Home() {
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      console.log(`lat: ${position.coords.latitude}`);
-      console.log(`long: ${position.coords.longitude}`);
-    });
-  });
+  const router = useRouter();
+  const onClickMoveToMap = async () => {
+    await router.push("/map");
+  };
   return (
-    <div>
-      <KakaoMap />
-    </div>
+    <>
+      <div>랜딩 페이지</div>
+      <button onClick={onClickMoveToMap}>주변 버스킹 공연 보러가기</button>
+    </>
   );
 }
