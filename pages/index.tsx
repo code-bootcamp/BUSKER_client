@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import KakaoMap from "../src/commons/kakaoMap";
+import KakaoMap from "../src/components/common/kakaoMap";
+
 
 export default function Home() {
   useEffect(() => {
