@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-export const LoginYup = yup.object({
+export const SignupYup = yup.object({
   email: yup
     .string()
     .email("이메일에는 @가 필수입니다")
@@ -13,4 +13,7 @@ export const LoginYup = yup.object({
       "알파벳, 숫자, 공백을 제외한 특수문자를 모두 포함한 6자리 이상 20자리 미만으로 입력해주세요"
     )
     .required("비밀번호를 입력해주세요"),
+  passwordConfirm: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "비밀번호가 일치하지 않습니다"),
 });

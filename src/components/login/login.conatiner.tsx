@@ -9,10 +9,11 @@ const LoginPageWrite = () => {
   const router = useRouter();
   const { register, formState, handleSubmit } = useForm<IFormData>({
     resolver: yupResolver(LoginYup),
+    mode: "onChange",
   });
 
   const onClickSignUp = () => {
-    void router.push("/");
+    void router.push("/signup");
   };
 
   const onClickRestorePassword = () => {
