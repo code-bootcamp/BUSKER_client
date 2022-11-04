@@ -101,3 +101,11 @@ export const SocialLogInText = styled.div`
 export const LogoStyle = styled.div`
   font-size: 5rem;
 `;
+<<<<<<< HEAD
+=======
+
+export const ErrorStyle = styled.div`
+  font-size: 1.3rem;
+  color: red;
+`;
+>>>>>>> 08ec9426f3de0fd23503458a8d4e87330ba56dc7

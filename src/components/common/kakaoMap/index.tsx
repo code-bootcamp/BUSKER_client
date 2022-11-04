@@ -1,4 +1,3 @@
-import { QueryManager } from "@apollo/client/core/QueryManager";
 import Head from "next/script";
 import { useEffect } from "react";
 
@@ -8,6 +7,7 @@ declare global {
   }
 }
 
+
 interface IKakaoMapProps {
   position: {
     lat: number;
@@ -16,6 +16,8 @@ interface IKakaoMapProps {
 }
 
 const KakaoMap = ({ position }: IKakaoMapProps) => {
+
+const KakaoMap = () => {
   useEffect(() => {
     const script = document.createElement("script");
     script.src =
@@ -29,6 +31,7 @@ const KakaoMap = ({ position }: IKakaoMapProps) => {
         const mapContainer = document.getElementById("map"); // 지도를 표시할 div
         const mapOption = {
           center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+<<<<<<< HEAD
           level: 4, // 지도의 확대 레벨
         };
         const map = new kakao.maps.Map(mapContainer, mapOption);
