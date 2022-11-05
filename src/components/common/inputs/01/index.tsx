@@ -8,6 +8,7 @@ interface IProps {
   register?: UseFormRegisterReturn;
   placeholder?: string;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  readOnly?: boolean;
 }
 
 const LoginInputStyle = styled.input`
@@ -30,6 +31,7 @@ export default function Input01(props: IProps) {
       type={props.type}
       {...props.register}
       onChange={props.onChange}
+      readOnly={props.readOnly}
     />
   );
 }

@@ -44,9 +44,8 @@ export const LoginBtnStyle = styled.button`
   background: none;
   border: 1px solid ${stylePrimaryColor};
   border-radius: 1rem;
-  height: 3rem;
+  height: 5rem;
   cursor: pointer;
-  height: 50px;
   :hover {
     background-color: ${stylePrimaryColor};
     color: white;
@@ -101,11 +100,8 @@ export const SocialLogInText = styled.div`
 export const LogoStyle = styled.div`
   font-size: 5rem;
 `;
-<<<<<<< HEAD
-=======
 
 export const ErrorStyle = styled.div`
   font-size: 1.3rem;
   color: red;
 `;
->>>>>>> 08ec9426f3de0fd23503458a8d4e87330ba56dc7
