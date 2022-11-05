@@ -18,8 +18,7 @@ export default function ApolloSetting(props: IApolloSettingProps) {
   });
   const client = new ApolloClient({
     link: ApolloLink.from([uploadLink]),
-    // cache: new InMemoryCache(), // 나중에 하기
-    cache: GLOBAL_STATE, // 페이지가 전환(_app.tsx 리렌더)되어도, 캐시 유지
+    cache: GLOBAL_STATE,
     connectToDevTools: true,
   });
 
