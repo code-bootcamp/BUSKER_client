@@ -7,6 +7,10 @@ const ArtistSignupPageWriteUI = ({
   isOpen,
   onClickHandleCancel,
   onCompleteAddressSearch,
+  onClickTeam,
+  isTeam,
+  addCount,
+  onClickAddTeam,
 }: IArtistSignupPageWriteUI) => {
   return (
     <>
@@ -39,7 +43,7 @@ const ArtistSignupPageWriteUI = ({
                 </S.MainPlaceGenreWrapper>
                 <S.MainPlaceGenreWrapper>
                   <S.TextStyle>공연 장르</S.TextStyle>
-                  <button>선택하기</button>
+                  <button type="button">선택하기</button>
                   <Input01 type="text" readOnly={true} />
                 </S.MainPlaceGenreWrapper>
               </S.PlaceGenreWrapper>
@@ -60,16 +64,28 @@ const ArtistSignupPageWriteUI = ({
           </S.ContentsTopWrapper>
           <S.ContentsBottomWrapper>
             <S.AddTeamWrapper>
-              <S.TeamBtn type="button">팀이신가요?</S.TeamBtn>
-              <S.AddTeamInputWrapper>
-                <S.MemberImgBtn>
-                  +
-                  <S.FileInput type="file" />
-                </S.MemberImgBtn>
-                <Input01 type="text" placeholder="이름" />
-                <Input01 type="text" placeholder="역할" />
-                <S.AddBtn type="button">+</S.AddBtn>
-              </S.AddTeamInputWrapper>
+              <S.TeamBtn type="button" onClick={onClickTeam}>
+                팀이신가요?
+              </S.TeamBtn>
+              {isTeam
+                ? new Array(addCount).fill(addCount).map((item) => {
+                    return (
+                      <>
+                        <S.AddTeamInputWrapper>
+                          <S.MemberImgBtn>
+                            +
+                            <S.FileInput type="file" />
+                          </S.MemberImgBtn>
+                          <Input01 type="text" placeholder="이름" />
+                          <Input01 type="text" placeholder="역할" />
+                          <S.AddBtn type="button" onClick={onClickAddTeam}>
+                            +
+                          </S.AddBtn>
+                        </S.AddTeamInputWrapper>
+                      </>
+                    );
+                  })
+                : ""}
             </S.AddTeamWrapper>
             <S.SubmitBtn>등록하기</S.SubmitBtn>
           </S.ContentsBottomWrapper>
