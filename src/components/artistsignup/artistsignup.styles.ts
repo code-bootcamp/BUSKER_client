@@ -116,7 +116,7 @@ export const AddTeamInputWrapper = styled.div`
   border-radius: 10px;
   margin: 20px 0;
   padding: 10px;
-  width: 70%;
+  width: 80%;
 `;
 
 export const AddBtn = styled.button`
@@ -154,7 +154,7 @@ export const MemberImgBtn = styled.label`
   font-size: 2.5rem;
   border-radius: 100px;
   background-color: #ccc;
-  width: 13%;
+  width: 100px;
 `;
 
 export const SubmitBtn = styled.button`
