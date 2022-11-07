@@ -13,7 +13,7 @@ export const globalStyles = css`
 export const stylePrimaryColor = "#ff6446";
 
 export const breakPoints = {
-  desktop: "(min-width: 992px) and (max-width: 1440px)",
+  desktop: "(min-width: 992px)",
   tablet: "(min-width: 768px) and (max-width: 991px)",
-  mobile: "(min-width: 320px) and (max-width: 767px)",
+  mobile: "(max-width: 767px)",
 };
