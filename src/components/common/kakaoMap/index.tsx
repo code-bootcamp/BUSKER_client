@@ -29,7 +29,7 @@ const KakaoMap = ({ position }: IKakaoMapProps) => {
         const mapContainer = document.getElementById("map"); // 지도를 표시할 div
         const mapOption = {
           center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-          level: 4, // 지도의 확대 레벨
+          level: 3, // 지도의 확대 레벨
         };
         const map = new kakao.maps.Map(mapContainer, mapOption);
         const coords = new kakao.maps.LatLng(position.lat, position.lng);
@@ -87,10 +87,11 @@ const KakaoMap = ({ position }: IKakaoMapProps) => {
             title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
             image: markerImage, // 마커 이미지
           });
+          console.log(marker);
         }
         // 마우스 드래그로 지도 이동 가능여부를 설정합니다
         map.setCenter(coords);
-        // map.setDraggable(false);
+        map.setDraggable(false);
         map.setZoomable(false);
 
         // 위도 +-0.005
@@ -111,11 +112,10 @@ const KakaoMap = ({ position }: IKakaoMapProps) => {
         style={{
           maxWidth: "1440px",
           width: "100%",
-          height: "500px",
-          margin: "100px auto",
+          height: "100vh",
+          margin: "0 auto",
         }}
       ></div>
-      <span></span>
     </>
   );
 };
