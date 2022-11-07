@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import {
   breakPoints,
   stylePrimaryColor,
-} from "../../commons/styles/globalStyles";
+} from "../../../commons/styles/globalStyles";
 
 export const MainWrapper = styled.div`
   display: flex;

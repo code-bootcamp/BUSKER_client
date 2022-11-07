@@ -16,7 +16,9 @@ const PasswordResetPageWrite = () => {
     router.back();
   };
 
-  const onClickReset = () => {};
+  const onClickReset = () => {
+    void router.push("/password/change");
+  };
   const onClickConfirm = () => {};
   const onClickMessageConfirm = () => {};
 

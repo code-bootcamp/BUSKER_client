@@ -1,4 +1,4 @@
-import Input01 from "../common/inputs/01";
+import Input01 from "../../common/inputs/01";
 import * as S from "./artistsignup.styles";
 import { IArtistSignupPageWriteUI } from "./artistsignup.types";
 

@@ -1,4 +1,4 @@
-import PasswordResetPageWrite from "../../../src/components/passwordreset/passwordreset.container";
+import PasswordResetPageWrite from "../../../src/components/units/passwordreset/passwordreset.container";
 
 const PasswordResetPage = () => {
   return <PasswordResetPageWrite />;

@@ -1,4 +1,4 @@
-import Input01 from "../common/inputs/01";
+import Input01 from "../../common/inputs/01";
 import * as S from "./passwordreset.styles";
 import { IPasswordResetPageWriteUI } from "./passwordreset.types";
 

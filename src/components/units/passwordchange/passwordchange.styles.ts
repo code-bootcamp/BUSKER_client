@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
-import { stylePrimaryColor } from "../../commons/styles/globalStyles";
+import { stylePrimaryColor } from "../../../commons/styles/globalStyles";
 
 export const Reset = styled.button`
-  width: 40%;
+  width: 100%;
   font-size: 2rem;
   margin-top: 1rem;
   color: ${stylePrimaryColor};
@@ -36,9 +36,6 @@ export const BtnWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  button {
-    width: calc(100% / 2 - 10px);
-  }
 `;
 
 export const PasswordChangeWrapper = styled.div`
@@ -49,26 +46,9 @@ export const PasswordChangeWrapper = styled.div`
 
 export const InputBtnWrapper = styled.div`
   display: flex;
-  align-items: center;
-  padding-right: 10px;
+  flex-direction: column;
   input {
     width: 100%;
-  }
-`;
-
-export const ConfirmBtn = styled.button`
-  width: 20%;
-  color: ${stylePrimaryColor};
-  font-weight: 600;
-  background: none;
-  border: 1px solid ${stylePrimaryColor};
-  border-radius: 1rem;
-  height: 3rem;
-  cursor: pointer;
-  height: 50px;
-  :hover {
-    background-color: ${stylePrimaryColor};
-    color: white;
   }
 `;
 

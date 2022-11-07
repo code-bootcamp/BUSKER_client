@@ -17,7 +17,7 @@ const LoginPageWrite = () => {
   };
 
   const onClickRestorePassword = () => {
-    void router.push("/");
+    void router.push("/password/reset");
   };
 
   const onClickLogin = () => {
