@@ -35,7 +35,6 @@ const KakaoMap = ({ position, address }: IKakaoMapProps) => {
         const map = new kakao.maps.Map(mapContainer, mapOption);
         const coords = new kakao.maps.LatLng(position?.lat, position?.lng);
         if (address) {
-          console.log(123);
           const geocoder = new kakao.maps.services.Geocoder();
 
           // 주소로 좌표를 검색합니다
@@ -49,7 +48,7 @@ const KakaoMap = ({ position, address }: IKakaoMapProps) => {
                 map,
                 position: coords,
               });
-
+              console.log(marker);
               // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
               map.setCenter(coords);
             }
@@ -63,14 +62,14 @@ const KakaoMap = ({ position, address }: IKakaoMapProps) => {
             {
               title: "카카오",
               latlng: new kakao.maps.LatLng(
-                position?.lat + PlMaLatitude - 0.0005,
+                Number(position?.lat) + PlMaLatitude - 0.0005,
                 position?.lng
               ),
             },
             {
               title: "생태연못",
               latlng: new kakao.maps.LatLng(
-                position?.lat - PlMaLatitude + 0.0005,
+                Number(position?.lat) - PlMaLatitude + 0.0005,
                 position?.lng
               ),
             },
@@ -78,14 +77,14 @@ const KakaoMap = ({ position, address }: IKakaoMapProps) => {
               title: "텃밭",
               latlng: new kakao.maps.LatLng(
                 position?.lat,
-                position?.lng + PlMaLongitude
+                Number(position?.lng) + PlMaLongitude
               ),
             },
             {
               title: "근린공원",
               latlng: new kakao.maps.LatLng(
                 position?.lat,
-                position?.lng - PlMaLongitude
+                Number(position?.lng) - PlMaLongitude
               ),
             },
           ];
