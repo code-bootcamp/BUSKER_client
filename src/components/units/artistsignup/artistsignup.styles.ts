@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { Modal } from "antd";
 import DaumPostcodeEmbed from "react-daum-postcode";
-import { stylePrimaryColor } from "../../commons/styles/globalStyles";
 import "antd/dist/antd.css";
+import { stylePrimaryColor } from "../../../commons/styles/globalStyles";
 
 export const MainWrapper = styled.form`
   width: 100%;

@@ -1,4 +1,4 @@
-import LoginPageWrite from "../../src/components/login/login.conatiner";
+import LoginPageWrite from "../../src/components/units/login/login.conatiner";
 
 const LoginPage = () => {
   return <LoginPageWrite />;
