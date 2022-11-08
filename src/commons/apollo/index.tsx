@@ -14,7 +14,8 @@ const GLOBAL_STATE = new InMemoryCache();
 
 export default function ApolloSetting(props: IApolloSettingProps) {
   const uploadLink = createUploadLink({
-    uri: "",
+    uri: "https://5brock.online/graphql",
+    credentials: "true",
   });
   const client = new ApolloClient({
     link: ApolloLink.from([uploadLink]),
