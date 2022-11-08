@@ -46,7 +46,7 @@ export const MainPlaceGenreWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   input {
-    width: 50%;
+    width: 100%;
   }
   button {
     height: 3rem;
@@ -176,3 +176,9 @@ export const SubmitBtn = styled.button`
 export const AddressModal = styled(Modal)``;
 
 export const AddressSearchInput = styled(DaumPostcodeEmbed)``;
+
+export const ErrorMsg = styled.div`
+  font-size: 1.5rem;
+  color: red;
+  padding: 0 20px;
+`;

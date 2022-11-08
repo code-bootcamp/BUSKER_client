@@ -1,4 +1,5 @@
 import { UseFormRegister } from "react-hook-form";
+import type { DatePickerProps, RangePickerProps } from "antd/es/date-picker";
 
 export interface IArtRegisterPageWriteUI {
   onClickHandleCancel: () => void;
@@ -11,7 +12,13 @@ export interface IArtRegisterPageWriteUI {
   handleSubmit: any;
   handleChange: any;
   options: any;
+  genre: string;
+  artTime: any;
   onClickRegister: () => void;
+  TimeChange: (
+    value: DatePickerProps["value"] | RangePickerProps["value"],
+    dateString: [string, string] | string
+  ) => void;
 }
 
 export interface IFormData {
@@ -19,4 +26,5 @@ export interface IFormData {
   genre: string;
   image: string;
   place: string;
+  time: string[];
 }
