@@ -4,11 +4,14 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import ArtRegisterPageWriteUI from "./artregister.presenter";
 import { ArtRegisterYup } from "./artregister.schema";
+import type { DatePickerProps, RangePickerProps } from "antd/es/date-picker";
 import { IFormData } from "./artregister.types";
 
 const ArtRegisterPageWrite = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [address, setAddress] = useState("");
+  const [genre, setGenre] = useState("");
+  const [artTime, setArtTime] = useState<string | [string, string]>(["", ""]);
 
   const { register, formState, handleSubmit } = useForm<IFormData>({
     resolver: yupResolver(ArtRegisterYup),
@@ -28,23 +31,28 @@ const ArtRegisterPageWrite = () => {
     setIsOpen((prev) => !prev);
   };
 
-  const GenreArr = ["dance", "sing", "magic"];
-  const ValueArr = ["춤", "노래", "마술"];
+  const ValueArr = ["춤", "노래", "마술", "악기연주"];
 
   const options: SelectProps["options"] = [];
 
-  for (let i = 0; i < GenreArr.length; i++) {
+  for (let i = 0; i < ValueArr.length; i++) {
     options.push({
-      value: GenreArr[i],
+      value: ValueArr[i],
       label: ValueArr[i],
     });
   }
 
-  const handleChange = (value: string | string[]) => {
-    register("genre");
+  const handleChange = (value: any) => {
+    setGenre(value);
   };
 
   const onClickRegister = () => {};
+  const TimeChange = (
+    value: DatePickerProps["value"] | RangePickerProps["value"],
+    dateString: [string, string] | string
+  ) => {
+    setArtTime(dateString);
+  };
 
   return (
     <ArtRegisterPageWriteUI
@@ -59,6 +67,9 @@ const ArtRegisterPageWrite = () => {
       onClickRegister={onClickRegister}
       handleChange={handleChange}
       options={options}
+      genre={genre}
+      TimeChange={TimeChange}
+      artTime={artTime}
     />
   );
 };

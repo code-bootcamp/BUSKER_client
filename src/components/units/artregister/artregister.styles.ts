@@ -123,3 +123,23 @@ export const KakaoWrapper = styled.div`
 export const AddressModal = styled(Modal)``;
 
 export const AddressSearchInput = styled(DaumPostcodeEmbed)``;
+
+export const GenreWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  min-width: 200px;
+`;
+
+export const DateWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  min-width: 200px;
+`;
+
+export const ErrorMsg = styled.div`
+  font-size: 1.5rem;
+  color: red;
+  padding: 0 20px;
+`;
