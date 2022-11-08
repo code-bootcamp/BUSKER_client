@@ -1,0 +1,7 @@
+schema: https://5brock.online/graphql
+generates:
+  ./src/commons/types/generated/types.ts:
+    plugins:
+      - typescript
+    config:
+      typesPrefix: I
