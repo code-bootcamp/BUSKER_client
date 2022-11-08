@@ -10,6 +10,6 @@ export interface ILoginPageWriteUI {
   register: UseFormRegister<IFormData>;
   onClickSignUp: () => void;
   onClickRestorePassword: () => void;
-  onClickLogin: () => void;
+  onClickLogin: (data: IFormData) => void;
   handleSubmit: any;
 }

@@ -3,7 +3,7 @@ import { UseFormRegister } from "react-hook-form";
 export interface ISignupPageWriteUI {
   onClickMoveBack: () => void;
   register: UseFormRegister<IFormData>;
-  onClickSignup: () => void;
+  onClickSignup: (data: IFormData) => void;
   handleSubmit: any;
   formState: any;
 }

@@ -4,9 +4,19 @@ import { LoginYup } from "./login.schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { IFormData } from "./login.types";
 import { useRouter } from "next/router";
+import { useMutation } from "@apollo/client";
+import { LOGIN } from "./Login.Quries";
+import {
+  IMutation,
+  IMutationLoginArgs,
+} from "../../../commons/types/generated/types";
 
 const LoginPageWrite = () => {
   const router = useRouter();
+  const [login] = useMutation<Pick<IMutation, "login">, IMutationLoginArgs>(
+    LOGIN
+  );
+
   const { register, formState, handleSubmit } = useForm<IFormData>({
     resolver: yupResolver(LoginYup),
     mode: "onChange",
@@ -20,7 +30,13 @@ const LoginPageWrite = () => {
     void router.push("/password/reset");
   };
 
-  const onClickLogin = () => {
+  const onClickLogin = async (data: IFormData) => {
+    await login({
+      variables: {
+        email: data.email,
+        password: data.password,
+      },
+    });
     void router.push("/");
   };
 

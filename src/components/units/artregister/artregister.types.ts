@@ -13,18 +13,22 @@ export interface IArtRegisterPageWriteUI {
   handleChange: any;
   options: any;
   genre: string;
-  artTime: any;
-  onClickRegister: () => void;
+  startTime: string;
+  onClickRegister: (data: IFormData) => void;
   TimeChange: (
     value: DatePickerProps["value"] | RangePickerProps["value"],
     dateString: [string, string] | string
   ) => void;
+  // onChangeFile: any;
+  // imgUrl: string[];
+  count: number;
+  endTime: string;
+  onClickCount: () => void;
 }
 
 export interface IFormData {
   contents: string;
   genre: string;
-  image: string;
   place: string;
   time: string[];
 }
