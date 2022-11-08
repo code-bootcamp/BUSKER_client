@@ -3,23 +3,27 @@ import "aos/dist/aos.css";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { userPositionState } from "../src/commons/store";
+import { deviceState, userPositionState } from "../src/commons/store";
 import { breakPoints } from "../src/commons/styles/globalStyles";
 import Head from "next/script";
 import AOS from "aos";
 
 export default function Home() {
   const router = useRouter();
+  const [, setIsMobile] = useRecoilState(deviceState);
   const [, setUserPosition] = useRecoilState(userPositionState);
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
-      console.log(`lat: ${position.coords.latitude}`);
-      console.log(`long: ${position.coords.longitude}`);
       setUserPosition({
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
+        lat: String(position.coords.latitude),
+        lng: String(position.coords.longitude),
       });
     });
+    setIsMobile(
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      )
+    );
     AOS.init();
   }, []);
   return (

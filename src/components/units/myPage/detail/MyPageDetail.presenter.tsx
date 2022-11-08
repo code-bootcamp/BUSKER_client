@@ -19,10 +19,10 @@ const MyPageDetailUI = (props: IMyPageProps) => {
           <S.MyPickBox>
             <S.PickComment>zㅣ존 법사님은 n명을 찜했어요!</S.PickComment>
             <S.PickedArtistBox>
-              {props.data?.map((artist, i) => (
+              {props.data?.map((artist) => (
                 <S.PickedArtistLi
                   onClick={props.onClickPickedArtist(artist.id)}
-                  key={i}
+                  key={artist.id}
                 >
                   <S.PickedArtistProfile>
                     <ImageBox width="4rem" height="4rem" src={artist.image} />

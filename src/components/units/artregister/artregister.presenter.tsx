@@ -33,7 +33,7 @@ const ArtRegisterPageWriteUI = ({
   return (
     <>
       {isOpen && (
-        <S.AddressModal visible={true} onCancel={onClickHandleCancel}>
+        <S.AddressModal open={true} onCancel={onClickHandleCancel}>
           <S.AddressSearchInput onComplete={onCompleteAddressSearch} />
         </S.AddressModal>
       )}

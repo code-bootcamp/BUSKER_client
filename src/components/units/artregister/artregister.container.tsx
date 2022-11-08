@@ -6,6 +6,7 @@ import ArtRegisterPageWriteUI from "./artregister.presenter";
 import { ArtRegisterYup } from "./artregister.schema";
 import type { DatePickerProps, RangePickerProps } from "antd/es/date-picker";
 import { IFormData } from "./artregister.types";
+import { Address } from "react-daum-postcode";
 import { useMutation, useQuery } from "@apollo/client";
 // import { UPLOAD_FILE } from "./ArtRegister.Quries";
 import {
@@ -16,6 +17,7 @@ import {
   // IMutationUploadFileArgs,
 } from "../../../commons/types/generated/types";
 import { CREATE_BOARD, FETCH_ARTIST } from "./ArtRegister.Quries";
+
 
 const ArtRegisterPageWrite = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -64,7 +66,7 @@ const ArtRegisterPageWrite = () => {
     setIsOpen(false);
   };
 
-  const onCompleteAddressSearch = (data: any) => {
+  const onCompleteAddressSearch = (data: Address) => {
     setAddress(data.address);
     setIsOpen((prev) => !prev);
     setLat(data.address.lat);

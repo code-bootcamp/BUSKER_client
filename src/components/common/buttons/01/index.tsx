@@ -13,7 +13,11 @@ interface IButtonProps {
 }
 
 const Button01 = (props: IButtonProps) => {
-  return <ButtonStyle onClick={props.onClick}>{props.children}</ButtonStyle>;
+  return (
+    <ButtonStyle style={props.style} onClick={props.onClick}>
+      {props.children}
+    </ButtonStyle>
+  );
 };
 
 export default Button01;
