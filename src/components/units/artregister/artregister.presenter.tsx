@@ -20,7 +20,12 @@ const ArtRegisterPageWriteUI = ({
   options,
   genre,
   TimeChange,
-  artTime,
+  startTime,
+  // onChangeFile,
+  // imgUrl,
+  onClickCount,
+  endTime,
+  count,
 }: IArtRegisterPageWriteUI) => {
   const { RangePicker } = DatePicker;
   const [userPosition] = useRecoilState(userPositionState);
@@ -62,10 +67,44 @@ const ArtRegisterPageWriteUI = ({
           </S.GenreWrapper>
           <div>
             <S.TextStyle>공연장소 사진</S.TextStyle>
-            <S.ImgBtn>
-              +
-              <S.FileInput type="file" {...register("image")} />
-            </S.ImgBtn>
+            <S.ImgWrapper>
+              {/* {new Array(count).fill(count).map((_, index) => {
+                return (
+                  <>
+                    {imgUrl[index] ? (
+                      <S.ImgBtn
+                        style={{
+                          backgroundImage: `url(https://storage.googleapis.com/${imgUrl[index]})`,
+                          backgroundColor: "#fff",
+                          backgroundSize: "cover",
+                        }}
+                        key={index}
+                        htmlFor={`file${index}`}
+                      >
+                        +
+                        <S.FileInput
+                          type="file"
+                          id={`file${index}`}
+                          onChange={onChangeFile(index)}
+                        />
+                      </S.ImgBtn>
+                    ) : (
+                      <S.ImgBtn key={index} htmlFor={`file${index}`}>
+                        +
+                        <S.FileInput
+                          type="file"
+                          id={`file${index}`}
+                          onChange={onChangeFile(index)}
+                        />
+                      </S.ImgBtn>
+                    )}
+                  </>
+                );
+              })} */}
+              <S.ImgAddBtn type="button" onClick={onClickCount}>
+                이미지 추가하기
+              </S.ImgAddBtn>
+            </S.ImgWrapper>
           </div>
           <S.DateWrapper>
             <S.TextStyle>공연시간</S.TextStyle>
@@ -79,7 +118,7 @@ const ArtRegisterPageWriteUI = ({
             <Input01
               type="text"
               readOnly={true}
-              value={artTime}
+              value={`${startTime} ~ ${endTime}`}
               register={register("time")}
             />
             <S.ErrorMsg>{formState.errors.time?.message}</S.ErrorMsg>
