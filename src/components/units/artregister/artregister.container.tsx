@@ -6,6 +6,7 @@ import ArtRegisterPageWriteUI from "./artregister.presenter";
 import { ArtRegisterYup } from "./artregister.schema";
 import type { DatePickerProps, RangePickerProps } from "antd/es/date-picker";
 import { IFormData } from "./artregister.types";
+import { Address } from "react-daum-postcode";
 
 const ArtRegisterPageWrite = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,7 +27,7 @@ const ArtRegisterPageWrite = () => {
     setIsOpen(false);
   };
 
-  const onCompleteAddressSearch = (data: any) => {
+  const onCompleteAddressSearch = (data: Address) => {
     setAddress(data.address);
     setIsOpen((prev) => !prev);
   };

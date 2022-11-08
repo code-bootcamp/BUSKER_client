@@ -4,6 +4,7 @@ import { RecoilRoot } from "recoil";
 import ApolloSetting from "../src/commons/apollo";
 import { globalStyles } from "../src/commons/styles/globalStyles";
 import Layout from "../src/components/common/layout";
+import Script from "next/script";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -12,6 +13,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         <>
           <Global styles={globalStyles} />
           <Layout>
+            <Script
+              type="text/javascript"
+              src="//dapi.kakao.com/v2/maps/sdk.js?appkey=742b7bcfe05cf57b5cb459032650c7af&libraries=services,clusterer&autoload=false"
+              strategy="beforeInteractive"
+            />
             <Component {...pageProps} />
           </Layout>
         </>
