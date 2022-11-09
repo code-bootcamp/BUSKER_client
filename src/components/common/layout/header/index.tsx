@@ -24,6 +24,7 @@ export const Wrapper = styled.div`
   @media ${breakPoints.mobile} {
     height: 50px;
   }
+  background-color: transparent;
 `;
 
 export const HeaderBox = styled.div`

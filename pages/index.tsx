@@ -10,8 +10,8 @@ import AOS from "aos";
 
 export default function Home() {
   const router = useRouter();
-  const [, setIsMobile] = useRecoilState(deviceState);
-  const [, setUserPosition] = useRecoilState(userPositionState);
+  const [isMobile, setIsMobile] = useRecoilState(deviceState);
+  const [userPosition, setUserPosition] = useRecoilState(userPositionState);
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       setUserPosition({
@@ -26,6 +26,8 @@ export default function Home() {
     );
     AOS.init();
   }, []);
+  console.log(userPosition);
+  console.log(isMobile ? "데탑아님" : "데탑임");
   return (
     <>
       <Head>
