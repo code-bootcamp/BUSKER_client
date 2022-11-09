@@ -137,7 +137,8 @@ export const DateWrapper = styled.div`
   width: 30%;
   min-width: 100px;
   input {
-    width: 150px;
+    width: 170px;
+    padding: 10px 20px;
   }
 `;
 export const DayWrapper = styled.div`
@@ -157,21 +158,4 @@ export const ErrorMsg = styled.div`
 export const ImgWrapper = styled.div`
   display: flex;
   gap: 20px;
-`;
-
-export const ImgAddBtn = styled.button`
-  min-width: 100px;
-  font-size: 2rem;
-  margin-top: 1rem;
-  color: ${stylePrimaryColor};
-  font-weight: 600;
-  background: none;
-  border: 1px solid ${stylePrimaryColor};
-  border-radius: 1rem;
-  height: 5rem;
-  cursor: pointer;
-  :hover {
-    background-color: ${stylePrimaryColor};
-    color: white;
-  }
 `;

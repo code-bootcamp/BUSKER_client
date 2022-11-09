@@ -7,16 +7,16 @@ import { ArtRegisterYup } from "./artregister.schema";
 import type { DatePickerProps, RangePickerProps } from "antd/es/date-picker";
 import { IFormData } from "./artregister.types";
 import { Address } from "react-daum-postcode";
-import { useMutation, useQuery } from "@apollo/client";
-// import { UPLOAD_FILE } from "./ArtRegister.Quries";
-import {
-  IMutation,
-  IMutationCreateBoardsArgs,
-  IQuery,
-  IQueryFetchArtistArgs,
-  // IMutationUploadFileArgs,
-} from "../../../commons/types/generated/types";
-import { CREATE_BOARD, FETCH_ARTIST } from "./ArtRegister.Quries";
+// import { useMutation, useQuery } from "@apollo/client";
+// // import { UPLOAD_FILE } from "./ArtRegister.Quries";
+// import {
+//   IMutation,
+//   IMutationCreateBoardsArgs,
+//   IQuery,
+//   IQueryFetchArtistArgs,
+//   // IMutationUploadFileArgs,
+// } from "../../../commons/types/generated/types";
+// import { CREATE_BOARD, FETCH_ARTIST } from "./ArtRegister.Quries";
 
 const ArtRegisterPageWrite = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,18 +25,16 @@ const ArtRegisterPageWrite = () => {
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   // const [imgUrl, setImgUrl] = useState([]);
-  const [count, setCount] = useState(0);
-  const [day, setDay] = useState("");
 
-  const [createBoards] = useMutation<
-    Pick<IMutation, "createBoards">,
-    IMutationCreateBoardsArgs
-  >(CREATE_BOARD);
+  // const [createBoards] = useMutation<
+  //   Pick<IMutation, "createBoards">,
+  //   IMutationCreateBoardsArgs
+  // >(CREATE_BOARD);
 
-  const { data: ArtistData } = useQuery<
-    Pick<IQuery, "fetchArtist">,
-    IQueryFetchArtistArgs
-  >(FETCH_ARTIST);
+  // const { data: ArtistData } = useQuery<
+  //   Pick<IQuery, "fetchArtist">,
+  //   IQueryFetchArtistArgs
+  // >(FETCH_ARTIST);
 
   // const [uploadFile] = useMutation<
   //   Pick<IMutation, "uploadFile">,
@@ -51,9 +49,10 @@ const ArtRegisterPageWrite = () => {
     value: DatePickerProps["value"] | RangePickerProps["value"],
     dateString: [string, string] | string
   ) => {
-    setStartTime(dateString[0].slice(11, 16));
-    setEndTime(dateString[1].slice(11, 16));
-    setDay(dateString[0].slice(0, 10));
+    setStartTime(dateString[0]);
+    setEndTime(dateString[1]);
+    setValue("start_time", dateString[0]);
+    setValue("end_time", dateString[1]);
     console.log(dateString);
   };
 
@@ -66,7 +65,6 @@ const ArtRegisterPageWrite = () => {
   };
 
   const onCompleteAddressSearch = (data: Address) => {
-    console.log(data);
     setAddress(data.address);
     setIsOpen((prev) => !prev);
     setValue("boardAddressInput.address", data.address);
@@ -83,12 +81,9 @@ const ArtRegisterPageWrite = () => {
     });
   }
 
-  const onClickCount = () => {
-    setCount((prev) => prev + 1);
-  };
-
   const handleChange = (value: any) => {
     setGenre(value);
+    setValue("genre", value);
   };
 
   // const onChangeFile =
@@ -101,23 +96,23 @@ const ArtRegisterPageWrite = () => {
   //   };
 
   const onClickRegister = async (data: IFormData) => {
-    await createBoards({
-      variables: {
-        createBoardInput: {
-          contents: data.contents,
-          artist: String(ArtistData?.fetchArtist.active_name),
-          category: data.genre,
-          start_time: startTime,
-          end_time: endTime,
-          day,
-          boardAddressInput: {
-            address,
-            lat: Number(data.boardAddressInput.lat),
-            lng: Number(data.boardAddressInput.lng),
-          },
-        },
-      },
-    });
+    console.log(data);
+    // await createBoards({
+    //   variables: {
+    //     createBoardInput: {
+    //       contents: data.contents,
+    //       artist: String(ArtistData?.fetchArtist.active_name),
+    //       category: data.genre,
+    //       start_time: startTime,
+    //       end_time: endTime,
+    //       boardAddressInput: {
+    //         address,
+    //         lat: Number(data.boardAddressInput.lat),
+    //         lng: Number(data.boardAddressInput.lng),
+    //       },
+    //     },
+    //   },
+    // });
   };
 
   return (
@@ -138,10 +133,8 @@ const ArtRegisterPageWrite = () => {
       startTime={startTime}
       // onChangeFile={onChangeFile}
       // imgUrl={imgUrl}
-      onClickCount={onClickCount}
-      count={count}
       endTime={endTime}
-      day={day}
+      setValue={setValue}
     />
   );
 };

@@ -23,10 +23,8 @@ const ArtRegisterPageWriteUI = ({
   startTime,
   // onChangeFile,
   // imgUrl,
-  onClickCount,
   endTime,
-  count,
-  day,
+  setValue,
 }: IArtRegisterPageWriteUI) => {
   const { RangePicker } = DatePicker;
   const [userPosition] = useRecoilState(userPositionState);
@@ -52,24 +50,19 @@ const ArtRegisterPageWriteUI = ({
           <S.GenreWrapper>
             <S.TextStyle>공연장르</S.TextStyle>
             <Select
-              mode="multiple"
               placeholder="Please select"
               onChange={handleChange}
               style={{ width: "100%" }}
               options={options}
+              // {...register("genre")}
             />
-            <Input01
-              type="text"
-              readOnly={true}
-              value={genre}
-              register={register("genre")}
-            />
+            <Input01 type="text" readOnly={true} value={genre} />
             <S.ErrorMsg>{formState.errors.genre?.message}</S.ErrorMsg>
           </S.GenreWrapper>
           <div>
             <S.TextStyle>공연장소 사진</S.TextStyle>
             <S.ImgWrapper>
-              {/* {new Array(count).fill(count).map((_, index) => {
+              {/* {new Array(3).fill(1).map((_, index) => {
                 return (
                   <>
                     {imgUrl[index] ? (
@@ -102,9 +95,6 @@ const ArtRegisterPageWriteUI = ({
                   </>
                 );
               })} */}
-              <S.ImgAddBtn type="button" onClick={onClickCount}>
-                이미지 추가하기
-              </S.ImgAddBtn>
             </S.ImgWrapper>
           </div>
           <S.DateWrapper>
@@ -116,15 +106,6 @@ const ArtRegisterPageWriteUI = ({
                 onChange={TimeChange}
               />
             </Space>
-            <S.DayWrapper>
-              날짜:
-              <Input01
-                type="text"
-                readOnly={true}
-                value={`${day} `}
-                register={register("day")}
-              />
-            </S.DayWrapper>
             <S.DayWrapper>
               시작시간:
               <Input01
@@ -159,9 +140,14 @@ const ArtRegisterPageWriteUI = ({
                 주소 검색
               </S.AddressSearchBtn>
             </S.AddressSearchWrapper>
-            <S.ErrorMsg>{formState.errors.place?.message}</S.ErrorMsg>
+            <S.ErrorMsg>{formState.errors.address?.message}</S.ErrorMsg>
             <S.KakaoWrapper>
-              <KakaoMap position={userPosition} address={address} />
+              <KakaoMap
+                position={userPosition}
+                address={address}
+                isMap={false}
+                setValue={setValue}
+              />
             </S.KakaoWrapper>
           </S.AddressWrapper>
           <S.CategoryBtnStyle>등록하기</S.CategoryBtnStyle>
