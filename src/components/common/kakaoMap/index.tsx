@@ -3,6 +3,8 @@ import { useRecoilState } from "recoil";
 import { deviceState } from "../../../commons/store";
 import { MapMarker, Map } from "react-kakao-maps-sdk";
 import IndexedMarker from "../../../../pages/map/indexedMarkerTemplate";
+import { UseFormSetValue } from "react-hook-form";
+import { IFormData } from "../../units/artregister/artregister.types";
 
 interface IKakaoMapProps {
   address: string;
@@ -10,9 +12,11 @@ interface IKakaoMapProps {
     lat: string;
     lng: string;
   };
+  isMap: boolean;
+  setValue: UseFormSetValue<IFormData>;
 }
 
-const KakaoMap = ({ position, address }: IKakaoMapProps) => {
+const KakaoMap = ({ position, address, isMap, setValue }: IKakaoMapProps) => {
   const [dummyPosition, setPosition] = useState([
     { lat: Number(position?.lat) - 0.001, lng: Number(position?.lng) - 0.003 },
     { lat: Number(position?.lat) + 0.002, lng: Number(position?.lng) + 0.003 },
@@ -24,7 +28,7 @@ const KakaoMap = ({ position, address }: IKakaoMapProps) => {
     lat: "",
     lng: "",
   });
-  console.log(dummyPosition);
+  // console.log(dummyPosition);
   useEffect(() => {
     //   const script = document.createElement("script");
     //   script.src =
@@ -53,6 +57,10 @@ const KakaoMap = ({ position, address }: IKakaoMapProps) => {
           console.log("!", result[0]);
           const newSearch = result[0];
           setCenter({ lat: newSearch.y, lng: newSearch.x });
+          if (!isMap) {
+            setValue("boardAddressInput.lat", newSearch.y);
+            setValue("boardAddressInput.lng", newSearch.x);
+          }
         }
       });
       //             // 결과값으로 받은 위치를 마커로 표시합니다

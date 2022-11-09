@@ -135,7 +135,18 @@ export const DateWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 30%;
-  min-width: 200px;
+  min-width: 100px;
+  input {
+    width: 170px;
+    padding: 10px 20px;
+  }
+`;
+export const DayWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-size: 1.8rem;
+  padding: 10px 0;
 `;
 
 export const ErrorMsg = styled.div`
@@ -147,21 +158,4 @@ export const ErrorMsg = styled.div`
 export const ImgWrapper = styled.div`
   display: flex;
   gap: 20px;
-`;
-
-export const ImgAddBtn = styled.button`
-  min-width: 100px;
-  font-size: 2rem;
-  margin-top: 1rem;
-  color: ${stylePrimaryColor};
-  font-weight: 600;
-  background: none;
-  border: 1px solid ${stylePrimaryColor};
-  border-radius: 1rem;
-  height: 5rem;
-  cursor: pointer;
-  :hover {
-    background-color: ${stylePrimaryColor};
-    color: white;
-  }
 `;

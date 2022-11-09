@@ -23,9 +23,8 @@ const ArtRegisterPageWriteUI = ({
   startTime,
   // onChangeFile,
   // imgUrl,
-  onClickCount,
   endTime,
-  count,
+  setValue,
 }: IArtRegisterPageWriteUI) => {
   const { RangePicker } = DatePicker;
   const [userPosition] = useRecoilState(userPositionState);
@@ -51,24 +50,19 @@ const ArtRegisterPageWriteUI = ({
           <S.GenreWrapper>
             <S.TextStyle>공연장르</S.TextStyle>
             <Select
-              mode="multiple"
               placeholder="Please select"
               onChange={handleChange}
               style={{ width: "100%" }}
               options={options}
+              // {...register("genre")}
             />
-            <Input01
-              type="text"
-              readOnly={true}
-              value={genre}
-              register={register("genre")}
-            />
+            <Input01 type="text" readOnly={true} value={genre} />
             <S.ErrorMsg>{formState.errors.genre?.message}</S.ErrorMsg>
           </S.GenreWrapper>
           <div>
             <S.TextStyle>공연장소 사진</S.TextStyle>
             <S.ImgWrapper>
-              {/* {new Array(count).fill(count).map((_, index) => {
+              {/* {new Array(3).fill(1).map((_, index) => {
                 return (
                   <>
                     {imgUrl[index] ? (
@@ -101,26 +95,36 @@ const ArtRegisterPageWriteUI = ({
                   </>
                 );
               })} */}
-              <S.ImgAddBtn type="button" onClick={onClickCount}>
-                이미지 추가하기
-              </S.ImgAddBtn>
             </S.ImgWrapper>
           </div>
           <S.DateWrapper>
             <S.TextStyle>공연시간</S.TextStyle>
-            <Space direction="vertical" size={12}>
+            <Space direction="vertical" size={10}>
               <RangePicker
                 showTime={{ format: "HH:mm" }}
                 format="YYYY-MM-DD HH:mm"
                 onChange={TimeChange}
               />
             </Space>
-            <Input01
-              type="text"
-              readOnly={true}
-              value={`${startTime} ~ ${endTime}`}
-              register={register("time")}
-            />
+            <S.DayWrapper>
+              시작시간:
+              <Input01
+                type="text"
+                readOnly={true}
+                value={`${startTime}`}
+                register={register("start_time")}
+              />
+            </S.DayWrapper>
+            <S.DayWrapper>
+              종료시간:
+              <Input01
+                type="text"
+                readOnly={true}
+                value={`${endTime}`}
+                register={register("end_time")}
+              />
+            </S.DayWrapper>
+
             <S.ErrorMsg>{formState.errors.time?.message}</S.ErrorMsg>
           </S.DateWrapper>
           <S.AddressWrapper>
@@ -130,15 +134,20 @@ const ArtRegisterPageWriteUI = ({
                 type="text"
                 readOnly={true}
                 value={address}
-                register={register("place")}
+                register={register("boardAddressInput.address")}
               />
               <S.AddressSearchBtn type="button" onClick={onClickAddressOpen}>
                 주소 검색
               </S.AddressSearchBtn>
             </S.AddressSearchWrapper>
-            <S.ErrorMsg>{formState.errors.place?.message}</S.ErrorMsg>
+            <S.ErrorMsg>{formState.errors.address?.message}</S.ErrorMsg>
             <S.KakaoWrapper>
-              <KakaoMap position={userPosition} address={address} />
+              <KakaoMap
+                position={userPosition}
+                address={address}
+                isMap={false}
+                setValue={setValue}
+              />
             </S.KakaoWrapper>
           </S.AddressWrapper>
           <S.CategoryBtnStyle>등록하기</S.CategoryBtnStyle>
