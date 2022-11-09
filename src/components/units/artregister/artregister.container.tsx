@@ -18,7 +18,6 @@ import {
 } from "../../../commons/types/generated/types";
 import { CREATE_BOARD, FETCH_ARTIST } from "./ArtRegister.Quries";
 
-
 const ArtRegisterPageWrite = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [address, setAddress] = useState("");
@@ -27,8 +26,7 @@ const ArtRegisterPageWrite = () => {
   const [endTime, setEndTime] = useState("");
   // const [imgUrl, setImgUrl] = useState([]);
   const [count, setCount] = useState(0);
-  const [lat, setLat] = useState(0);
-  const [lng, setLng] = useState(0);
+  const [day, setDay] = useState("");
 
   const [createBoards] = useMutation<
     Pick<IMutation, "createBoards">,
@@ -45,7 +43,7 @@ const ArtRegisterPageWrite = () => {
   //   IMutationUploadFileArgs
   // >(UPLOAD_FILE);
 
-  const { register, formState, handleSubmit } = useForm<IFormData>({
+  const { register, formState, handleSubmit, setValue } = useForm<IFormData>({
     resolver: yupResolver(ArtRegisterYup),
   });
 
@@ -53,8 +51,9 @@ const ArtRegisterPageWrite = () => {
     value: DatePickerProps["value"] | RangePickerProps["value"],
     dateString: [string, string] | string
   ) => {
-    setStartTime(dateString[0]);
-    setEndTime(dateString[1]);
+    setStartTime(dateString[0].slice(11, 16));
+    setEndTime(dateString[1].slice(11, 16));
+    setDay(dateString[0].slice(0, 10));
     console.log(dateString);
   };
 
@@ -67,10 +66,10 @@ const ArtRegisterPageWrite = () => {
   };
 
   const onCompleteAddressSearch = (data: Address) => {
+    console.log(data);
     setAddress(data.address);
     setIsOpen((prev) => !prev);
-    setLat(data.address.lat);
-    setLng(data.address.lng);
+    setValue("boardAddressInput.address", data.address);
   };
 
   const ValueArr = ["춤", "노래", "마술", "악기연주"];
@@ -108,13 +107,13 @@ const ArtRegisterPageWrite = () => {
           contents: data.contents,
           artist: String(ArtistData?.fetchArtist.active_name),
           category: data.genre,
-          start_time: String(startTime.slice(11, 16)),
-          end_time: String(endTime.slice(11, 16)),
-          day: String(startTime.slice(0, 11)),
+          start_time: startTime,
+          end_time: endTime,
+          day,
           boardAddressInput: {
-            address: data.place,
-            lat,
-            lng,
+            address,
+            lat: Number(data.boardAddressInput.lat),
+            lng: Number(data.boardAddressInput.lng),
           },
         },
       },
@@ -142,6 +141,7 @@ const ArtRegisterPageWrite = () => {
       onClickCount={onClickCount}
       count={count}
       endTime={endTime}
+      day={day}
     />
   );
 };

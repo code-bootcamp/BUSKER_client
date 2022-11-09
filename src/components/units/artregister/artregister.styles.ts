@@ -135,7 +135,17 @@ export const DateWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 30%;
-  min-width: 200px;
+  min-width: 100px;
+  input {
+    width: 150px;
+  }
+`;
+export const DayWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-size: 1.8rem;
+  padding: 10px 0;
 `;
 
 export const ErrorMsg = styled.div`

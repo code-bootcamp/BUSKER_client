@@ -23,12 +23,21 @@ export interface IArtRegisterPageWriteUI {
   // imgUrl: string[];
   count: number;
   endTime: string;
+  day: string;
   onClickCount: () => void;
 }
 
 export interface IFormData {
   contents: string;
   genre: string;
-  place: string;
-  time: string[];
+  start_time: string;
+  end_time: string;
+  day: string;
+  boardAddressInput: BoardAddressInput;
+}
+
+export interface BoardAddressInput {
+  address: string;
+  lat: string;
+  lng: string;
 }

@@ -26,6 +26,7 @@ const ArtRegisterPageWriteUI = ({
   onClickCount,
   endTime,
   count,
+  day,
 }: IArtRegisterPageWriteUI) => {
   const { RangePicker } = DatePicker;
   const [userPosition] = useRecoilState(userPositionState);
@@ -108,19 +109,41 @@ const ArtRegisterPageWriteUI = ({
           </div>
           <S.DateWrapper>
             <S.TextStyle>공연시간</S.TextStyle>
-            <Space direction="vertical" size={12}>
+            <Space direction="vertical" size={10}>
               <RangePicker
                 showTime={{ format: "HH:mm" }}
                 format="YYYY-MM-DD HH:mm"
                 onChange={TimeChange}
               />
             </Space>
-            <Input01
-              type="text"
-              readOnly={true}
-              value={`${startTime} ~ ${endTime}`}
-              register={register("time")}
-            />
+            <S.DayWrapper>
+              날짜:
+              <Input01
+                type="text"
+                readOnly={true}
+                value={`${day} `}
+                register={register("day")}
+              />
+            </S.DayWrapper>
+            <S.DayWrapper>
+              시작시간:
+              <Input01
+                type="text"
+                readOnly={true}
+                value={`${startTime}`}
+                register={register("start_time")}
+              />
+            </S.DayWrapper>
+            <S.DayWrapper>
+              종료시간:
+              <Input01
+                type="text"
+                readOnly={true}
+                value={`${endTime}`}
+                register={register("end_time")}
+              />
+            </S.DayWrapper>
+
             <S.ErrorMsg>{formState.errors.time?.message}</S.ErrorMsg>
           </S.DateWrapper>
           <S.AddressWrapper>
@@ -130,7 +153,7 @@ const ArtRegisterPageWriteUI = ({
                 type="text"
                 readOnly={true}
                 value={address}
-                register={register("place")}
+                register={register("boardAddressInput.address")}
               />
               <S.AddressSearchBtn type="button" onClick={onClickAddressOpen}>
                 주소 검색
