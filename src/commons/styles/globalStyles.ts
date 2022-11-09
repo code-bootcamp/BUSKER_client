@@ -1,11 +1,13 @@
 import { css } from "@emotion/react";
 
 export const globalStyles = css`
+  @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap%22");
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-size: 10px;
+    /* background-color: #fffbfd; */
   }
 
   .wrap {
@@ -100,8 +102,6 @@ export const globalStyles = css`
   .info .link {
     color: #5085bb;
   }
-
-  @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap%22");
 `;
 
 export const stylePrimaryColor = "#7D2BBE";

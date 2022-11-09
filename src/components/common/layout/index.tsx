@@ -25,16 +25,17 @@ const Layout = ({ children }: ILayoutProps) => {
 export default Layout;
 
 export const HomeWrapper = styled.div`
-  background-color: #fffbfd;
-
   @media ${breakPoints.desktop} {
     /* background-color: green; */
+    /* max-width: 1440px; */
   }
   @media ${breakPoints.tablet} {
     /* background-color: blue; */
+    /* max-width: 991px; */
   }
   @media ${breakPoints.mobile} {
     /* background-color: red; */
+    /* min-width: 250px; */
   }
   width: 100%;
   margin: 0 auto;

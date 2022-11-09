@@ -5,6 +5,7 @@ import ApolloSetting from "../src/commons/apollo";
 import { globalStyles } from "../src/commons/styles/globalStyles";
 import Layout from "../src/components/common/layout";
 import Script from "next/script";
+import "antd/dist/antd.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

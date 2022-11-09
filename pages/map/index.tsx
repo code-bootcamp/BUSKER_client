@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { deviceState, userPositionState } from "../../src/commons/store";
@@ -7,8 +8,9 @@ import Button01 from "../../src/components/common/buttons/01";
 import KakaoMap from "../../src/components/common/kakaoMap";
 
 export default function KaKaoMapPage() {
+  const router = useRouter();
   const [userPosition, setUserPosition] = useRecoilState(userPositionState);
-  const [isMobile] = useRecoilState(deviceState);
+  const [, setIsMobile] = useRecoilState(deviceState);
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       setUserPosition({
@@ -16,16 +18,20 @@ export default function KaKaoMapPage() {
         lng: String(position.coords.longitude),
       });
     });
+    setIsMobile(
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      )
+    );
   }, []);
+
   return (
     <Wrapper>
       {userPosition.lat === "" ? (
         <div
           style={{
-            maxWidth: "1100px",
             width: "100%",
-            aspectRatio: `${isMobile ? 1 / 1 : 1.5 / 1}`,
-            margin: "0 auto",
+            height: "100%",
           }}
         >
           불러오는 중입니다...
@@ -33,9 +39,8 @@ export default function KaKaoMapPage() {
       ) : (
         <div
           style={{
-            maxWidth: "1100px",
             width: "100%",
-            aspectRatio: "2/1",
+            height: "100%",
             position: "relative",
             margin: "0 auto",
           }}
@@ -51,6 +56,7 @@ export default function KaKaoMapPage() {
               backgroundColor: `${stylePrimaryColor}`,
               color: "white",
             }}
+            onClick={async () => await router.push("/main/list")}
           >
             리스트로 가기
           </Button01>
@@ -61,7 +67,7 @@ export default function KaKaoMapPage() {
 }
 
 export const Wrapper = styled.div`
-  width: 100%;
-  height: 100vh;
+  width: 100vw;
+  height: calc(100vh - 100px);
   position: relative;
 `;
