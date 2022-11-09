@@ -12,3 +12,8 @@ export const deviceState = atom({
   key: "deviceState",
   default: false,
 });
+
+export const accessTokenState = atom({
+  key: "accessTokenState",
+  default: "",
+});
