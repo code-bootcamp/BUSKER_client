@@ -54,7 +54,6 @@ const ArtRegisterPageWriteUI = ({
               onChange={handleChange}
               style={{ width: "100%" }}
               options={options}
-              // {...register("genre")}
             />
             <Input01 type="text" readOnly={true} value={genre} />
             <S.ErrorMsg>{formState.errors.genre?.message}</S.ErrorMsg>

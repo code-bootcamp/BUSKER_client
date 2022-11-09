@@ -158,8 +158,9 @@ export const MemberImgBtn = styled.label`
 `;
 
 export const SubmitBtn = styled.button`
-  height: 3rem;
-  width: 10%;
+  height: 5rem;
+  width: 20%;
+  min-width: 200px;
   border-radius: 1.5rem;
   font-weight: 600;
   cursor: pointer;

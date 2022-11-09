@@ -22,7 +22,9 @@ const ArtistSignupPageWriteUI = ({
   handleChange,
   options,
   genre,
-}: IArtistSignupPageWriteUI) => {
+}: // onChangeFile,
+// imgUrl,
+IArtistSignupPageWriteUI) => {
   return (
     <>
       {isOpen && (
@@ -39,13 +41,36 @@ const ArtistSignupPageWriteUI = ({
           <S.ContentsTopWrapper>
             <S.ArtistPlaceWrapper>
               <S.ArtistProfileWrapper>
-                <S.ImgBtn>
-                  +
-                  <S.FileInput type="file" {...register("images")} />
-                </S.ImgBtn>
+                {/* {imgUrl ? (
+                  <>
+                    <S.ImgBtn
+                      style={{
+                        backgroundImage: `url(https://storage.googleapis.com/${imgUrl})`,
+                        backgroundColor: "#fff",
+                        backgroundSize: "cover",
+                      }}
+                      htmlFor={"file"}
+                    >
+                      +
+                      <S.FileInput
+                        type="file"
+                        id={"file"}
+                        onChange={onChangeFile}
+                      />
+                    </S.ImgBtn>
+                  </>
+                ) : (
+                  <>
+                    <S.ImgBtn>
+                      +
+                      <S.FileInput onChange={onChangeFile} type="file" />
+                    </S.ImgBtn>
+                  </>
+                )} */}
+
                 <S.TextStyle>아티스트 이름(팀명)</S.TextStyle>
                 <div>
-                  <Input01 type="text" register={register("name")} />
+                  <Input01 type="text" register={register("active_name")} />
                 </div>
                 <S.ErrorMsg>{formState.errors.name?.message}</S.ErrorMsg>
               </S.ArtistProfileWrapper>
@@ -55,30 +80,18 @@ const ArtistSignupPageWriteUI = ({
                   <button onClick={onClickSearchAddress} type="button">
                     주소찾기
                   </button>
-                  <Input01
-                    type="text"
-                    readOnly={true}
-                    value={address}
-                    register={register("address")}
-                  />
+                  <Input01 type="text" readOnly={true} value={address} />
                   <S.ErrorMsg>{formState.errors.address?.message}</S.ErrorMsg>
                 </S.MainPlaceGenreWrapper>
                 <S.MainPlaceGenreWrapper>
                   <S.TextStyle>공연 장르</S.TextStyle>
-                  {/* <button type="button">선택하기</button> */}
                   <Select
-                    mode="multiple"
                     placeholder="Please select"
                     onChange={handleChange}
                     style={{ width: "100%" }}
                     options={options}
                   />
-                  <Input01
-                    type="text"
-                    readOnly={true}
-                    value={genre}
-                    register={register("genre")}
-                  />
+                  <Input01 type="text" readOnly={true} value={genre} />
                   <S.ErrorMsg>{formState.errors.genre?.message}</S.ErrorMsg>
                 </S.MainPlaceGenreWrapper>
               </S.PlaceGenreWrapper>
@@ -89,7 +102,7 @@ const ArtistSignupPageWriteUI = ({
                 <Input01
                   type="text"
                   placeholder="소개글을 적어주세요"
-                  register={register("remarks")}
+                  register={register("description")}
                 />
                 <S.ErrorMsg>{formState.errors.remarks?.message}</S.ErrorMsg>
               </S.RemarksInputWrapper>
@@ -98,7 +111,7 @@ const ArtistSignupPageWriteUI = ({
                 <Input01
                   type="text"
                   placeholder="SNS링크 또는 유튜브 URL을 올려주세요"
-                  register={register("Link")}
+                  register={register("promotion_url")}
                 />
               </S.RemarksInputWrapper>
             </S.RemarksLinkWrapper>
@@ -115,21 +128,10 @@ const ArtistSignupPageWriteUI = ({
                         <S.AddTeamInputWrapper>
                           <S.MemberImgBtn>
                             +
-                            <S.FileInput
-                              type="file"
-                              {...register("memberImg")}
-                            />
+                            <S.FileInput type="file" />
                           </S.MemberImgBtn>
-                          <Input01
-                            type="text"
-                            placeholder="이름"
-                            register={register("memberName")}
-                          />
-                          <Input01
-                            type="text"
-                            placeholder="역할"
-                            register={register("memberRole")}
-                          />
+                          <Input01 type="text" placeholder="이름" />
+                          <Input01 type="text" placeholder="역할" />
                           <S.AddBtn type="button" onClick={onClickAddTeam}>
                             +
                           </S.AddBtn>

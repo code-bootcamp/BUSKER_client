@@ -7,7 +7,7 @@ export interface IArtistSignupPageWriteUI {
   options: any;
   address: string;
   isOpen: boolean;
-  onClickSignup: () => void;
+  onClickSignup: (data: IFormData) => void;
   onClickSearchAddress: (event: MouseEvent<HTMLButtonElement>) => void;
   onClickHandleCancel: () => void;
   onCompleteAddressSearch: (data: any) => void;
@@ -19,6 +19,8 @@ export interface IArtistSignupPageWriteUI {
   isEdit: boolean;
   handleSubmit: any;
   formState: any;
+  // imgUrl: string;
+  // onChangeFile: (event: ChangeEvent<HTMLInputElement>) => void;
   register: UseFormRegister<IFormData>;
 }
 
@@ -27,13 +29,9 @@ export interface IArtistSignupPageWrite {
 }
 
 export interface IFormData {
-  images: string;
-  name: string;
-  address: string;
-  genre: string;
-  remarks: string;
-  Link?: string;
-  memberImg?: string;
-  memberName?: string;
-  memberRole?: string;
+  artist_image: string;
+  active_name: string;
+  catagory: string;
+  description: string;
+  promotion_url: string;
 }

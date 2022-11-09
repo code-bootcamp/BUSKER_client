@@ -1,8 +1,15 @@
+import { useMutation } from "@apollo/client";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SelectProps } from "antd";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import {
+  IMutation,
+  IMutationCreateArtistArgs,
+  // IMutationUploadFileArgs,
+} from "../../../commons/types/generated/types";
 import ArtistSignupPageWriteUI from "./artistsignup.presenter";
+import { CREATE_ARTIST } from "./ArtistSignup.Quries";
 import { ArtistSignupYup } from "./ArtistSignup.Schema";
 import { IArtistSignupPageWrite, IFormData } from "./artistsignup.types";
 
@@ -12,11 +19,21 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
   const [addCount, setAddCount] = useState(1);
   const [address, setAddress] = useState("");
   const [genre, setGenre] = useState("");
+  // const [imgUrl, setImgUrl] = useState("");
 
-  const { register, handleSubmit, formState } = useForm<IFormData>({
+  const { register, handleSubmit, formState, setValue } = useForm<IFormData>({
     resolver: yupResolver(ArtistSignupYup),
-    mode: "onChange",
   });
+
+  const [createArtist] = useMutation<
+    Pick<IMutation, "createArtist">,
+    IMutationCreateArtistArgs
+  >(CREATE_ARTIST);
+
+  // const [uploadFile] = useMutation<
+  //   Pick<IMutation, "uploadFile">,
+  //   IMutationUploadFileArgs
+  // >(UPLOAD_FILE);
 
   const onClickSearchAddress = () => {
     setIsOpen((prev) => !prev);
@@ -39,8 +56,6 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
     setAddCount((prev) => prev + 1);
   };
 
-  const onClickSignup = () => {};
-
   const onClickEdit = () => {};
 
   const ValueArr = ["춤", "노래", "마술", "악기연주"];
@@ -56,7 +71,24 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
 
   const handleChange = (value: any) => {
     setGenre(value);
+    setValue("catagory", value);
   };
+
+  const onClickSignup = async (data: IFormData) => {
+    await createArtist({
+      variables: {
+        createArtistInput: data,
+      },
+    });
+  };
+
+  // const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files?.[0];
+  //   const result = await uploadFile({ variables: { file } });
+  //   setImgUrl(result.data?.uploadFile.url);
+  //   setValue("artist_image", imgUrl);
+  //   console.log(result);
+  // };
 
   return (
     <ArtistSignupPageWriteUI
@@ -78,6 +110,8 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
       handleChange={handleChange}
       options={options}
       genre={genre}
+      // onChangeFile={onChangeFile}
+      // imgUrl={imgUrl}
     />
   );
 };
