@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { stylePrimaryColor } from "../../../commons/styles/globalStyles";
 
 export const Reset = styled.button`
-  width: 40%;
+  width: 100%;
   font-size: 2rem;
   margin-top: 1rem;
   color: ${stylePrimaryColor};
@@ -10,7 +10,6 @@ export const Reset = styled.button`
   background: none;
   border: 1px solid ${stylePrimaryColor};
   border-radius: 1rem;
-  height: 3rem;
   cursor: pointer;
   height: 50px;
   :hover {
@@ -34,11 +33,9 @@ export const LogoStyle = styled.div`
 
 export const BtnWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  button {
-    width: calc(100% / 2 - 10px);
-  }
 `;
 
 export const PasswordChangeWrapper = styled.div`
@@ -54,6 +51,7 @@ export const InputBtnWrapper = styled.div`
   input {
     width: 100%;
   }
+  gap: 20px;
 `;
 
 export const ConfirmBtn = styled.button`
@@ -63,7 +61,6 @@ export const ConfirmBtn = styled.button`
   background: none;
   border: 1px solid ${stylePrimaryColor};
   border-radius: 1rem;
-  height: 3rem;
   cursor: pointer;
   height: 50px;
   :hover {
@@ -82,4 +79,11 @@ export const TextStyle = styled.div`
 export const ErrorStyle = styled.div`
   font-size: 1.3rem;
   color: red;
+  padding: 0 20px;
+`;
+
+export const InputErrorWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
 `;

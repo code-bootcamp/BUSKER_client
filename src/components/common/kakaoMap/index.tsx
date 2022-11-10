@@ -76,7 +76,7 @@ const KakaoMap = ({ position, address, isMap, setValue }: IKakaoMapProps) => {
         height: "100%",
         margin: "0 auto",
       }}
-      level={window.outerWidth > 1000 ? 4 : 5}
+      level={typeof window !== "undefined" && window.outerWidth > 1000 ? 4 : 5}
     >
       {address ? (
         <MapMarker

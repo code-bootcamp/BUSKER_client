@@ -10,7 +10,6 @@ export const Reset = styled.button`
   background: none;
   border: 1px solid ${stylePrimaryColor};
   border-radius: 1rem;
-  height: 3rem;
   cursor: pointer;
   height: 50px;
   :hover {
@@ -34,7 +33,6 @@ export const LogoStyle = styled.div`
 
 export const BtnWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
   width: 100%;
 `;
 
