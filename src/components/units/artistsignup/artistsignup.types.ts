@@ -29,9 +29,9 @@ export interface IArtistSignupPageWrite {
 }
 
 export interface IFormData {
-  artist_image: string;
   active_name: string;
-  catagory: string;
+  category: string;
   description: string;
   promotion_url: string;
+  address?: string;
 }

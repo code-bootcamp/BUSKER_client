@@ -7,9 +7,3 @@ export const CREATE_ARTIST = gql`
     }
   }
 `;
-
-export const UPLOAD_FILE = gql`
-  mutation uploadFile($file: Upload!) {
-    uploadFile(file: $file)
-  }
-`;
