@@ -33,5 +33,4 @@ export interface IFormData {
   category: string;
   description: string;
   promotion_url: string;
-  address?: string;
 }
