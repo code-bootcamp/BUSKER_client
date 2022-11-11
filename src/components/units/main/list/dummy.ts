@@ -8,8 +8,9 @@ export const data = [
     isShowTime: false,
     category: { id: String(1), name: "노래" },
     boardAddress: {
-      address_city: "울산광역시",
-      address_district: "남구",
+      address: "서울 구로구",
+      address_city: "서울",
+      address_district: "구로구",
       lat: 127,
       lng: 32,
     },

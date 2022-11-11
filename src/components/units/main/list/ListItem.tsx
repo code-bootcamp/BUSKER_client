@@ -10,6 +10,7 @@ const ListItem = ({ board, onClickListItem }: any) => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
       onClick={onClickListItem(board.id)}
+      style={{ cursor: "pointer" }}
     >
       <Wrapper>
         <ImageBox></ImageBox>

@@ -35,9 +35,7 @@ export const OptionBox = styled.div`
 
 export const LocationOptionBox = styled.div``;
 
-export const GenreOptionBox = styled.div`
-  background-color: blue;
-`;
+export const GenreOptionBox = styled.div``;
 
 export const ListBox = styled.ul`
   list-style: none;
