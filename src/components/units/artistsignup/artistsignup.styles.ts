@@ -20,6 +20,9 @@ export const ContentsWrapper = styled.div`
   flex-direction: column;
   padding: 0 30px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  @media ${breakPoints.mobile} {
+    width: 280px;
+  }
 `;
 
 export const ContentsTopWrapper = styled.div`

@@ -1,5 +1,8 @@
 import styled from "@emotion/styled";
-import { stylePrimaryColor } from "../../../commons/styles/globalStyles";
+import {
+  breakPoints,
+  stylePrimaryColor,
+} from "../../../commons/styles/globalStyles";
 
 export const Reset = styled.button`
   width: 100%;
@@ -40,6 +43,9 @@ export const PasswordChangeWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 40%;
+  @media ${breakPoints.mobile} {
+    width: 100%;
+  }
 `;
 
 export const InputBtnWrapper = styled.div`
