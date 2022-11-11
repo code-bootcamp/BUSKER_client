@@ -115,7 +115,6 @@ export const AddressSearchWrapper = styled.div`
 `;
 
 export const KakaoWrapper = styled.div`
-  display: flex;
   width: 100%;
   height: 300px;
 `;

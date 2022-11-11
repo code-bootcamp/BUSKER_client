@@ -23,12 +23,12 @@ const KakaoMap = ({ position, address, isMap, setValue }: IKakaoMapProps) => {
   ]);
 
   const [center, setCenter] = useState({
-    lat: "",
-    lng: "",
+    lat: position?.lat,
+    lng: position?.lng,
   });
   useEffect(() => {
     kakao.maps.load(() => {
-      if (isMap) {
+      if (!isMap) {
         const geocoder = new kakao.maps.services.Geocoder();
 
         geocoder.addressSearch(address, function (result, status) {

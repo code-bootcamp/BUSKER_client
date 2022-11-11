@@ -36,7 +36,7 @@ export const globalStyles = css`
     overflow: hidden;
     background: #fff;
   }
-  .wrap .info:nth-child(1) {
+  .wrap .info:nth-of-type(1) {
     border: 0;
     box-shadow: 0px 1px 2px #888;
   }
@@ -101,6 +101,33 @@ export const globalStyles = css`
   }
   .info .link {
     color: #5085bb;
+  }
+
+  main {
+    display: flex;
+  }
+
+  aside {
+    background-color: #c4a8ff;
+    width: 18.75rem;
+    height: 100vh;
+  }
+
+  .container {
+    margin: 4.5rem 1.4rem;
+  }
+
+  .btn-container {
+    position: fixed;
+  }
+
+  .container a {
+    color: #f9fafb;
+    text-decoration: none;
+    font-size: 1.75rem;
+    font-weight: 600;
+    display: block;
+    margin: 20px;
   }
 `;
 

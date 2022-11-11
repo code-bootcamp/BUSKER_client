@@ -6,7 +6,6 @@ import { useRecoilState } from "recoil";
 import { deviceState, userPositionState } from "../src/commons/store";
 import { breakPoints } from "../src/commons/styles/globalStyles";
 import Head from "next/script";
-import AOS from "aos";
 
 export default function Home() {
   const router = useRouter();
@@ -24,9 +23,8 @@ export default function Home() {
         navigator.userAgent
       )
     );
-    AOS.init();
   }, []);
-  console.log(userPosition);
+  console.log("현재 좌표:", userPosition);
   console.log(isMobile ? "데탑아님" : "데탑임");
   return (
     <>
