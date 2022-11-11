@@ -2,6 +2,7 @@ import { useMutation } from "@apollo/client";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SelectProps } from "antd";
 import { useState } from "react";
+import { Address } from "react-daum-postcode";
 import { useForm } from "react-hook-form";
 import {
   IMutation,
@@ -43,9 +44,11 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
     setIsOpen(false);
   };
 
-  const onCompleteAddressSearch = (data: any) => {
+  const onCompleteAddressSearch = (data: Address) => {
     setIsOpen((prev) => !prev);
     setAddress(data.address);
+    setValue("address", data.address);
+    localStorage.setItem("address", JSON.stringify(data.address));
   };
 
   const onClickTeam = () => {
@@ -71,10 +74,11 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
 
   const handleChange = (value: any) => {
     setGenre(value);
-    setValue("catagory", value);
+    setValue("category", value);
   };
 
   const onClickSignup = async (data: IFormData) => {
+    console.log(data);
     await createArtist({
       variables: {
         createArtistInput: data,
