@@ -11,5 +11,5 @@ export interface IPasswordResetPageWriteUI {
 
 export interface IFormData {
   email: string;
-  confirm: string;
+  authNumber: string;
 }

@@ -31,13 +31,19 @@ const LoginPageWrite = () => {
   };
 
   const onClickLogin = async (data: IFormData) => {
-    await login({
-      variables: {
-        email: data.email,
-        password: data.password,
-      },
-    });
-    void router.push("/");
+    try {
+      await login({
+        variables: {
+          email: data.email,
+          password: data.password,
+        },
+      });
+      await router.push("/");
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error);
+      }
+    }
   };
 
   return (

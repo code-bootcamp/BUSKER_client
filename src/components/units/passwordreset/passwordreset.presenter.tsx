@@ -36,7 +36,7 @@ const PasswordResetPageWriteUI = ({
             <Input01
               type="text"
               placeholder="인증번호를 입력해주세요"
-              register={register("confirm")}
+              register={register("authNumber")}
             />
           </S.InputBtnWrapper>
           <S.BtnWrapper>

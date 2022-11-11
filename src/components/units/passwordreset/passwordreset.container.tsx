@@ -4,12 +4,13 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import {
   IMutation,
-  IMutationConfirmVerificationEmailArgs,
+  IMutationNonLoginConfirmVerificationEmailArgs,
+  IMutationNonLoginSendVerificationEmailArgs,
 } from "../../../commons/types/generated/types";
 import PasswordResetPageWriteUI from "./passwordreset.presenter";
 import {
-  CONFIRM_VERIFICATION_EMAIL,
-  SEND_VERIFICATION_EMAIL,
+  NON_LOGIN_CONFIRM_VERIFICATION,
+  NON_LOGIN_SEND_VERIFICATION_EMAIL,
 } from "./PasswordReset.quries";
 import { PasswordResetYup } from "./passwordreset.scehma";
 import { IFormData } from "./passwordreset.types";
@@ -17,14 +18,16 @@ import { IFormData } from "./passwordreset.types";
 const PasswordResetPageWrite = () => {
   const router = useRouter();
 
-  const [confirmVerificationEmail] = useMutation<
-    Pick<IMutation, "confirmVerificationEmail">,
-    IMutationConfirmVerificationEmailArgs
-  >(CONFIRM_VERIFICATION_EMAIL);
+  const [nonLoginSendVerificationEmail] = useMutation<
+    Pick<IMutation, "nonLoginSendVerificationEmail">,
+    IMutationNonLoginSendVerificationEmailArgs
+  >(NON_LOGIN_SEND_VERIFICATION_EMAIL);
 
-  const [SendVerificationEmail] = useMutation(SEND_VERIFICATION_EMAIL);
-
-  const { register, handleSubmit, formState } = useForm<IFormData>({
+  const [nonLoginConfirmVerificationEmail] = useMutation<
+    Pick<IMutation, "nonLoginConfirmVerificationEmail">,
+    IMutationNonLoginConfirmVerificationEmailArgs
+  >(NON_LOGIN_CONFIRM_VERIFICATION);
+  const { register, handleSubmit, formState, getValues } = useForm<IFormData>({
     resolver: yupResolver(PasswordResetYup),
     mode: "onChange",
   });
@@ -32,17 +35,31 @@ const PasswordResetPageWrite = () => {
     router.back();
   };
 
-  const onClickReset = async (data: IFormData) => {
-    await confirmVerificationEmail({
-      variables: {
-        email: data.email,
-        authNumber: data.confirm,
-      },
-    });
-    void router.push("/login");
-  };
   const onClickConfirm = async () => {
-    await SendVerificationEmail();
+    try {
+      await nonLoginSendVerificationEmail({
+        variables: {
+          email: getValues("email"),
+        },
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error);
+      }
+    }
+  };
+
+  const onClickReset = async (data: IFormData) => {
+    try {
+      await nonLoginConfirmVerificationEmail({
+        variables: data,
+      });
+      await router.push("/password/change");
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error);
+      }
+    }
   };
 
   return (

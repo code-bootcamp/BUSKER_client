@@ -1,13 +1,16 @@
 import { gql } from "@apollo/client";
 
-export const SEND_VERIFICATION_EMAIL = gql`
-  mutation SendVerificationEmail {
-    SendVerificationEmail
+export const NON_LOGIN_SEND_VERIFICATION_EMAIL = gql`
+  mutation nonLoginSendVerificationEmail($email: String!) {
+    nonLoginSendVerificationEmail(email: $email)
   }
 `;
 
-export const CONFIRM_VERIFICATION_EMAIL = gql`
-  mutation confirmVerificationEmail($authNumber: String!) {
-    confirmVerificationEmail(authNumber: $authNumber)
+export const NON_LOGIN_CONFIRM_VERIFICATION = gql`
+  mutation nonLoginConfirmVerificationEmail(
+    $authNumber: String!
+    $email: String!
+  ) {
+    nonLoginConfirmVerificationEmail(authNumber: $authNumber, email: $email)
   }
 `;
