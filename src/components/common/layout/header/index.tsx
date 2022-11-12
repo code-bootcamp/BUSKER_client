@@ -12,6 +12,7 @@ const Header = () => {
   };
   return (
     <>
+      <div style={{ height: "100px" }}></div>
       <Wrapper>
         <HeaderBox>
           <Logo />
@@ -31,9 +32,10 @@ const Header = () => {
 export default Header;
 
 export const Wrapper = styled.div`
+  position: fixed;
+  top: 0;
   width: 100%;
-  z-index: 2;
-  height: 100px;
+  z-index: 100;
   @media ${breakPoints.mobile} {
     height: 50px;
   }

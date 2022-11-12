@@ -37,10 +37,9 @@ const KakaoMap = ({ position, address, isMap, setValue }: IKakaoMapProps) => {
             console.log("!", result[0]);
             const newSearch = result[0];
             setCenter({ lat: newSearch.y, lng: newSearch.x });
-            if (!isMap) {
-              setValue?.("boardAddressInput.lat", newSearch.y);
-              setValue?.("boardAddressInput.lng", newSearch.x);
-            }
+
+            setValue?.("boardAddressInput.lat", newSearch.y);
+            setValue?.("boardAddressInput.lng", newSearch.x);
           }
         });
       }
@@ -64,7 +63,7 @@ const KakaoMap = ({ position, address, isMap, setValue }: IKakaoMapProps) => {
       ]);
     });
   }, [position, address]);
-
+  console.log(center);
   return (
     <Map
       center={{

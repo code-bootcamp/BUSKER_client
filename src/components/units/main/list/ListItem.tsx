@@ -15,9 +15,9 @@ const ListItem = ({ board, onClickListItem }: any) => {
       <Wrapper>
         <ImageBox></ImageBox>
         <ContentBox>
-          <span>{board?.contents}</span>
+          <span>{board?.artist.active_name}</span>
           <span>{board?.category.name}</span>
-          <span>{board?.isShowTimte ? "진행중" : "종료됨"}</span>
+          <span>{board?.isShowTime ? "진행중" : "종료됨"}</span>
         </ContentBox>
       </Wrapper>
     </motion.div>

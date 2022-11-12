@@ -52,7 +52,7 @@ export default Layout;
 export const HomeWrapper = styled.div`
   @media ${breakPoints.desktop} {
     /* background-color: green; */
-    /* max-width: 1440px; */
+    max-width: 1440px;
   }
   @media ${breakPoints.tablet} {
     /* background-color: blue; */
@@ -67,7 +67,7 @@ export const HomeWrapper = styled.div`
 `;
 
 export const Sidebar = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   min-width: 250px;
