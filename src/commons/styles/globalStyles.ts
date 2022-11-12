@@ -131,8 +131,8 @@ export const globalStyles = css`
   }
 `;
 
-export const stylePrimaryColor = "#7D2BBE";
-
+export const stylePrimaryColor = "#9900FF";
+export const styleSecondColor = "#6600FF";
 export const breakPoints = {
   desktop: "(min-width: 992px)",
   tablet: "(min-width: 768px) and (max-width: 991px)",
