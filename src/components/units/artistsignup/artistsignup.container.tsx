@@ -124,7 +124,7 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
       options={options}
       genre={genre}
       onCreateArtistImage={onCreateArtistImage}
-      // imgUrl={imgUrl}
+      imgUrl={imgUrl}
     />
   );
 };
