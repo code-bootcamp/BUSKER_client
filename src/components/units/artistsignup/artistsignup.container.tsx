@@ -84,6 +84,7 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
         createArtistInput: data,
       },
     });
+    await router.push("/main/list");
   };
 
   const onCreateArtistImage = async (event: ChangeEvent<HTMLInputElement>) => {

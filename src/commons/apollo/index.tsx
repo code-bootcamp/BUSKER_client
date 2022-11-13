@@ -7,9 +7,9 @@ import {
 } from "@apollo/client";
 import { createUploadLink } from "apollo-upload-client";
 // import { useEffect } from "react";
-import { useRecoilState } from "recoil";
+// import { useRecoilState } from "recoil";
 // import { getAccessToken } from "../libraries/getAccessToken";
-import { accessTokenState } from "../store";
+// import { accessTokenState } from "../store";
 // import { onError } from "@apollo/client/link/error";
 
 interface IApolloSettingProps {
@@ -19,7 +19,7 @@ interface IApolloSettingProps {
 const GLOBAL_STATE = new InMemoryCache();
 
 export default function ApolloSetting(props: IApolloSettingProps) {
-  const [accessToken] = useRecoilState(accessTokenState);
+  // const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
 
   // useEffect(() => {
   //   void getAccessToken().then((newAccessToken) => {
@@ -49,8 +49,8 @@ export default function ApolloSetting(props: IApolloSettingProps) {
   // });
 
   const uploadLink = createUploadLink({
-    uri: "https:/chansweb.shop/graphql",
-    headers: { Authorization: `Bearer ${accessToken}` },
+    uri: "https://chansweb.shop/graphql",
+    // headers: { Authorization: `Bearer ${accessToken}` },
     credentials: "include",
   });
 
