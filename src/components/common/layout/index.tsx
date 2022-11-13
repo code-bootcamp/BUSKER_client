@@ -77,6 +77,9 @@ export const Sidebar = styled.div`
   background-color: ${stylePrimaryColor};
   z-index: 98;
   padding-top: 100px;
+  @media ${breakPoints.mobile} {
+    padding-top: 50px;
+  }
 `;
 
 export const MenuUl = styled.ul`

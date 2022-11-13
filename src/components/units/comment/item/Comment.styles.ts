@@ -14,6 +14,7 @@ export const UserBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-width: 50px;
 `;
 
 export const UserName = styled.span`

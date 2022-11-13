@@ -3,7 +3,10 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { deviceState, userPositionState } from "../../src/commons/store";
-import { stylePrimaryColor } from "../../src/commons/styles/globalStyles";
+import {
+  breakPoints,
+  stylePrimaryColor,
+} from "../../src/commons/styles/globalStyles";
 import Button01 from "../../src/components/common/buttons/01";
 import KakaoMap from "../../src/components/common/kakaoMap";
 
@@ -49,7 +52,7 @@ export default function KaKaoMapPage() {
           <Button01
             style={{
               position: "absolute",
-              bottom: "5px",
+              bottom: "50px",
               left: "50%",
               transform: "translate(-50%,-50%)",
               zIndex: "2",
@@ -70,4 +73,7 @@ export const Wrapper = styled.div`
   width: 100vw;
   height: calc(100vh - 100px);
   position: relative;
+  @media ${breakPoints.mobile} {
+    height: calc(100vh - 50px);
+  }
 `;

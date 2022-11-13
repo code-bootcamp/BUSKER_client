@@ -1,4 +1,6 @@
 import { Divider } from "antd";
+import { useRecoilState } from "recoil";
+import { userPositionState } from "../../../commons/store";
 import ImageBox from "../../common/imageBox";
 import KakaoMap from "../../common/kakaoMap";
 import CommentList from "../comment/list/CommentList.container";
@@ -11,6 +13,7 @@ interface IArtDetailProps {
 }
 
 const ArtDetailUI = (props: IArtDetailProps) => {
+  const [userPosition] = useRecoilState(userPositionState);
   return (
     <S.Wrapper>
       <S.Title>버스커가 보여주는 버스킹 장소를 구경해보세요!</S.Title>
@@ -57,7 +60,11 @@ const ArtDetailUI = (props: IArtDetailProps) => {
         이번에는 <span>이곳에서</span> 버스킹을 진행해요!
       </S.Title>
       <S.KakaoBox>
-        <KakaoMap isMap={false} address="서울 구로구 디지털로 300" />
+        <KakaoMap
+          position={userPosition}
+          isMap={false}
+          address="서울 구로구 디지털로 300"
+        />
       </S.KakaoBox>
       <Divider />
       <S.Title>

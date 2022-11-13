@@ -42,8 +42,12 @@ const StyledImage = styled.img`
 const ImageBox = styled.div`
   height: 400px;
 
-  @media ${breakPoints.mobile} {
+  @media ${breakPoints.tablet} {
     height: 300px;
+  }
+
+  @media ${breakPoints.mobile} {
+    height: 200px;
   }
 `;
 

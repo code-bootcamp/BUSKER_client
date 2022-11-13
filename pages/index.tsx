@@ -33,17 +33,24 @@ export default function Home() {
       </Head>
       <Wrapper>
         <VideoBox>
-          <Video src="/streetDance.mp4" autoPlay muted loop></Video>
+          <Video
+            src="/streetDance.mp4"
+            autoPlay
+            muted
+            loop
+            preload="auto"
+            playsInline
+          ></Video>
         </VideoBox>
         <button onClick={async () => await router.push("/map")}>
           근처의 버스킹 확인하기
         </button>
         <div style={{ width: "100%", height: "500px" }}>
-          <div data-aos="fade-up" className="box">
-            <h2 className="title">fade-up</h2>
+          <div data-aos="fade-left" className="box">
+            <h2 className="title">fade-left</h2>
           </div>
-          <div data-aos="fade-down" className="box">
-            <h2 className="title">fade-down</h2>
+          <div data-aos="fade-right" className="box">
+            <h2 className="title">fade-right</h2>
           </div>
         </div>
       </Wrapper>
@@ -54,13 +61,10 @@ export default function Home() {
 export const Wrapper = styled.div`
   position: relative;
   padding-top: 100vh;
-  @media ${breakPoints.mobile} {
-    padding-top: 50vh;
-  }
 `;
 
 export const VideoBox = styled.div`
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   position: absolute;
   top: 0;
@@ -68,8 +72,7 @@ export const VideoBox = styled.div`
   overflow: hidden;
   margin: 0;
   @media ${breakPoints.mobile} {
-    height: 50vh;
-    overflow-x: visible;
+    overflow-x: hidden;
     overflow-y: hidden;
   }
 `;
@@ -88,4 +91,5 @@ export const Video = styled.video`
   @media ${breakPoints.mobile} {
     transform: translate(-60%, -50%);
   }
+  z-index: -1;
 `;
