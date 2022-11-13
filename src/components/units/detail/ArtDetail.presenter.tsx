@@ -1,6 +1,8 @@
 import { Divider } from "antd";
 import ImageBox from "../../common/imageBox";
 import KakaoMap from "../../common/kakaoMap";
+import CommentList from "../comment/list/CommentList.container";
+import NewComment from "../comment/new/NewComment.container";
 import * as S from "./ArtDetail.styles";
 import ImageCarousel from "./ArtImageCarousel";
 
@@ -57,6 +59,12 @@ const ArtDetailUI = (props: IArtDetailProps) => {
       <S.KakaoBox>
         <KakaoMap isMap={false} address="서울 구로구 디지털로 300" />
       </S.KakaoBox>
+      <Divider />
+      <S.Title>
+        버스킹에 대한 <span>코멘트</span>를 남겨주세요!
+      </S.Title>
+      <NewComment />
+      <CommentList boardId={props.routerId} />
     </S.Wrapper>
   );
 };
