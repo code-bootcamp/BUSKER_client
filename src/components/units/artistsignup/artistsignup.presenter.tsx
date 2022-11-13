@@ -22,9 +22,9 @@ const ArtistSignupPageWriteUI = ({
   handleChange,
   options,
   genre,
-}: // onChangeFile,
-// imgUrl,
-IArtistSignupPageWriteUI) => {
+  onCreateArtistImage,
+  imgUrl,
+}: IArtistSignupPageWriteUI) => {
   return (
     <>
       {isOpen && (
@@ -41,7 +41,7 @@ IArtistSignupPageWriteUI) => {
           <S.ContentsTopWrapper>
             <S.ArtistPlaceWrapper>
               <S.ArtistProfileWrapper>
-                {/* {imgUrl ? (
+                {imgUrl ? (
                   <>
                     <S.ImgBtn
                       style={{
@@ -55,7 +55,7 @@ IArtistSignupPageWriteUI) => {
                       <S.FileInput
                         type="file"
                         id={"file"}
-                        onChange={onChangeFile}
+                        onChange={onCreateArtistImage}
                       />
                     </S.ImgBtn>
                   </>
@@ -63,11 +63,10 @@ IArtistSignupPageWriteUI) => {
                   <>
                     <S.ImgBtn>
                       +
-                      <S.FileInput onChange={onChangeFile} type="file" />
+                      <S.FileInput onChange={onCreateArtistImage} type="file" />
                     </S.ImgBtn>
                   </>
-                )} */}
-
+                )}
                 <S.TextStyle>아티스트 이름(팀명)</S.TextStyle>
                 <Input01 type="text" register={register("active_name")} />
                 <S.ErrorMsg>{formState.errors.active_name?.message}</S.ErrorMsg>
