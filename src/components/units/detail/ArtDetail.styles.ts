@@ -24,11 +24,21 @@ export const Title = styled.span`
     font-size: 2.5rem;
     color: ${styleSecondColor};
   }
+
+  @media ${breakPoints.mobile} {
+    font-size: 2rem;
+    & > span {
+      font-size: 2rem;
+    }
+  }
 `;
 
 export const ContentBox = styled.div`
   display: flex;
   align-items: flex-start;
+  @media ${breakPoints.mobile} {
+    flex-direction: column;
+  }
 `;
 
 export const ArtistInfoBox = styled.div`

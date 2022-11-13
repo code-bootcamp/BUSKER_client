@@ -3,24 +3,9 @@ import { IBoards } from "../../../../commons/types/generated/types";
 import * as S from "./List.styles";
 import ListItem from "./ListItem";
 import { Select, Cascader } from "antd";
-import { DefaultOptionType } from "antd/lib/select";
 import Button01 from "../../../common/buttons/01";
 import { stylePrimaryColor } from "../../../../commons/styles/globalStyles";
-
-interface IMainListProps {
-  handleChangeLocation: any;
-  locationOptions: DefaultOptionType[] | undefined;
-
-  handleChangeGenre:
-    | ((value: any, option: DefaultOptionType | DefaultOptionType[]) => void)
-    | undefined;
-  options: DefaultOptionType[] | undefined;
-  filteredGenre: string[];
-  data?: any[];
-  onClickListItem: (id: string) => () => void;
-  onClickToMap: () => void;
-  filteredLocation: string;
-}
+import { IMainListProps } from "./List.types";
 
 const MainListUI = (props: IMainListProps) => {
   return (

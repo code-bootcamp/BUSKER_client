@@ -1,26 +1,39 @@
 import styled from "@emotion/styled";
+import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
 import { sidebarState } from "../../../../commons/store";
-
 import { breakPoints } from "../../../../commons/styles/globalStyles";
 import Logo from "../../logo";
 
 const Header = () => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useRecoilState(sidebarState);
   const onOpenMenu = () => {
     setIsOpen((prev) => !prev);
   };
   return (
     <>
-      <div style={{ height: "100px" }}></div>
+      {router.asPath !== "/" && <HeaderDiv></HeaderDiv>}
       <Wrapper>
         <HeaderBox>
           <Logo />
           <Menu>
             <MenuButton onClick={onOpenMenu}>
-              <span className={`bar f ${isOpen ? "isClicked" : ""}`}></span>
-              <span className={`bar f ${isOpen ? "isClicked" : ""}`}></span>
-              <span className={`bar f ${isOpen ? "isClicked" : ""}`}></span>
+              <span
+                className={`bar f ${isOpen ? "isClicked" : ""} ${
+                  router.asPath === "/" ? "isHome" : ""
+                }`}
+              ></span>
+              <span
+                className={`bar f ${isOpen ? "isClicked" : ""} ${
+                  router.asPath === "/" ? "isHome" : ""
+                }`}
+              ></span>
+              <span
+                className={`bar f ${isOpen ? "isClicked" : ""} ${
+                  router.asPath === "/" ? "isHome" : ""
+                }`}
+              ></span>
             </MenuButton>
           </Menu>
         </HeaderBox>
@@ -30,6 +43,13 @@ const Header = () => {
 };
 
 export default Header;
+
+export const HeaderDiv = styled.div`
+  height: 100px;
+  @media ${breakPoints.mobile} {
+    height: 50px;
+  }
+`;
 
 export const Wrapper = styled.div`
   position: fixed;
@@ -49,14 +69,17 @@ export const HeaderBox = styled.div`
 `;
 
 export const Menu = styled.div`
-  width: 100px;
+  position: relative;
+  top: 0;
+  width: 80px;
   height: 100%;
   padding: 1em;
   padding-right: 50px;
   @media ${breakPoints.mobile} {
     padding-right: 0px;
+    width: 70px;
   }
-  z-index: 99;
+  z-index: 3;
 `;
 
 export const MenuButton = styled.button`
@@ -91,5 +114,9 @@ export const MenuButton = styled.button`
 
   .bar:nth-child(3).isClicked {
     transform: translateY(-10px) rotate(-45deg) scaleX(1.2);
+  }
+
+  .bar.isHome {
+    background-color: white;
   }
 `;

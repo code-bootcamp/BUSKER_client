@@ -3,6 +3,12 @@ import { useState } from "react";
 import MainListUI from "./List.presenter";
 import type { SelectProps } from "antd";
 import { useRouter } from "next/router";
+import { useQuery } from "@apollo/client";
+import {
+  IQuery,
+  IQueryFetchBoardArgs,
+} from "../../../../commons/types/generated/types";
+import { FETCH_BOARDS } from "./List.queries";
 
 interface Option {
   value: string | number;
@@ -14,7 +20,10 @@ const MainList = () => {
   const router = useRouter();
   const [filteredGenre, setFilteredGenre] = useState<string[]>([]);
   const [filteredLocation, setFilteredLocation] = useState("");
-
+  const { data: boardsData } = useQuery<
+    Pick<IQuery, "fetchBoards">,
+    IQueryFetchBoardArgs
+  >(FETCH_BOARDS);
   const options: SelectProps["options"] = [
     {
       value: "춤",
@@ -97,6 +106,7 @@ const MainList = () => {
     await router.push("/map");
   };
   console.log(filteredLocation);
+  console.log(boardsData);
   return (
     <MainListUI
       onClickToMap={onClickToMap}
