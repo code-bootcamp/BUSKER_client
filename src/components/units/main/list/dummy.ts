@@ -3,9 +3,10 @@ import { uniqueId } from "lodash";
 export const data = [
   {
     id: String(uniqueId()),
-    title: "제목",
-    contents: "아티스트 이름",
-    isShowTime: false,
+    title: "정우님이 나가신다",
+    contents:
+      "안녕하세요 여러분, 오늘은 홍대에서 버스킹을 합니다. 제 버스킹 많이 보러와주세요!!",
+    isShowTime: true,
     category: { id: String(1), name: "노래" },
     boardAddress: {
       address: "서울 구로구",
@@ -15,15 +16,15 @@ export const data = [
       lng: 32,
     },
     day: "",
-    start_time: "",
-    end_time: "",
+    start_time: "2022.11.11 20:30",
+    end_time: "2022.11.11 22:30",
     createAt: "",
     artist: {
       pick_user: [{}],
       id: "a",
-      description: "",
-      promotion_url: "",
-      active_name: "",
+      description: "안녕하세요 여러분, ",
+      promotion_url: "https://www.youtube.com/adu28&%dfj",
+      active_name: "정우님이 나가신다",
     },
   },
   {

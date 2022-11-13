@@ -49,7 +49,6 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
   const onCompleteAddressSearch = (data: Address) => {
     setIsOpen((prev) => !prev);
     setAddress(data.address);
-    setValue("address", data.address);
     localStorage.setItem("address", JSON.stringify(data.address));
   };
 
@@ -80,7 +79,6 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
   };
 
   const onClickSignup = async (data: IFormData) => {
-    console.log(data);
     await createArtist({
       variables: {
         createArtistInput: data,

@@ -16,7 +16,7 @@ export const Header = styled.div`
 export const OptionBox = styled.div`
   width: 100%;
   height: 100px;
-  background-color: antiquewhite;
+  background-color: ${stylePrimaryColor};
   display: flex;
   justify-content: center;
   align-items: center;

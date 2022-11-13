@@ -90,7 +90,7 @@ const MainList = () => {
   };
 
   const onClickListItem = (id: string) => async () => {
-    await router.push(`/board/${id}`);
+    await router.push(`/main/list/${id}`);
   };
 
   const onClickToMap = async () => {
