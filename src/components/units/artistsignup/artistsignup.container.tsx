@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SelectProps } from "antd";
 import { useRouter } from "next/router";
@@ -9,9 +9,14 @@ import {
   IMutation,
   IMutationCreateArtistArgs,
   IMutationCreateArtistImageArgs,
+  IQuery,
 } from "../../../commons/types/generated/types";
 import ArtistSignupPageWriteUI from "./artistsignup.presenter";
-import { CREATE_ARTIST, CREATE_ARTIST_IMAGE } from "./ArtistSignup.Quries";
+import {
+  CREATE_ARTIST,
+  CREATE_ARTIST_IMAGE,
+  FETCH_USER,
+} from "./ArtistSignup.Quries";
 import { ArtistSignupYup } from "./ArtistSignup.Schema";
 import { IArtistSignupPageWrite, IFormData } from "./artistsignup.types";
 
@@ -37,6 +42,8 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
     Pick<IMutation, "createArtistImage">,
     IMutationCreateArtistImageArgs
   >(CREATE_ARTIST_IMAGE);
+
+  const { data } = useQuery<Pick<IQuery, "fetchUser">>(FETCH_USER);
 
   const onClickSearchAddress = () => {
     setIsOpen((prev) => !prev);
@@ -92,14 +99,13 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
     const result = await createArtistImage({
       variables: {
         createArtistImageInput: {
-          artistId: String(router.query.id),
+          userId: String(data?.fetchUser.id),
           url: String(file),
         },
       },
     });
     setImgUrl(String(result.data?.createArtistImage.url));
     setValue("artist_image", imgUrl);
-    console.log(result);
   };
 
   return (
