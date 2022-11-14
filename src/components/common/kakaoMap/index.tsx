@@ -71,7 +71,7 @@ const KakaoMap = ({ position, address, isMap, setValue }: IKakaoMapProps) => {
         },
       ]);
     });
-  }, [position, address]);
+  }, [position, address, isMap, setValue]);
   console.log(center);
   return (
     <Map
