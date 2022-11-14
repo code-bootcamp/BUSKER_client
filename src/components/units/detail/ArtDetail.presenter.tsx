@@ -71,7 +71,7 @@ const ArtDetailUI = (props: IArtDetailProps) => {
         버스킹에 대한 <span>코멘트</span>를 남겨주세요!
       </S.Title>
       <NewComment />
-      <CommentList boardId={props.routerId} />
+      <CommentList boardId={String(props.routerId)} />
     </S.Wrapper>
   );
 };

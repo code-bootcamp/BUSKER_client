@@ -14,9 +14,7 @@ const CommentUI = (props: ICommentProps) => {
         value={props.comment}
         onChange={props.onEditComment}
         disabled={props.isEdit}
-      >
-        버스킹 너무 재밌어용
-      </S.ContentBox>
+      ></S.ContentBox>
       <S.EditButton onClick={props.onClickEdit(props.data.id)}>
         <EditOutlined />
       </S.EditButton>

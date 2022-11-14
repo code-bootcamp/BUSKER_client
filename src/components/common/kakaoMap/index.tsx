@@ -93,12 +93,8 @@ const KakaoMap = ({ position, address, isMap, setValue }: IKakaoMapProps) => {
         ></MapMarker>
       ) : (
         dummyPosition.map((pos, i) => (
-          <>
-            <MapMarker
-              key={pos.lat + i}
-              position={pos}
-              onClick={onClickMarker(i)}
-            />
+          <div key={i}>
+            <MapMarker position={pos} onClick={onClickMarker(i)} />
             {isOpen[i] && (
               <CustomOverlayMap position={pos}>
                 <div className="wrap">
@@ -129,7 +125,7 @@ const KakaoMap = ({ position, address, isMap, setValue }: IKakaoMapProps) => {
                 </div>
               </CustomOverlayMap>
             )}
-          </>
+          </div>
         ))
       )}
     </Map>

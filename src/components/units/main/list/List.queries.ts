@@ -16,7 +16,10 @@ export const FETCH_BOARDS = gql`
       artist {
         id
         active_name
-        artist_image
+        artist_image {
+          id
+          url
+        }
       }
       boardAddress {
         id
