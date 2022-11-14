@@ -21,6 +21,7 @@ export type IArtist = {
   category?: Maybe<ICategory>;
   description: Scalars['String'];
   id: Scalars['String'];
+  member?: Maybe<IMember>;
   pick_user: Array<ILikeArtist>;
   promotion_url: Scalars['String'];
 };
@@ -87,8 +88,8 @@ export type IComments = {
 };
 
 export type ICreateArtistImageInput = {
-  artistId: Scalars['String'];
   url: Scalars['String'];
+  userId: Scalars['String'];
 };
 
 export type ICreateArtistInput = {
@@ -132,6 +133,12 @@ export type ICreateUserInput = {
   password: Scalars['String'];
 };
 
+export type IDistrict = {
+  __typename?: 'District';
+  district: Scalars['String'];
+  id: Scalars['String'];
+};
+
 export type ILikeArtist = {
   __typename?: 'LikeArtist';
   artist: IArtist;
@@ -163,6 +170,7 @@ export type IMutation = {
   createBoardImages: Array<IBoardImages>;
   createBoards: IBoards;
   createComment: IComments;
+  createDistrictList: Scalars['String'];
   createMember: IMember;
   createMemberImage: IMemberImage;
   createUser: IUser;
@@ -180,6 +188,7 @@ export type IMutation = {
   login: Scalars['String'];
   logout: Scalars['String'];
   nonLoginConfirmVerificationEmail: Scalars['Boolean'];
+  nonLoginResetPassword: Scalars['Boolean'];
   nonLoginSendVerificationEmail: Scalars['String'];
   resetPassword: Scalars['Boolean'];
   restoreAccessToken: Scalars['String'];
@@ -307,6 +316,12 @@ export type IMutationNonLoginConfirmVerificationEmailArgs = {
 };
 
 
+export type IMutationNonLoginResetPasswordArgs = {
+  email: Scalars['String'];
+  updatePasswordInput: IUpdatePasswordInput;
+};
+
+
 export type IMutationNonLoginSendVerificationEmailArgs = {
   email: Scalars['String'];
 };
@@ -377,13 +392,14 @@ export type IMutationUploadFilesArgs = {
 
 export type IQuery = {
   __typename?: 'Query';
+  districtList: Array<IDistrict>;
   fetchArtist: IArtist;
   fetchBoard: IBoards;
   fetchBoardByAddress_city: Array<IBoards>;
   fetchBoardByAddress_district: Array<IBoards>;
   fetchBoardByCategory: Array<IBoards>;
   fetchBoards: Array<IBoards>;
-  fetchComment: IComments;
+  fetchComment: Array<IComments>;
   fetchMapBoards: Array<IBoards>;
   fetchRecentBoards: Array<IBoards>;
   fetchUser: IUser;
@@ -438,8 +454,8 @@ export type ISearchBoardInput = {
 };
 
 export type IUpdateArtistImageInput = {
-  artistId?: InputMaybe<Scalars['String']>;
   url?: InputMaybe<Scalars['String']>;
+  userId?: InputMaybe<Scalars['String']>;
 };
 
 export type IUpdateArtistInput = {

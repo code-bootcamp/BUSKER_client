@@ -16,3 +16,11 @@ export const CREATE_ARTIST_IMAGE = gql`
     }
   }
 `;
+
+export const FETCH_USER = gql`
+  query fetchUser {
+    fetchUser {
+      id
+    }
+  }
+`;

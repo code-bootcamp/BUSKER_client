@@ -44,8 +44,6 @@ const LoginPageWrite = () => {
       });
       const accessToken = result.data?.login;
       setAccessToken(String(accessToken));
-      sessionStorage.setItem("accessToken", String(accessToken));
-
       await router.push("/main/list");
     } catch (error) {
       if (error instanceof Error) {
