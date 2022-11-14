@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { MapMarker, Map } from "react-kakao-maps-sdk";
-import IndexedMarker from "../../../../pages/map/indexedMarkerTemplate";
+import { MapMarker, Map, CustomOverlayMap } from "react-kakao-maps-sdk";
 import { UseFormSetValue } from "react-hook-form";
 import { IFormData } from "../../units/artregister/artregister.types";
+import ImageBox from "../imageBox";
+import { CloseOutlined } from "@ant-design/icons";
 
 interface IKakaoMapProps {
   address: string;
@@ -22,13 +23,21 @@ const KakaoMap = ({ position, address, isMap, setValue }: IKakaoMapProps) => {
     { lat: Number(position?.lat) + 0.004, lng: Number(position?.lng) + 0.009 },
   ]);
 
+  const [isOpen, setIsOpen] = useState(new Array(4).fill(false));
   const [center, setCenter] = useState({
-    lat: "",
-    lng: "",
+    lat: position?.lat,
+    lng: position?.lng,
   });
+
+  const onClickMarker = (i: number) => () => {
+    setIsOpen((prev) => {
+      const filteredPrev = prev.map((TF, index) => (index === i ? !TF : TF));
+      return filteredPrev;
+    });
+  };
   useEffect(() => {
     kakao.maps.load(() => {
-      if (isMap) {
+      if (!isMap) {
         const geocoder = new kakao.maps.services.Geocoder();
 
         geocoder.addressSearch(address, function (result, status) {
@@ -37,10 +46,9 @@ const KakaoMap = ({ position, address, isMap, setValue }: IKakaoMapProps) => {
             console.log("!", result[0]);
             const newSearch = result[0];
             setCenter({ lat: newSearch.y, lng: newSearch.x });
-            if (!isMap) {
-              setValue?.("boardAddressInput.lat", newSearch.y);
-              setValue?.("boardAddressInput.lng", newSearch.x);
-            }
+
+            setValue?.("boardAddressInput.lat", newSearch.y);
+            setValue?.("boardAddressInput.lng", newSearch.x);
           }
         });
       }
@@ -64,19 +72,20 @@ const KakaoMap = ({ position, address, isMap, setValue }: IKakaoMapProps) => {
       ]);
     });
   }, [position, address]);
-
+  console.log(center);
   return (
     <Map
       center={{
-        lat: Number(center.lat) || Number(position?.lat),
-        lng: Number(center.lng) || Number(position?.lng),
+        lat: address ? Number(center.lat) : Number(position?.lat),
+        lng: address ? Number(center.lng) : Number(position?.lng),
       }}
       style={{
         width: "100%",
         height: "100%",
         margin: "0 auto",
       }}
-      level={window.outerWidth > 1000 ? 4 : 5}
+      level={typeof window !== "undefined" && window.outerWidth > 1000 ? 4 : 5}
+      zoomable={false}
     >
       {address ? (
         <MapMarker
@@ -84,7 +93,39 @@ const KakaoMap = ({ position, address, isMap, setValue }: IKakaoMapProps) => {
         ></MapMarker>
       ) : (
         dummyPosition.map((pos, i) => (
-          <IndexedMarker key={pos.lat + i} markerPosition={pos} />
+          <div key={i}>
+            <MapMarker position={pos} onClick={onClickMarker(i)} />
+            {isOpen[i] && (
+              <CustomOverlayMap position={pos}>
+                <div className="wrap">
+                  <div className="info">
+                    <div className="title">
+                      아티스트 이름
+                      <div
+                        className="close"
+                        onClick={onClickMarker(i)}
+                        title="닫기"
+                      >
+                        <CloseOutlined />
+                      </div>
+                    </div>
+                    <div className="body">
+                      <div className="img">
+                        <ImageBox width="75px" height="75px" src="" />
+                      </div>
+                      <div className="desc">
+                        <div className="ellipsis"># 악기 연주</div>
+                        <div className="jibun ellipsis">
+                          오후 7시 30분 ~ 오후 9시 30분
+                        </div>
+                        <span>버스킹 정보 보러가기</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CustomOverlayMap>
+            )}
+          </div>
         ))
       )}
     </Map>

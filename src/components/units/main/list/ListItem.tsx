@@ -10,13 +10,14 @@ const ListItem = ({ board, onClickListItem }: any) => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
       onClick={onClickListItem(board.id)}
+      style={{ cursor: "pointer" }}
     >
       <Wrapper>
         <ImageBox></ImageBox>
         <ContentBox>
-          <span>{board?.contents}</span>
+          <span>{board?.artist.active_name}</span>
           <span>{board?.category.name}</span>
-          <span>{board?.isShowTimte ? "진행중" : "종료됨"}</span>
+          <span>{board?.isShowTime ? "진행중" : "종료됨"}</span>
         </ContentBox>
       </Wrapper>
     </motion.div>
