@@ -3,7 +3,12 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ["plugin:react/recommended", "standard-with-typescript", "prettier"],
+  extends: [
+    "plugin:react/recommended",
+    "standard-with-typescript",
+    "prettier",
+    "next/web/core-web-vitals",
+  ],
   overrides: [],
   parserOptions: {
     project: "**/tsconfig.json",
@@ -18,5 +23,10 @@ module.exports = {
     "@typescript-eslint/no-misused-promises": "off",
     "@typescript-eslint/triple-slash-reference": "off",
     "no-useless-escape": "off",
+  },
+  settings: {
+    react: {
+      version: "detect",
+    },
   },
 };
