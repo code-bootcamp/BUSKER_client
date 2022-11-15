@@ -9,13 +9,18 @@ import {
   IMutation,
   IMutationCreateArtistArgs,
   IMutationCreateArtistImageArgs,
+  IMutationUpdateArtistArgs,
+  IMutationUpdateArtistImageArgs,
   IQuery,
 } from "../../../commons/types/generated/types";
 import ArtistSignupPageWriteUI from "./artistsignup.presenter";
 import {
   CREATE_ARTIST,
   CREATE_ARTIST_IMAGE,
+  FETCH_ARTIST,
   FETCH_USER,
+  UPDATE_ARTIST,
+  UPDATE_ARTIST_IMAGE,
 } from "./ArtistSignup.Quries";
 import { ArtistSignupYup } from "./ArtistSignup.Schema";
 import { IArtistSignupPageWrite, IFormData } from "./artistsignup.types";
@@ -43,7 +48,19 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
     IMutationCreateArtistImageArgs
   >(CREATE_ARTIST_IMAGE);
 
-  const { data } = useQuery<Pick<IQuery, "fetchUser">>(FETCH_USER);
+  const [updateArtistImage] = useMutation<
+    Pick<IMutation, "updateArtistImage">,
+    IMutationUpdateArtistImageArgs
+  >(UPDATE_ARTIST_IMAGE);
+
+  const [updateArtist] = useMutation<
+    Pick<IMutation, "updateArtist">,
+    IMutationUpdateArtistArgs
+  >(UPDATE_ARTIST);
+
+  const { data: user } = useQuery<Pick<IQuery, "fetchUser">>(FETCH_USER);
+
+  const { data } = useQuery<Pick<IQuery, "fetchArtist">>(FETCH_ARTIST);
 
   const onClickSearchAddress = () => {
     setIsOpen((prev) => !prev);
@@ -67,16 +84,20 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
     setAddCount((prev) => prev + 1);
   };
 
-  const onClickEdit = () => {};
-
-  const ValueArr = ["춤", "노래", "마술", "악기연주"];
+  const NameArr = ["춤", "노래", "마술", "악기연주"];
+  const ValueArr = [
+    "43684efd-63f6-11ed-9601-42010a36c002",
+    "5a783215-63f6-11ed-9601-42010a36c002",
+    "5444244e-63f6-11ed-9601-42010a36c002",
+    "4048c94a-63f6-11ed-9601-42010a36c002",
+  ];
 
   const options: SelectProps["options"] = [];
 
   for (let i = 0; i < ValueArr.length; i++) {
     options.push({
       value: ValueArr[i],
-      label: ValueArr[i],
+      label: NameArr[i],
     });
   }
 
@@ -93,13 +114,36 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
     });
     await router.push("/main/list");
   };
+  const onClickEdit = async (data: IFormData) => {
+    const result = await updateArtist({
+      variables: {
+        updateArtistInput: data,
+      },
+    });
+    console.log(result);
+    void router.push(`/`);
+  };
+
+  const onClickEditArtistImage = async (
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    const result = await updateArtistImage({
+      variables: {
+        updateArtistImageInput: {
+          url: String(file),
+        },
+      },
+    });
+    setImgUrl(String(result.data?.updateArtistImage.url));
+  };
 
   const onCreateArtistImage = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     const result = await createArtistImage({
       variables: {
         createArtistImageInput: {
-          userId: String(data?.fetchUser.id),
+          userId: String(user?.fetchUser.id),
           url: String(file),
         },
       },
@@ -130,6 +174,8 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
       genre={genre}
       onCreateArtistImage={onCreateArtistImage}
       imgUrl={imgUrl}
+      data={data}
+      onClickEditArtistImage={onClickEditArtistImage}
     />
   );
 };

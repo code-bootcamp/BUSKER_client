@@ -24,6 +24,8 @@ const ArtistSignupPageWriteUI = ({
   genre,
   onCreateArtistImage,
   imgUrl,
+  data,
+  onClickEditArtistImage,
 }: IArtistSignupPageWriteUI) => {
   return (
     <>
@@ -41,36 +43,82 @@ const ArtistSignupPageWriteUI = ({
           <S.ContentsTopWrapper>
             <S.ArtistPlaceWrapper>
               <S.ArtistProfileWrapper>
-                {imgUrl ? (
+                {isEdit ? (
                   <>
-                    <S.ImgBtn
-                      style={{
-                        backgroundImage: `url(https://storage.googleapis.com/${String(
-                          imgUrl
-                        )})`,
-                        backgroundColor: "#fff",
-                        backgroundSize: "cover",
-                      }}
-                      htmlFor={"file"}
-                    >
-                      +
-                      <S.FileInput
-                        type="file"
-                        id={"file"}
-                        onChange={onCreateArtistImage}
-                      />
-                    </S.ImgBtn>
+                    {imgUrl ? (
+                      <>
+                        <S.ImgBtn
+                          style={{
+                            backgroundImage: `url(https://storage.googleapis.com/${String(
+                              data?.fetchArtist.artist_image?.url
+                            )})`,
+                            backgroundColor: "#fff",
+                            backgroundSize: "cover",
+                          }}
+                          htmlFor={"file"}
+                        >
+                          +
+                          <S.FileInput
+                            type="file"
+                            id={"file"}
+                            onChange={onClickEditArtistImage}
+                          />
+                        </S.ImgBtn>
+                      </>
+                    ) : (
+                      <>
+                        <S.ImgBtn>
+                          +
+                          <S.FileInput
+                            onChange={onClickEditArtistImage}
+                            type="file"
+                          />
+                        </S.ImgBtn>
+                      </>
+                    )}
                   </>
                 ) : (
                   <>
-                    <S.ImgBtn>
-                      +
-                      <S.FileInput onChange={onCreateArtistImage} type="file" />
-                    </S.ImgBtn>
+                    {imgUrl ? (
+                      <>
+                        <S.ImgBtn
+                          style={{
+                            backgroundImage: `url(https://storage.googleapis.com/${String(
+                              imgUrl
+                            )})`,
+                            backgroundColor: "#fff",
+                            backgroundSize: "cover",
+                          }}
+                          htmlFor={"file"}
+                        >
+                          +
+                          <S.FileInput
+                            type="file"
+                            id={"file"}
+                            onChange={onCreateArtistImage}
+                          />
+                        </S.ImgBtn>
+                      </>
+                    ) : (
+                      <>
+                        <S.ImgBtn>
+                          +
+                          <S.FileInput
+                            onChange={onCreateArtistImage}
+                            type="file"
+                          />
+                        </S.ImgBtn>
+                      </>
+                    )}
                   </>
                 )}
+
                 <S.TextStyle>아티스트 이름(팀명)</S.TextStyle>
-                <Input01 type="text" register={register("active_name")} />
+                <Input01
+                  type="text"
+                  register={register("active_name")}
+                  defaultValue={data?.fetchArtist.active_name}
+                />
                 <S.ErrorMsg>{formState.errors.active_name?.message}</S.ErrorMsg>
               </S.ArtistProfileWrapper>
               <S.PlaceGenreWrapper>
@@ -102,6 +150,7 @@ const ArtistSignupPageWriteUI = ({
                   type="text"
                   placeholder="소개글을 적어주세요"
                   register={register("description")}
+                  defaultValue={data?.fetchArtist.description}
                 />
                 <S.ErrorMsg>{formState.errors.description?.message}</S.ErrorMsg>
               </S.RemarksInputWrapper>
@@ -111,34 +160,41 @@ const ArtistSignupPageWriteUI = ({
                   type="text"
                   placeholder="SNS링크 또는 유튜브 URL을 올려주세요"
                   register={register("promotion_url")}
+                  defaultValue={data?.fetchArtist.promotion_url}
                 />
               </S.RemarksInputWrapper>
             </S.RemarksLinkWrapper>
           </S.ContentsTopWrapper>
           <S.ContentsBottomWrapper>
             <S.AddTeamWrapper>
-              {/* <S.TeamBtn type="button" onClick={onClickTeam}>
-                팀이신가요?
-              </S.TeamBtn>
-              {isTeam
-                ? new Array(addCount).fill(addCount).map((item) => {
-                    return (
-                      <>
-                        <S.AddTeamInputWrapper>
-                          <S.MemberImgBtn>
-                            +
-                            <S.FileInput type="file" />
-                          </S.MemberImgBtn>
-                          <Input01 type="text" placeholder="이름" />
-                          <Input01 type="text" placeholder="역할" />
-                          <S.AddBtn type="button" onClick={onClickAddTeam}>
-                            +
-                          </S.AddBtn>
-                        </S.AddTeamInputWrapper>
-                      </>
-                    );
-                  })
-                : ""} */}
+              {isEdit ? (
+                <>
+                  <S.TeamBtn type="button" onClick={onClickTeam}>
+                    팀이신가요?
+                  </S.TeamBtn>
+                  {isTeam
+                    ? new Array(addCount).fill(addCount).map((item) => {
+                        return (
+                          <>
+                            <S.AddTeamInputWrapper>
+                              <S.MemberImgBtn>
+                                +
+                                <S.FileInput type="file" />
+                              </S.MemberImgBtn>
+                              <Input01 type="text" placeholder="이름" />
+                              <Input01 type="text" placeholder="역할" />
+                              <S.AddBtn type="button" onClick={onClickAddTeam}>
+                                +
+                              </S.AddBtn>
+                            </S.AddTeamInputWrapper>
+                          </>
+                        );
+                      })
+                    : ""}
+                </>
+              ) : (
+                ""
+              )}
             </S.AddTeamWrapper>
             <S.SubmitBtn>{isEdit ? "수정하기" : "등록하기"}</S.SubmitBtn>
           </S.ContentsBottomWrapper>
