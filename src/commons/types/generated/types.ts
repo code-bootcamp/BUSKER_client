@@ -65,7 +65,6 @@ export type IBoards = {
   comments: Array<IComments>;
   contents: Scalars['String'];
   createAt: Scalars['DateTime'];
-  day: Scalars['DateTime'];
   end_time: Scalars['DateTime'];
   id: Scalars['String'];
   isShowTime: Scalars['Boolean'];
@@ -103,7 +102,6 @@ export type ICreateBoardInput = {
   boardAddressInput: IBoardAddressInput;
   category: Scalars['String'];
   contents: Scalars['String'];
-  day?: InputMaybe<Scalars['String']>;
   end_time?: InputMaybe<Scalars['String']>;
   start_time?: InputMaybe<Scalars['String']>;
 };
@@ -169,6 +167,7 @@ export type IMutation = {
   createArtistImage: IArtistImage;
   createBoardImages: Array<IBoardImages>;
   createBoards: IBoards;
+  createCategory: ICategory;
   createComment: IComments;
   createDistrictList: Scalars['String'];
   createMember: IMember;
@@ -186,7 +185,7 @@ export type IMutation = {
   deleteUser: Scalars['Boolean'];
   deleteUserImage: Scalars['Boolean'];
   login: Scalars['String'];
-  logout: Scalars['String'];
+  logout: Scalars['Boolean'];
   nonLoginConfirmVerificationEmail: Scalars['Boolean'];
   nonLoginResetPassword: Scalars['Boolean'];
   nonLoginSendVerificationEmail: Scalars['String'];
@@ -235,6 +234,11 @@ export type IMutationCreateBoardImagesArgs = {
 
 export type IMutationCreateBoardsArgs = {
   createBoardInput?: InputMaybe<ICreateBoardInput>;
+};
+
+
+export type IMutationCreateCategoryArgs = {
+  name: Scalars['String'];
 };
 
 
@@ -399,6 +403,7 @@ export type IQuery = {
   fetchBoardByAddress_district: Array<IBoards>;
   fetchBoardByCategory: Array<IBoards>;
   fetchBoards: Array<IBoards>;
+  fetchCategories: Array<ICategory>;
   fetchComment: Array<IComments>;
   fetchMapBoards: Array<IBoards>;
   fetchRecentBoards: Array<IBoards>;
@@ -469,7 +474,6 @@ export type IUpdateBoardInput = {
   boardAddressInput?: InputMaybe<IBoardAddressInput>;
   category?: InputMaybe<Scalars['String']>;
   contents?: InputMaybe<Scalars['String']>;
-  day?: InputMaybe<Scalars['String']>;
   end_time?: InputMaybe<Scalars['String']>;
   start_time?: InputMaybe<Scalars['String']>;
 };
