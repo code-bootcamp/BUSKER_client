@@ -8,15 +8,16 @@ import type { DatePickerProps, RangePickerProps } from "antd/es/date-picker";
 import { IFormData } from "./artregister.types";
 import { Address } from "react-daum-postcode";
 import { useMutation } from "@apollo/client";
-// // import { UPLOAD_FILE } from "./ArtRegister.Quries";
 import {
   IMutation,
+  // IMutationCreateBoardImagesArgs,
   IMutationCreateBoardsArgs,
   // IQuery,
   // IQueryFetchArtistArgs,
   // IMutationUploadFileArgs,
 } from "../../../commons/types/generated/types";
 import { CREATE_BOARD } from "./ArtRegister.Quries";
+import { useRouter } from "next/router";
 
 const ArtRegisterPageWrite = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,15 +32,17 @@ const ArtRegisterPageWrite = () => {
     IMutationCreateBoardsArgs
   >(CREATE_BOARD);
 
+  // const [createBoardImages] = useMutation<
+  //   Pick<IMutation, "createBoardImages">,
+  //   IMutationCreateBoardImagesArgs
+  // >(CREATE_BOARD_IMAGES);
+
   // const { data: ArtistData } = useQuery<
   //   Pick<IQuery, "fetchArtist">,
   //   IQueryFetchArtistArgs
   // >(FETCH_ARTIST);
 
-  // const [uploadFile] = useMutation<
-  //   Pick<IMutation, "uploadFile">,
-  //   IMutationUploadFileArgs
-  // >(UPLOAD_FILE);
+  const router = useRouter();
 
   const { register, formState, handleSubmit, setValue } = useForm<IFormData>({
     resolver: yupResolver(ArtRegisterYup),
@@ -70,14 +73,20 @@ const ArtRegisterPageWrite = () => {
     setValue("boardAddressInput.address", data.address);
   };
 
-  const ValueArr = ["춤", "노래", "마술", "악기연주"];
+  const NameArr = ["춤", "노래", "마술", "악기연주"];
+  const ValueArr = [
+    "43684efd-63f6-11ed-9601-42010a36c002",
+    "5a783215-63f6-11ed-9601-42010a36c002",
+    "5444244e-63f6-11ed-9601-42010a36c002",
+    "4048c94a-63f6-11ed-9601-42010a36c002",
+  ];
 
   const options: SelectProps["options"] = [];
 
   for (let i = 0; i < ValueArr.length; i++) {
     options.push({
       value: ValueArr[i],
-      label: ValueArr[i],
+      label: NameArr[i],
     });
   }
 
@@ -86,31 +95,40 @@ const ArtRegisterPageWrite = () => {
     setValue("genre", value);
   };
 
-  // const onChangeFile =
-  //   (index: number) => (event: ChangeEvent<HTMLInputElement>) => {
-  //     const file = event.target.files?.[0];
-  //     const result = uploadFile({ variables: { file } });
-  //     const newImgUrls = [...imgUrl];
-  //     newImgUrls[index] = result.data?.uploadFile.url;
-  //     setImgUrl(newImgUrls);
-  //   };
+  // const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files?.[0];
+  //   const result = await createBoardImages({
+  //     variables: {
+  //       urls: [String(file)],
+  //     },
+  //   });
+  //   setImgUrl([result.data?.createBoardImages]);
+  // };
 
   const onClickRegister = async (data: IFormData) => {
-    await createBoards({
-      variables: {
-        createBoardInput: {
-          contents: data.contents,
-          category: data.genre,
-          start_time: data.start_time,
-          end_time: data.end_time,
-          boardAddressInput: {
-            address,
-            lat: Number(data.boardAddressInput.lat),
-            lng: Number(data.boardAddressInput.lng),
+    try {
+      const result = await createBoards({
+        variables: {
+          createBoardInput: {
+            contents: data.contents,
+            category: data.genre,
+            start_time: data.start_time,
+            end_time: data.end_time,
+            boardAddressInput: {
+              address,
+              lat: Number(data.boardAddressInput.lat),
+              lng: Number(data.boardAddressInput.lng),
+            },
           },
         },
-      },
-    });
+      });
+
+      await router.push(`/main/list/${String(result.data?.createBoards.id)}`);
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error);
+      }
+    }
   };
 
   return (
