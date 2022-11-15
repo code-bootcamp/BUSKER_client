@@ -6,11 +6,8 @@ import KakaoMap from "../../common/kakaoMap";
 import CommentList from "../comment/list/CommentList.container";
 import NewComment from "../comment/new/NewComment.container";
 import * as S from "./ArtDetail.styles";
+import { IArtDetailProps } from "./ArtDetail.types";
 import ImageCarousel from "./ArtImageCarousel";
-
-interface IArtDetailProps {
-  routerId: string | string[] | undefined;
-}
 
 const ArtDetailUI = (props: IArtDetailProps) => {
   const [userPosition] = useRecoilState(userPositionState);
@@ -71,7 +68,7 @@ const ArtDetailUI = (props: IArtDetailProps) => {
         버스킹에 대한 <span>코멘트</span>를 남겨주세요!
       </S.Title>
       <NewComment />
-      <CommentList boardId={props.routerId} />
+      <CommentList boardId={String(props.routerId)} />
     </S.Wrapper>
   );
 };

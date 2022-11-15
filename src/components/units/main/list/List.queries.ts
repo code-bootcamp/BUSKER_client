@@ -16,7 +16,10 @@ export const FETCH_BOARDS = gql`
       artist {
         id
         active_name
-        artist_image
+        artist_image {
+          id
+          url
+        }
       }
       boardAddress {
         id
@@ -26,14 +29,36 @@ export const FETCH_BOARDS = gql`
         lat
         lng
       }
-      boardImages {
-        id
-        url
-      }
-      comments {
-        id
-        content
-      }
     }
+  }
+`;
+
+export const CREATE_DISTRICT_LIST = gql`
+  mutation {
+    createDistrictList
+  }
+`;
+
+export const DISTRICT_LIST = gql`
+  query {
+    districtList {
+      id
+      district
+    }
+  }
+`;
+
+export const FETCH_CITY = gql`
+  query fetchCity($name: String!) {
+    fetchCity(name: $name) {
+      name
+      district
+    }
+  }
+`;
+
+export const CREATE_CITY = gql`
+  mutation {
+    createCity
   }
 `;

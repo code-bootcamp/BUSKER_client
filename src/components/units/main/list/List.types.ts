@@ -1,4 +1,5 @@
 import { DefaultOptionType } from "antd/lib/select";
+import { IQuery } from "../../../../commons/types/generated/types";
 export interface IMainListProps {
   handleChangeLocation: any;
   locationOptions: DefaultOptionType[] | undefined;
@@ -8,8 +9,15 @@ export interface IMainListProps {
     | undefined;
   options: DefaultOptionType[] | undefined;
   filteredGenre: string[];
-  data?: any[];
+  data?: Pick<IQuery, "fetchBoards">;
   onClickListItem: (id: string) => () => void;
   onClickToMap: () => void;
   filteredLocation: string;
+  // loadDistricts: () => void;
+}
+
+export interface Option {
+  value: string | number;
+  label: string;
+  children?: Option[];
 }

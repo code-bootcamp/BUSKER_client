@@ -45,6 +45,7 @@ const Header = () => {
 export default Header;
 
 export const HeaderDiv = styled.div`
+  width: 100%;
   height: 100px;
   @media ${breakPoints.mobile} {
     height: 50px;
@@ -54,7 +55,7 @@ export const HeaderDiv = styled.div`
 export const Wrapper = styled.div`
   position: fixed;
   top: 0;
-  width: 100%;
+  width: 100vw;
   z-index: 100;
   @media ${breakPoints.mobile} {
     height: 50px;

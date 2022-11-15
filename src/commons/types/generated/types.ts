@@ -78,6 +78,13 @@ export type ICategory = {
   name: Scalars['String'];
 };
 
+export type ICity = {
+  __typename?: 'City';
+  district: Array<IDistrict>;
+  id: Scalars['String'];
+  name: Scalars['String'];
+};
+
 export type IComments = {
   __typename?: 'Comments';
   board: IBoards;
@@ -133,8 +140,15 @@ export type ICreateUserInput = {
 
 export type IDistrict = {
   __typename?: 'District';
+  city: ICity;
   district: Scalars['String'];
   id: Scalars['String'];
+};
+
+export type IFetchDistricts = {
+  __typename?: 'FetchDistricts';
+  district: Array<Scalars['String']>;
+  name: Scalars['String'];
 };
 
 export type ILikeArtist = {
@@ -168,6 +182,7 @@ export type IMutation = {
   createBoardImages: Array<IBoardImages>;
   createBoards: IBoards;
   createCategory: ICategory;
+  createCity: Scalars['String'];
   createComment: IComments;
   createDistrictList: Scalars['String'];
   createMember: IMember;
@@ -404,6 +419,8 @@ export type IQuery = {
   fetchBoardByCategory: Array<IBoards>;
   fetchBoards: Array<IBoards>;
   fetchCategories: Array<ICategory>;
+  fetchCity: IFetchDistricts;
+  fetchCitys: Array<ICity>;
   fetchComment: Array<IComments>;
   fetchMapBoards: Array<IBoards>;
   fetchRecentBoards: Array<IBoards>;
@@ -433,6 +450,11 @@ export type IQueryFetchBoardByCategoryArgs = {
 
 export type IQueryFetchBoardsArgs = {
   searchBoardInput?: InputMaybe<ISearchBoardInput>;
+};
+
+
+export type IQueryFetchCityArgs = {
+  name: Scalars['String'];
 };
 
 

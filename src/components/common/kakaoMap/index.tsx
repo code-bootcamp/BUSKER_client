@@ -4,6 +4,7 @@ import { UseFormSetValue } from "react-hook-form";
 import { IFormData } from "../../units/artregister/artregister.types";
 import ImageBox from "../imageBox";
 import { CloseOutlined } from "@ant-design/icons";
+import { useRouter } from "next/router";
 
 interface IKakaoMapProps {
   address: string;
@@ -16,6 +17,7 @@ interface IKakaoMapProps {
 }
 
 const KakaoMap = ({ position, address, isMap, setValue }: IKakaoMapProps) => {
+  const router = useRouter();
   const [dummyPosition, setPosition] = useState([
     { lat: Number(position?.lat) - 0.001, lng: Number(position?.lng) - 0.003 },
     { lat: Number(position?.lat) + 0.002, lng: Number(position?.lng) + 0.004 },
@@ -71,8 +73,12 @@ const KakaoMap = ({ position, address, isMap, setValue }: IKakaoMapProps) => {
         },
       ]);
     });
-  }, [position, address]);
+  }, [position, address, isMap, setValue]);
   console.log(center);
+
+  const onClickMoveToArtDetail = (id: string) => async () => {
+    await router.push(`/main/list/${id}`);
+  };
   return (
     <Map
       center={{
@@ -93,14 +99,10 @@ const KakaoMap = ({ position, address, isMap, setValue }: IKakaoMapProps) => {
         ></MapMarker>
       ) : (
         dummyPosition.map((pos, i) => (
-          <>
-            <MapMarker
-              key={pos.lat + i}
-              position={pos}
-              onClick={onClickMarker(i)}
-            />
+          <div key={i}>
+            <MapMarker position={pos} onClick={onClickMarker(i)} />
             {isOpen[i] && (
-              <CustomOverlayMap position={pos}>
+              <CustomOverlayMap position={pos} zIndex={99}>
                 <div className="wrap">
                   <div className="info">
                     <div className="title">
@@ -122,14 +124,20 @@ const KakaoMap = ({ position, address, isMap, setValue }: IKakaoMapProps) => {
                         <div className="jibun ellipsis">
                           오후 7시 30분 ~ 오후 9시 30분
                         </div>
-                        <span>버스킹 정보 보러가기</span>
+                        <span
+                          className="link"
+                          title=""
+                          onClick={onClickMoveToArtDetail("123")}
+                        >
+                          버스킹 정보 보러가기
+                        </span>
                       </div>
                     </div>
                   </div>
                 </div>
               </CustomOverlayMap>
             )}
-          </>
+          </div>
         ))
       )}
     </Map>

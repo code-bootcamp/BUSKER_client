@@ -29,7 +29,7 @@ const Comment = ({ data }: any) => {
     if (!isEdit) {
       try {
         await updateComment({
-          variables: { content: comment, commentId: id, userId: "" },
+          variables: { content: comment, commentId: id },
           refetchQueries: [
             {
               query: FETCH_COMMENT,
