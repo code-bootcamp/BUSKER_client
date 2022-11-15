@@ -10,6 +10,7 @@ interface IProps {
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   readOnly?: boolean;
   value?: string;
+  defaultValue?: any;
 }
 
 const LoginInputStyle = styled.input`
@@ -34,6 +35,7 @@ export default function Input01(props: IProps) {
       onChange={props.onChange}
       readOnly={props.readOnly}
       value={props.value}
+      defaultValue={props.defaultValue}
     />
   );
 }
