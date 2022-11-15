@@ -1,29 +1,131 @@
-import { data } from "./dummy";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MainListUI from "./List.presenter";
 import type { SelectProps } from "antd";
 import { useRouter } from "next/router";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import {
+  IMutation,
   IQuery,
-  IQueryFetchBoardArgs,
+  IQueryFetchBoardsArgs,
+  IQueryFetchCityArgs,
 } from "../../../../commons/types/generated/types";
-import { FETCH_BOARDS } from "./List.queries";
-
-interface Option {
-  value: string | number;
-  label: string;
-  children?: Option[];
-}
+import {
+  CREATE_CITY,
+  CREATE_DISTRICT_LIST,
+  FETCH_BOARDS,
+  FETCH_CITY,
+} from "./List.queries";
+import { Option } from "./List.types";
 
 const MainList = () => {
   const router = useRouter();
+  const [locationOptions] = useState<Option[]>([
+    {
+      value: "서울",
+      label: "서울",
+      children: [
+        {
+          value: "구로구",
+          label: "구로구",
+        },
+      ],
+    },
+    { value: "강원", label: "강원", children: [] },
+    {
+      value: "경기",
+      label: "경기",
+      children: [],
+    },
+    {
+      value: "경북",
+      label: "경북",
+      children: [],
+    },
+    {
+      value: "경남",
+      label: "경남",
+      children: [],
+    },
+    {
+      value: "충북",
+      label: "충북",
+      children: [],
+    },
+    {
+      value: "전북",
+      label: "전북",
+      children: [],
+    },
+    {
+      value: "전남",
+      label: "전남",
+      children: [],
+    },
+    {
+      value: "인천",
+      label: "인천",
+      children: [],
+    },
+    {
+      value: "대구",
+      label: "대구",
+      children: [],
+    },
+    {
+      value: "대전",
+      label: "대전",
+      children: [],
+    },
+    {
+      value: "광주",
+      label: "광주",
+      children: [],
+    },
+    {
+      value: "부산",
+      label: "부산",
+      children: [],
+    },
+    {
+      value: "울산",
+      label: "울산",
+      children: [],
+    },
+    {
+      value: "충남",
+      label: "충남",
+      children: [],
+    },
+    {
+      value: "제주",
+      label: "제주",
+      children: [],
+    },
+  ]);
   const [filteredGenre, setFilteredGenre] = useState<string[]>([]);
   const [filteredLocation, setFilteredLocation] = useState("");
-  const { data: boardsData } = useQuery<
+  const { data: boardsData, refetch } = useQuery<
     Pick<IQuery, "fetchBoards">,
-    IQueryFetchBoardArgs
+    IQueryFetchBoardsArgs
   >(FETCH_BOARDS);
+  // const { data: districtData } = useQuery<
+  //   Pick<IQuery, "fetchCity">,
+  //   IQueryFetchCityArgs
+  // >(FETCH_CITY, {
+  //   variables: { name: "서울" },
+  // });
+
+  // const [createDistrictList] =
+  //   useMutation<Pick<IMutation, "createDistrictList">>(CREATE_DISTRICT_LIST);
+  // const [createCity] = useMutation<Pick<IMutation, "createCity">>(CREATE_CITY);
+
+  // useEffect(() => {
+  //   const getLocation = () => {
+  //     void createDistrictList();
+  //     void createCity();
+  //   };
+  //   getLocation();
+  // }, []);
   const options: SelectProps["options"] = [
     {
       value: "춤",
@@ -43,51 +145,9 @@ const MainList = () => {
     },
   ];
 
-  const locationOptions: Option[] = [
-    {
-      value: "수도권",
-      label: "수도권",
-      children: [
-        {
-          value: "서울",
-          label: "서울",
-          children: [
-            {
-              value: "구로구",
-              label: "구로구",
-            },
-          ],
-        },
-        {
-          value: "경기",
-          label: "경기",
-          children: [
-            {
-              value: "성남시",
-              label: "성남시",
-            },
-          ],
-        },
-        {
-          value: "인천",
-          label: "인천",
-          children: [
-            {
-              value: "미추홀구",
-              label: "미추홀구",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      value: "수도권 외",
-      label: "수도권 외",
-    },
-  ];
-
   const handleChangeGenre = (value: string[]) => {
     setFilteredGenre(value);
+    // refetch({})
   };
 
   const handleChangeLocation = (value: string[]) => {
@@ -105,10 +165,12 @@ const MainList = () => {
   const onClickToMap = async () => {
     await router.push("/map");
   };
-  console.log(filteredLocation);
-  console.log(boardsData);
+
+  console.log("boardsData:", boardsData);
+  // console.log("지역 data:", districtData);
   return (
     <MainListUI
+      // loadDistricts={loadDistricts}
       onClickToMap={onClickToMap}
       onClickListItem={onClickListItem}
       handleChangeGenre={handleChangeGenre}
@@ -117,7 +179,7 @@ const MainList = () => {
       filteredLocation={filteredLocation}
       locationOptions={locationOptions}
       options={options}
-      data={data}
+      data={boardsData}
     />
   );
 };

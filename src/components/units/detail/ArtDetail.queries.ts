@@ -8,7 +8,6 @@ export const FETCH_BOARD = gql`
       contents
       start_time
       end_time
-      day
       isShowTime
       createAt
       category {

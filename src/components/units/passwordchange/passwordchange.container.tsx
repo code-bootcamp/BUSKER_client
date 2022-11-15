@@ -30,7 +30,13 @@ const PasswordChangePageWrite = () => {
           updatePasswordInput: data,
         },
       });
-      await logout();
+      await logout({
+        update(cache) {
+          cache.modify({
+            fields: () => {},
+          });
+        },
+      });
       await router.push("/login");
     } catch (error) {
       if (error instanceof Error) {

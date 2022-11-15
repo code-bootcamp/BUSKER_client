@@ -6,11 +6,8 @@ import KakaoMap from "../../common/kakaoMap";
 import CommentList from "../comment/list/CommentList.container";
 import NewComment from "../comment/new/NewComment.container";
 import * as S from "./ArtDetail.styles";
+import { IArtDetailProps } from "./ArtDetail.types";
 import ImageCarousel from "./ArtImageCarousel";
-
-interface IArtDetailProps {
-  routerId: string | string[] | undefined;
-}
 
 const ArtDetailUI = (props: IArtDetailProps) => {
   const [userPosition] = useRecoilState(userPositionState);

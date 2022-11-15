@@ -16,6 +16,7 @@ const MainListUI = (props: IMainListProps) => {
             options={props.locationOptions}
             onChange={props.handleChangeLocation}
             placeholder="지역 검색"
+            // onClick={props.loadDistricts}
           />
         </S.LocationOptionBox>
         <S.GenreOptionBox>
@@ -32,7 +33,7 @@ const MainListUI = (props: IMainListProps) => {
       <S.ListBox>
         <AnimatePresence>
           {props.filteredGenre.length || props.filteredLocation
-            ? props.data
+            ? props.data?.fetchBoards
                 ?.filter(
                   (board: IBoards) =>
                     props.filteredGenre?.includes(board.category.name) ||
@@ -45,7 +46,7 @@ const MainListUI = (props: IMainListProps) => {
                     onClickListItem={props.onClickListItem}
                   />
                 ))
-            : props.data?.map((board: IBoards) => (
+            : props.data?.fetchBoards.map((board: IBoards) => (
                 <ListItem
                   key={board.id}
                   board={board}
@@ -63,10 +64,11 @@ const MainListUI = (props: IMainListProps) => {
           zIndex: "2",
           backgroundColor: `${stylePrimaryColor}`,
           color: "white",
+          boxShadow: "3px 5px 10px 3px rgba(0,0,0,0.5)",
         }}
         onClick={props.onClickToMap}
       >
-        지도로 가기
+        주변 버스킹 확인하기
       </Button01>
     </S.Wrapper>
   );

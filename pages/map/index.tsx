@@ -13,7 +13,7 @@ import KakaoMap from "../../src/components/common/kakaoMap";
 export default function KaKaoMapPage() {
   const router = useRouter();
   const [userPosition, setUserPosition] = useRecoilState(userPositionState);
-  const [, setIsMobile] = useRecoilState(deviceState);
+  const [isMobile, setIsMobile] = useRecoilState(deviceState);
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       setUserPosition({
@@ -52,7 +52,7 @@ export default function KaKaoMapPage() {
           <Button01
             style={{
               position: "absolute",
-              bottom: "50px",
+              bottom: `${isMobile ? "80px" : "50px"}`,
               left: "50%",
               transform: "translate(-50%,-50%)",
               zIndex: "2",
@@ -61,7 +61,7 @@ export default function KaKaoMapPage() {
             }}
             onClick={async () => await router.push("/main/list")}
           >
-            리스트로 가기
+            리스트로 보기
           </Button01>
         </div>
       )}

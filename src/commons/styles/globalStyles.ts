@@ -104,7 +104,11 @@ export const globalStyles = css`
     background: url("https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png");
   }
   .info .link {
-    color: #5085bb;
+    color: #9900ff;
+  }
+
+  .info .link:hover {
+    cursor: pointer;
   }
 
   main {
