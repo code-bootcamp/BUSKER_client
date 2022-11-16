@@ -1,6 +1,6 @@
-import { IBoards } from "../../../commons/types/generated/types";
+import { IQuery } from "../../../commons/types/generated/types";
 
 export interface IArtDetailProps {
-  data?: IBoards;
+  data?: Pick<IQuery, "fetchBoard">;
   routerId: string | string[] | undefined;
 }

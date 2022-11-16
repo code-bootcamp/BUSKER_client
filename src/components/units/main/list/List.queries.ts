@@ -13,14 +13,14 @@ export const FETCH_BOARDS = gql`
         id
         name
       }
-      artist {
-        id
-        active_name
-        artist_image {
-          id
-          url
-        }
-      }
+      # artist {
+      #   id
+      # active_name
+      # artist_image {
+      #   id
+      #   url
+      # }
+      # }
       boardAddress {
         id
         address
@@ -29,21 +29,7 @@ export const FETCH_BOARDS = gql`
         lat
         lng
       }
-    }
-  }
-`;
-
-export const CREATE_DISTRICT_LIST = gql`
-  mutation {
-    createDistrictList
-  }
-`;
-
-export const DISTRICT_LIST = gql`
-  query {
-    districtList {
-      id
-      district
+      # boardImageURL
     }
   }
 `;
@@ -57,8 +43,11 @@ export const FETCH_CITY = gql`
   }
 `;
 
-export const CREATE_CITY = gql`
-  mutation {
-    createCity
+export const FETCH_CITYS = gql`
+  query {
+    fetchCitys {
+      id
+      name
+    }
   }
 `;
