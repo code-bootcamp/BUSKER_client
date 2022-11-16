@@ -10,9 +10,13 @@ import {
 } from "../../../../commons/types/generated/types";
 import { FETCH_BOARDS, FETCH_CITY, FETCH_CITYS } from "./List.queries";
 import { Option } from "./List.types";
+import { FETCH_USER } from "../../artistsignup/ArtistSignup.Quries";
+import { FETCH_ARTIST } from "../../artistDetail/ArtistDetail.queries";
 
 const MainList = () => {
   const router = useRouter();
+  const { data: isArtist } =
+    useQuery<Pick<IQuery, "fetchArtist">>(FETCH_ARTIST);
   const [locationOptions] = useState<Option[]>([
     {
       value: "서울",
@@ -154,9 +158,11 @@ const MainList = () => {
 
   console.log("boardsData:", boardsData);
   // console.log("지역 data:", districtData);
+  console.log("아티스트 정보:", isArtist);
   return (
     <MainListUI
       // loadDistricts={loadDistricts}
+      isArtist={isArtist}
       onClickToMap={onClickToMap}
       onClickListItem={onClickListItem}
       handleChangeGenre={handleChangeGenre}

@@ -29,6 +29,7 @@ const MainListUI = (props: IMainListProps) => {
             options={props.options}
           />
         </S.GenreOptionBox>
+        {props.isArtist ? <button>버스킹 등록하기</button> : null}
       </S.OptionBox>
       <S.ListBox>
         <AnimatePresence>
