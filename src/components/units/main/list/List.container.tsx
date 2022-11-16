@@ -1,24 +1,22 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import MainListUI from "./List.presenter";
 import type { SelectProps } from "antd";
 import { useRouter } from "next/router";
-import { useMutation, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import {
-  IMutation,
   IQuery,
   IQueryFetchBoardsArgs,
   IQueryFetchCityArgs,
 } from "../../../../commons/types/generated/types";
-import {
-  CREATE_CITY,
-  CREATE_DISTRICT_LIST,
-  FETCH_BOARDS,
-  FETCH_CITY,
-} from "./List.queries";
+import { FETCH_BOARDS, FETCH_CITY, FETCH_CITYS } from "./List.queries";
 import { Option } from "./List.types";
+import { FETCH_USER } from "../../artistsignup/ArtistSignup.Quries";
+import { FETCH_ARTIST } from "../../artistDetail/ArtistDetail.queries";
 
 const MainList = () => {
   const router = useRouter();
+  const { data: isArtist } =
+    useQuery<Pick<IQuery, "fetchArtist">>(FETCH_ARTIST);
   const [locationOptions] = useState<Option[]>([
     {
       value: "서울",
@@ -108,6 +106,9 @@ const MainList = () => {
     Pick<IQuery, "fetchBoards">,
     IQueryFetchBoardsArgs
   >(FETCH_BOARDS);
+
+  const { data: citys } = useQuery<Pick<IQuery, "fetchCitys">>(FETCH_CITYS);
+  console.log(citys);
   // const { data: districtData } = useQuery<
   //   Pick<IQuery, "fetchCity">,
   //   IQueryFetchCityArgs
@@ -115,17 +116,6 @@ const MainList = () => {
   //   variables: { name: "서울" },
   // });
 
-  // const [createDistrictList] =
-  //   useMutation<Pick<IMutation, "createDistrictList">>(CREATE_DISTRICT_LIST);
-  // const [createCity] = useMutation<Pick<IMutation, "createCity">>(CREATE_CITY);
-
-  // useEffect(() => {
-  //   const getLocation = () => {
-  //     void createDistrictList();
-  //     void createCity();
-  //   };
-  //   getLocation();
-  // }, []);
   const options: SelectProps["options"] = [
     {
       value: "춤",
@@ -168,9 +158,11 @@ const MainList = () => {
 
   console.log("boardsData:", boardsData);
   // console.log("지역 data:", districtData);
+  console.log("아티스트 정보:", isArtist);
   return (
     <MainListUI
       // loadDistricts={loadDistricts}
+      isArtist={isArtist}
       onClickToMap={onClickToMap}
       onClickListItem={onClickListItem}
       handleChangeGenre={handleChangeGenre}

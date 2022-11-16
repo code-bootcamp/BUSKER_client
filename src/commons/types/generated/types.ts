@@ -30,7 +30,7 @@ export type IArtistImage = {
   __typename?: 'ArtistImage';
   artist: IArtist;
   id: Scalars['String'];
-  url: Scalars['String'];
+  url?: Maybe<Scalars['String']>;
 };
 
 export type IBoardAddress = {
@@ -230,6 +230,8 @@ export type IMutationCreateArtistImageArgs = {
 export type IMutationCreateBoardArgs = {
   artistId: Scalars['String'];
   createBoardInput: ICreateBoardInput;
+export type IMutationCreateBoardImagesArgs = {
+  url: Scalars['String'];
 };
 
 

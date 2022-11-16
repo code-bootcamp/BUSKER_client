@@ -1,3 +1,4 @@
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -7,26 +8,45 @@ import {
   breakPoints,
   stylePrimaryColor,
 } from "../../src/commons/styles/globalStyles";
+import {
+  IQuery,
+  IQueryFetchMapBoardsArgs,
+} from "../../src/commons/types/generated/types";
 import Button01 from "../../src/components/common/buttons/01";
 import KakaoMap from "../../src/components/common/kakaoMap";
+import { FETCH_MAP_BOARDS } from "./Map.queries";
 
 export default function KaKaoMapPage() {
   const router = useRouter();
   const [userPosition, setUserPosition] = useRecoilState(userPositionState);
   const [isMobile, setIsMobile] = useRecoilState(deviceState);
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      setUserPosition({
-        lat: String(position.coords.latitude),
-        lng: String(position.coords.longitude),
+    if (!userPosition.lat) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setUserPosition({
+          lat: String(position.coords.latitude),
+          lng: String(position.coords.longitude),
+        });
       });
-    });
+    }
+
     setIsMobile(
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
         navigator.userAgent
       )
     );
   }, []);
+
+  const { data } = useQuery<
+    Pick<IQuery, "fetchMapBoards">,
+    IQueryFetchMapBoardsArgs
+  >(FETCH_MAP_BOARDS, {
+    variables: {
+      lat: Number(userPosition.lat),
+      lng: Number(userPosition.lng),
+      distance: isMobile ? 0.008 : 0.006,
+    },
+  });
 
   return (
     <Wrapper>
@@ -48,7 +68,7 @@ export default function KaKaoMapPage() {
             margin: "0 auto",
           }}
         >
-          <KakaoMap address="" position={userPosition} />
+          <KakaoMap address="" position={userPosition} data={data} />
           <Button01
             style={{
               position: "absolute",
