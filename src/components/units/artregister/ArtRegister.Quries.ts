@@ -15,12 +15,3 @@ export const FETCH_ARTIST = gql`
     }
   }
 `;
-
-export const CREATE_BOARD_IMAGES = gql`
-  mutation createBoardImages($boardId: String!, $urls: [String]!) {
-    createBoardImages(boardId: $boardId, urls: $urls) {
-      id
-      url
-    }
-  }
-`;

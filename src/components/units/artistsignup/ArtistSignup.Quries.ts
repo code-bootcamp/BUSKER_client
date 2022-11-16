@@ -8,23 +8,6 @@ export const CREATE_ARTIST = gql`
   }
 `;
 
-export const CREATE_ARTIST_IMAGE = gql`
-  mutation createArtistImage($createArtistImageInput: CreateArtistImageInput!) {
-    createArtistImage(createArtistImageInput: $createArtistImageInput) {
-      id
-      url
-    }
-  }
-`;
-
-export const FETCH_USER = gql`
-  query fetchUser {
-    fetchUser {
-      id
-    }
-  }
-`;
-
 export const FETCH_ARTIST = gql`
   query fetchArtist {
     fetchArtist {
@@ -32,28 +15,16 @@ export const FETCH_ARTIST = gql`
       active_name
       description
       promotion_url
-      artist_image {
-        url
-      }
+      artistImageURL
       category {
         id
-        string
+        name
       }
       member {
         id
         artist
-        memberImage {
-          url
-        }
+        memverImageURL
       }
-    }
-  }
-`;
-
-export const UPDATE_ARTIST_IMAGE = gql`
-  mutation updateArtistImage($updateArtistImageInput: UpdateArtistImageInput!) {
-    updateArtistImage(updateArtistImageInput: $updateArtistImageInput) {
-      id
     }
   }
 `;

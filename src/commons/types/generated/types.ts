@@ -36,8 +36,6 @@ export type IArtistImage = {
 export type IBoardAddress = {
   __typename?: 'BoardAddress';
   address: Scalars['String'];
-  address_city: Scalars['String'];
-  address_district: Scalars['String'];
   id: Scalars['String'];
   lat: Scalars['Float'];
   lng: Scalars['Float'];
@@ -60,12 +58,12 @@ export type IBoards = {
   __typename?: 'Boards';
   artist: IArtist;
   boardAddress: IBoardAddress;
-  boardImageURL: Scalars['String'];
+  boardImageURL: Array<Scalars['String']>;
   category: ICategory;
   comments: Array<IComments>;
   contents: Scalars['String'];
   createAt: Scalars['DateTime'];
-  end_time: Scalars['DateTime'];
+  end_time?: Maybe<Scalars['DateTime']>;
   id: Scalars['String'];
   isShowTime: Scalars['Boolean'];
   start_time: Scalars['DateTime'];
@@ -104,10 +102,11 @@ export type ICreateArtistInput = {
 export type ICreateBoardInput = {
   boardAddressInput: IBoardAddressInput;
   boardImageURL?: InputMaybe<Array<Scalars['String']>>;
-  category: Scalars['String'];
+  categoryId: Scalars['String'];
   contents: Scalars['String'];
-  end_time?: InputMaybe<Scalars['String']>;
-  start_time?: InputMaybe<Scalars['String']>;
+  end_time?: InputMaybe<Scalars['DateTime']>;
+  start_time: Scalars['DateTime'];
+  title: Scalars['String'];
 };
 
 export type ICreateCommentInput = {
@@ -168,8 +167,8 @@ export type IMutation = {
   confirmVerificationEmail: Scalars['Boolean'];
   createArtist: IArtist;
   createArtistImage: IArtistImage;
+  createBoard: IBoards;
   createBoardImages: IBoardImages;
-  createBoards: IBoards;
   createCategory: ICategory;
   createCity: Scalars['String'];
   createComment: IComments;
@@ -181,7 +180,6 @@ export type IMutation = {
   deleteArtist: Scalars['Boolean'];
   deleteArtistImage: Scalars['Boolean'];
   deleteArtistLike: Scalars['Boolean'];
-  deleteBoard: Scalars['Boolean'];
   deleteBoardImages: Scalars['Boolean'];
   deleteComment: Scalars['Boolean'];
   deleteMember: Scalars['Boolean'];
@@ -197,7 +195,6 @@ export type IMutation = {
   restoreAccessToken: Scalars['String'];
   updateArtist: Scalars['Boolean'];
   updateArtistImage: IArtistImage;
-  updateBoard: IBoards;
   updateComment: IComments;
   updateMember: Scalars['Boolean'];
   updateMemberImage: IMemberImage;
@@ -230,13 +227,16 @@ export type IMutationCreateArtistImageArgs = {
 };
 
 
+export type IMutationCreateBoardArgs = {
+  artistId: Scalars['String'];
+  createBoardInput: ICreateBoardInput;
 export type IMutationCreateBoardImagesArgs = {
   url: Scalars['String'];
 };
 
 
-export type IMutationCreateBoardsArgs = {
-  createBoardInput?: InputMaybe<ICreateBoardInput>;
+export type IMutationCreateBoardImagesArgs = {
+  url: Scalars['String'];
 };
 
 
@@ -279,11 +279,6 @@ export type IMutationDeleteArtistImageArgs = {
 
 export type IMutationDeleteArtistLikeArgs = {
   artistId: Scalars['String'];
-};
-
-
-export type IMutationDeleteBoardArgs = {
-  boardId: Scalars['String'];
 };
 
 
@@ -351,12 +346,6 @@ export type IMutationUpdateArtistImageArgs = {
 };
 
 
-export type IMutationUpdateBoardArgs = {
-  boardId: Scalars['String'];
-  updateBoardInput: IUpdateBoardInput;
-};
-
-
 export type IMutationUpdateCommentArgs = {
   commentId: Scalars['String'];
   content: Scalars['String'];
@@ -404,18 +393,12 @@ export type IQuery = {
   fetchCitys: Array<ICity>;
   fetchComment: Array<IComments>;
   fetchMapBoards: Array<IBoards>;
-  fetchRecentBoards: Array<IBoards>;
   fetchUser: IUser;
 };
 
 
 export type IQueryFetchBoardArgs = {
   boardId: Scalars['String'];
-};
-
-
-export type IQueryFetchBoardsArgs = {
-  searchBoardInput?: InputMaybe<ISearchBoardInput>;
 };
 
 
@@ -435,32 +418,12 @@ export type IQueryFetchMapBoardsArgs = {
   lng: Scalars['Float'];
 };
 
-
-export type IQueryFetchRecentBoardsArgs = {
-  artistId: Scalars['String'];
-};
-
-export type ISearchBoardInput = {
-  category?: InputMaybe<Array<Scalars['String']>>;
-  district?: InputMaybe<Scalars['String']>;
-  page?: InputMaybe<Scalars['Int']>;
-};
-
 export type IUpdateArtistInput = {
   active_name?: InputMaybe<Scalars['String']>;
   artistImageURL?: InputMaybe<Scalars['String']>;
   category?: InputMaybe<Scalars['String']>;
   description?: InputMaybe<Scalars['String']>;
   promotion_url?: InputMaybe<Scalars['String']>;
-};
-
-export type IUpdateBoardInput = {
-  boardAddressInput?: InputMaybe<IBoardAddressInput>;
-  boardImageURL?: InputMaybe<Array<Scalars['String']>>;
-  category?: InputMaybe<Scalars['String']>;
-  contents?: InputMaybe<Scalars['String']>;
-  end_time?: InputMaybe<Scalars['String']>;
-  start_time?: InputMaybe<Scalars['String']>;
 };
 
 export type IUpdateMemberImageInput = {

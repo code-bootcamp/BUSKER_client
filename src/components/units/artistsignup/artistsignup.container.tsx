@@ -8,19 +8,14 @@ import { useForm } from "react-hook-form";
 import {
   IMutation,
   IMutationCreateArtistArgs,
-  IMutationCreateArtistImageArgs,
   IMutationUpdateArtistArgs,
-  IMutationUpdateArtistImageArgs,
   IQuery,
 } from "../../../commons/types/generated/types";
 import ArtistSignupPageWriteUI from "./artistsignup.presenter";
 import {
   CREATE_ARTIST,
-  CREATE_ARTIST_IMAGE,
   FETCH_ARTIST,
-  FETCH_USER,
   UPDATE_ARTIST,
-  UPDATE_ARTIST_IMAGE,
 } from "./ArtistSignup.Quries";
 import { ArtistSignupYup } from "./ArtistSignup.Schema";
 import { IArtistSignupPageWrite, IFormData } from "./artistsignup.types";
@@ -43,22 +38,10 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
     IMutationCreateArtistArgs
   >(CREATE_ARTIST);
 
-  const [createArtistImage] = useMutation<
-    Pick<IMutation, "createArtistImage">,
-    IMutationCreateArtistImageArgs
-  >(CREATE_ARTIST_IMAGE);
-
-  const [updateArtistImage] = useMutation<
-    Pick<IMutation, "updateArtistImage">,
-    IMutationUpdateArtistImageArgs
-  >(UPDATE_ARTIST_IMAGE);
-
   const [updateArtist] = useMutation<
     Pick<IMutation, "updateArtist">,
     IMutationUpdateArtistArgs
   >(UPDATE_ARTIST);
-
-  const { data: user } = useQuery<Pick<IQuery, "fetchUser">>(FETCH_USER);
 
   const { data } = useQuery<Pick<IQuery, "fetchArtist">>(FETCH_ARTIST);
 
@@ -84,12 +67,11 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
     setAddCount((prev) => prev + 1);
   };
 
-  const NameArr = ["춤", "노래", "마술", "악기연주"];
+  const NameArr = ["춤", "노래", "랩"];
   const ValueArr = [
-    "43684efd-63f6-11ed-9601-42010a36c002",
-    "5a783215-63f6-11ed-9601-42010a36c002",
-    "5444244e-63f6-11ed-9601-42010a36c002",
-    "4048c94a-63f6-11ed-9601-42010a36c002",
+    "1dbc3953-2195-4f45-92c7-4d31d4bbd448",
+    "8bc06edc-0454-4098-9b53-c96b201ef01e",
+    "12e5e0d3-8b8c-448d-a5a9-1b058d29dbf8",
   ];
 
   const options: SelectProps["options"] = [];
@@ -101,19 +83,20 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
     });
   }
 
-  const handleChange = (value: any) => {
+  const handleChange = (value: string) => {
     setGenre(value);
     setValue("category", value);
   };
 
   const onClickSignup = async (data: IFormData) => {
-    await createArtist({
+    const result = await createArtist({
       variables: {
         createArtistInput: data,
       },
     });
-    await router.push("/main/list");
+    await router.push(`/artistdetail/${String(result.data?.createArtist.id)}`);
   };
+
   const onClickEdit = async (data: IFormData) => {
     const result = await updateArtist({
       variables: {
@@ -128,28 +111,29 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
     event: ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0];
-    const result = await updateArtistImage({
-      variables: {
-        updateArtistImageInput: {
-          url: String(file),
-        },
-      },
-    });
-    setImgUrl(String(result.data?.updateArtistImage.url));
+    if (!file) return;
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = (event) => {
+      if (typeof event.target?.result === "string") {
+        setImgUrl(event.target.result);
+      }
+    };
+    setValue("artistImageURL", imgUrl);
   };
 
   const onCreateArtistImage = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    const result = await createArtistImage({
-      variables: {
-        createArtistImageInput: {
-          userId: String(user?.fetchUser.id),
-          url: String(file),
-        },
-      },
-    });
-    setImgUrl(String(result.data?.createArtistImage.url));
-    setValue("artist_image", imgUrl);
+    if (!file) return;
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = (event) => {
+      if (typeof event.target?.result === "string") {
+        console.log(event.target.result);
+        setImgUrl(event.target.result);
+      }
+    };
+    setValue("artistImageURL", imgUrl);
   };
 
   return (

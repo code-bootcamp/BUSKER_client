@@ -9,10 +9,7 @@ export const FETCH_USER = gql`
       wrong_pass
       liked_artist
       authorities
-      userImage {
-        id
-        url
-      }
+      userImageURL
     }
   }
 `;
