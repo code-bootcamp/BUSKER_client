@@ -9,9 +9,9 @@ import {
   userPositionState,
 } from "../src/commons/store";
 import Head from "next/script";
-import { FETCH_USER } from "../src/components/units/artistsignup/ArtistSignup.Quries";
 import { useQuery } from "@apollo/client";
 import { IQuery } from "../src/commons/types/generated/types";
+import { FETCH_USER } from "../src/components/units/myPage/detail/MyPageDetail.queries";
 // import { DISTRICT_LIST } from "../src/components/units/main/list/List.queries";
 
 export default function Home() {

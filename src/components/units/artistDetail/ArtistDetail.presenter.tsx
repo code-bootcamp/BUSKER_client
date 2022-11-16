@@ -11,11 +11,12 @@ const ArtistDetailUI = (props: IArtistDetailProps) => {
         <S.TypingIntro>
           <div className="typewriter">
             <span>
-              안녕하세요. <strong>버스커 ㅁㄴㅇㄹㅁㅇㄴㄹㅁㄴㅇㄹ</strong>
+              안녕하세요. <strong>{props.data?.fetchArtist.active_name}</strong>
               입니다.
             </span>
             <span>
-              저의 버스킹 주제는 <strong>춤</strong> 입니다.
+              저의 버스킹 주제는
+              <strong>{props.data?.fetchArtist.category?.name}</strong> 입니다.
             </span>
           </div>
         </S.TypingIntro>
@@ -23,22 +24,7 @@ const ArtistDetailUI = (props: IArtistDetailProps) => {
       <Divider />
       <S.ArtistContents>
         <S.ArtistContentsLeft>
-          <S.ArtistIntro>
-            안녕하세요. 저는 어쩌구 저쩌구 블라블라 어쩌구 저쩌구 블라블라어쩌구
-            저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구
-            저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구
-            저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구
-            저쩌구 블라블라어쩌구 저쩌구 블라블라 어쩌구 저쩌구 블라블라 어쩌구
-            저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구
-            저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구
-            저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구
-            저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구 저쩌구 블라블라 어쩌구
-            저쩌구 블라블라 어쩌구 저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구
-            저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구
-            저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구
-            저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구
-            저쩌구 블라블라 왤케 말이 많을까요 저는 꺄륵쿠스투스!
-          </S.ArtistIntro>
+          <S.ArtistIntro>{props.data?.fetchArtist.description}</S.ArtistIntro>
           <Divider />
           {/* 팀 멤버가 존재한다면 start */}
           <S.CommonTitle>저희 멤버들을 소개할게요!</S.CommonTitle>
@@ -47,7 +33,9 @@ const ArtistDetailUI = (props: IArtistDetailProps) => {
               <S.Member key={index}>
                 <ImageBox width="50px" height="50px" src="" />
                 <S.MemberInfo>
-                  <span>멤버{index} 이름</span>
+                  <span>
+                    멤버{index} {props.data?.fetchArtist.member?.artist}
+                  </span>
                   <span>멤버{index} 역할</span>
                 </S.MemberInfo>
               </S.Member>

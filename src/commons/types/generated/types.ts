@@ -17,8 +17,8 @@ export type Scalars = {
 export type IArtist = {
   __typename?: 'Artist';
   active_name: Scalars['String'];
-  artist_image?: Maybe<IArtistImage>;
-  category?: Maybe<ICategory>;
+  artistImageURL: Scalars['String'];
+  category: ICategory;
   description: Scalars['String'];
   id: Scalars['String'];
   member?: Maybe<IMember>;
@@ -36,8 +36,6 @@ export type IArtistImage = {
 export type IBoardAddress = {
   __typename?: 'BoardAddress';
   address: Scalars['String'];
-  address_city: Scalars['String'];
-  address_district: Scalars['String'];
   id: Scalars['String'];
   lat: Scalars['Float'];
   lng: Scalars['Float'];
@@ -60,12 +58,12 @@ export type IBoards = {
   __typename?: 'Boards';
   artist: IArtist;
   boardAddress: IBoardAddress;
-  boardImages: Array<IBoardImages>;
+  boardImageURL: Array<Scalars['String']>;
   category: ICategory;
   comments: Array<IComments>;
   contents: Scalars['String'];
   createAt: Scalars['DateTime'];
-  end_time: Scalars['DateTime'];
+  end_time?: Maybe<Scalars['DateTime']>;
   id: Scalars['String'];
   isShowTime: Scalars['Boolean'];
   start_time: Scalars['DateTime'];
@@ -93,13 +91,9 @@ export type IComments = {
   user: IUser;
 };
 
-export type ICreateArtistImageInput = {
-  url: Scalars['String'];
-  userId: Scalars['String'];
-};
-
 export type ICreateArtistInput = {
   active_name: Scalars['String'];
+  artistImageURL?: InputMaybe<Scalars['String']>;
   category: Scalars['String'];
   description: Scalars['String'];
   promotion_url: Scalars['String'];
@@ -107,10 +101,12 @@ export type ICreateArtistInput = {
 
 export type ICreateBoardInput = {
   boardAddressInput: IBoardAddressInput;
-  category: Scalars['String'];
+  boardImageURL?: InputMaybe<Array<Scalars['String']>>;
+  categoryId: Scalars['String'];
   contents: Scalars['String'];
-  end_time?: InputMaybe<Scalars['String']>;
-  start_time?: InputMaybe<Scalars['String']>;
+  end_time?: InputMaybe<Scalars['DateTime']>;
+  start_time: Scalars['DateTime'];
+  title: Scalars['String'];
 };
 
 export type ICreateCommentInput = {
@@ -118,24 +114,16 @@ export type ICreateCommentInput = {
   content: Scalars['String'];
 };
 
-export type ICreateMemberImageInput = {
-  memberId: Scalars['String'];
-  url: Scalars['String'];
-};
-
 export type ICreateMemberInput = {
+  memberImageURL?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
   role: Scalars['String'];
-};
-
-export type ICreateUserImageInput = {
-  url: Scalars['String'];
-  userId: Scalars['String'];
 };
 
 export type ICreateUserInput = {
   email: Scalars['String'];
   password: Scalars['String'];
+  userImageURL?: InputMaybe<Scalars['String']>;
 };
 
 export type IDistrict = {
@@ -160,9 +148,9 @@ export type ILikeArtist = {
 
 export type IMember = {
   __typename?: 'Member';
-  artist: IArtist;
+  artist?: Maybe<IArtist>;
   id: Scalars['String'];
-  memberImage: IMemberImage;
+  memberImageURL: Scalars['String'];
 };
 
 export type IMemberImage = {
@@ -179,8 +167,8 @@ export type IMutation = {
   confirmVerificationEmail: Scalars['Boolean'];
   createArtist: IArtist;
   createArtistImage: IArtistImage;
-  createBoardImages: Array<IBoardImages>;
-  createBoards: IBoards;
+  createBoard: IBoards;
+  createBoardImages: IBoardImages;
   createCategory: ICategory;
   createCity: Scalars['String'];
   createComment: IComments;
@@ -192,7 +180,6 @@ export type IMutation = {
   deleteArtist: Scalars['Boolean'];
   deleteArtistImage: Scalars['Boolean'];
   deleteArtistLike: Scalars['Boolean'];
-  deleteBoard: Scalars['Boolean'];
   deleteBoardImages: Scalars['Boolean'];
   deleteComment: Scalars['Boolean'];
   deleteMember: Scalars['Boolean'];
@@ -208,8 +195,6 @@ export type IMutation = {
   restoreAccessToken: Scalars['String'];
   updateArtist: Scalars['Boolean'];
   updateArtistImage: IArtistImage;
-  updateBoard: IBoards;
-  updateBoardImages: Array<IBoardImages>;
   updateComment: IComments;
   updateMember: Scalars['Boolean'];
   updateMemberImage: IMemberImage;
@@ -237,18 +222,19 @@ export type IMutationCreateArtistArgs = {
 
 
 export type IMutationCreateArtistImageArgs = {
-  createArtistImageInput: ICreateArtistImageInput;
+  artistId: Scalars['String'];
+  url: Scalars['String'];
+};
+
+
+export type IMutationCreateBoardArgs = {
+  artistId: Scalars['String'];
+  createBoardInput: ICreateBoardInput;
 };
 
 
 export type IMutationCreateBoardImagesArgs = {
-  boardId: Scalars['String'];
-  urls: Array<Scalars['String']>;
-};
-
-
-export type IMutationCreateBoardsArgs = {
-  createBoardInput?: InputMaybe<ICreateBoardInput>;
+  url: Scalars['String'];
 };
 
 
@@ -269,7 +255,7 @@ export type IMutationCreateMemberArgs = {
 
 
 export type IMutationCreateMemberImageArgs = {
-  createMemberImageInput: ICreateMemberImageInput;
+  url: Scalars['String'];
 };
 
 
@@ -279,7 +265,8 @@ export type IMutationCreateUserArgs = {
 
 
 export type IMutationCreateUserImageArgs = {
-  createUserImageInput: ICreateUserImageInput;
+  url: Scalars['String'];
+  userId: Scalars['String'];
 };
 
 
@@ -290,11 +277,6 @@ export type IMutationDeleteArtistImageArgs = {
 
 export type IMutationDeleteArtistLikeArgs = {
   artistId: Scalars['String'];
-};
-
-
-export type IMutationDeleteBoardArgs = {
-  boardId: Scalars['String'];
 };
 
 
@@ -357,19 +339,8 @@ export type IMutationUpdateArtistArgs = {
 
 
 export type IMutationUpdateArtistImageArgs = {
-  updateArtistImageInput: IUpdateArtistImageInput;
-};
-
-
-export type IMutationUpdateBoardArgs = {
-  boardId: Scalars['String'];
-  updateBoardInput: IUpdateBoardInput;
-};
-
-
-export type IMutationUpdateBoardImagesArgs = {
-  boardId: Scalars['String'];
-  urls: Array<Scalars['String']>;
+  artistId: Scalars['String'];
+  url: Scalars['String'];
 };
 
 
@@ -414,42 +385,18 @@ export type IQuery = {
   districtList: Array<IDistrict>;
   fetchArtist: IArtist;
   fetchBoard: IBoards;
-  fetchBoardByAddress_city: Array<IBoards>;
-  fetchBoardByAddress_district: Array<IBoards>;
-  fetchBoardByCategory: Array<IBoards>;
   fetchBoards: Array<IBoards>;
   fetchCategories: Array<ICategory>;
   fetchCity: IFetchDistricts;
   fetchCitys: Array<ICity>;
   fetchComment: Array<IComments>;
   fetchMapBoards: Array<IBoards>;
-  fetchRecentBoards: Array<IBoards>;
   fetchUser: IUser;
 };
 
 
 export type IQueryFetchBoardArgs = {
   boardId: Scalars['String'];
-};
-
-
-export type IQueryFetchBoardByAddress_CityArgs = {
-  city: Scalars['String'];
-};
-
-
-export type IQueryFetchBoardByAddress_DistrictArgs = {
-  district: Scalars['String'];
-};
-
-
-export type IQueryFetchBoardByCategoryArgs = {
-  category: Scalars['String'];
-};
-
-
-export type IQueryFetchBoardsArgs = {
-  searchBoardInput?: InputMaybe<ISearchBoardInput>;
 };
 
 
@@ -469,35 +416,12 @@ export type IQueryFetchMapBoardsArgs = {
   lng: Scalars['Float'];
 };
 
-
-export type IQueryFetchRecentBoardsArgs = {
-  artistId: Scalars['String'];
-};
-
-export type ISearchBoardInput = {
-  category?: InputMaybe<Array<Scalars['String']>>;
-  district?: InputMaybe<Scalars['String']>;
-  page?: InputMaybe<Scalars['Int']>;
-};
-
-export type IUpdateArtistImageInput = {
-  url?: InputMaybe<Scalars['String']>;
-  userId?: InputMaybe<Scalars['String']>;
-};
-
 export type IUpdateArtistInput = {
   active_name?: InputMaybe<Scalars['String']>;
+  artistImageURL?: InputMaybe<Scalars['String']>;
   category?: InputMaybe<Scalars['String']>;
   description?: InputMaybe<Scalars['String']>;
   promotion_url?: InputMaybe<Scalars['String']>;
-};
-
-export type IUpdateBoardInput = {
-  boardAddressInput?: InputMaybe<IBoardAddressInput>;
-  category?: InputMaybe<Scalars['String']>;
-  contents?: InputMaybe<Scalars['String']>;
-  end_time?: InputMaybe<Scalars['String']>;
-  start_time?: InputMaybe<Scalars['String']>;
 };
 
 export type IUpdateMemberImageInput = {
@@ -506,6 +430,7 @@ export type IUpdateMemberImageInput = {
 };
 
 export type IUpdateMemberInput = {
+  memberImageURL?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
   role?: InputMaybe<Scalars['String']>;
 };
@@ -530,7 +455,7 @@ export type IUser = {
   id: Scalars['String'];
   liked_artist: Array<ILikeArtist>;
   nickname: Scalars['String'];
-  userImage?: Maybe<IUserImage>;
+  userImageURL: Scalars['String'];
   wrong_pass: Scalars['Int'];
 };
 

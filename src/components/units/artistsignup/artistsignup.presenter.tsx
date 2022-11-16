@@ -50,7 +50,7 @@ const ArtistSignupPageWriteUI = ({
                         <S.ImgBtn
                           style={{
                             backgroundImage: `url(https://storage.googleapis.com/${String(
-                              data?.fetchArtist.artist_image?.url
+                              data?.fetchArtist.artistImageURL
                             )})`,
                             backgroundColor: "#fff",
                             backgroundSize: "cover",
@@ -83,9 +83,7 @@ const ArtistSignupPageWriteUI = ({
                       <>
                         <S.ImgBtn
                           style={{
-                            backgroundImage: `url(https://storage.googleapis.com/${String(
-                              imgUrl
-                            )})`,
+                            backgroundImage: `url(https://storage.googleapis.com/${imgUrl})`,
                             backgroundColor: "#fff",
                             backgroundSize: "cover",
                           }}

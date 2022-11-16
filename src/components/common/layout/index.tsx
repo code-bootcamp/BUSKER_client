@@ -10,7 +10,7 @@ import {
   stylePrimaryColor,
 } from "../../../commons/styles/globalStyles";
 import { IQuery } from "../../../commons/types/generated/types";
-import { FETCH_USER } from "../../units/artistsignup/ArtistSignup.Quries";
+import { FETCH_USER } from "../../units/myPage/detail/MyPageDetail.queries";
 import Header from "./header";
 
 interface ILayoutProps {
