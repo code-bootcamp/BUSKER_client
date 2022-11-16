@@ -7,10 +7,7 @@ export const FETCH_ARTIST = gql`
       active_name
       description
       promotion_url
-      artist_image {
-        id
-        url
-      }
+      artistImageURL
       category {
         id
         name
