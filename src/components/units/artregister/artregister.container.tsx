@@ -19,7 +19,11 @@ import {
 import { CREATE_BOARD } from "./ArtRegister.Quries";
 import { useRouter } from "next/router";
 
-const ArtRegisterPageWrite = () => {
+interface IArtRegisterPageWriteProps {
+  isEdit?: boolean;
+}
+
+const ArtRegisterPageWrite = ({ isEdit }: IArtRegisterPageWriteProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [address, setAddress] = useState("");
   const [genre, setGenre] = useState("");

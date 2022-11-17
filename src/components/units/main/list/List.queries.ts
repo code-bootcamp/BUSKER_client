@@ -1,35 +1,31 @@
 import { gql } from "@apollo/client";
 
-export const FETCH_BOARDS = gql`
-  query fetchBoards($searchBoardInput: SearchBoardInput) {
-    fetchBoards(searchBoardInput: $searchBoardInput) {
+export const FETCH_BOARDS_BY_SEARCH = gql`
+  query {
+    fetchBoards {
       id
+      artist {
+        id
+        active_name
+      }
       title
       contents
       start_time
       end_time
       isShowTime
+      boardAddress {
+        id
+        lat
+        lng
+      }
+      boardImageURL {
+        id
+        url
+      }
       category {
         id
         name
       }
-      # artist {
-      #   id
-      # active_name
-      # artist_image {
-      #   id
-      #   url
-      # }
-      # }
-      boardAddress {
-        id
-        address
-        address_city
-        address_district
-        lat
-        lng
-      }
-      # boardImageURL
     }
   }
 `;
@@ -46,6 +42,15 @@ export const FETCH_CITY = gql`
 export const FETCH_CITYS = gql`
   query {
     fetchCitys {
+      id
+      name
+    }
+  }
+`;
+
+export const FETCH_CATEGORIES = gql`
+  query {
+    fetchCategories {
       id
       name
     }

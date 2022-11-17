@@ -9,8 +9,9 @@ import {
 import { FETCH_COMMENT } from "../list/CommentList.queries";
 import CommentUI from "./Comment.presenter";
 import { DELETE_COMMENT, UPDATE_COMMENT } from "./Comment.queries";
+import { ICommentProps } from "./Comment.types";
 
-const Comment = ({ data }: any) => {
+const Comment = ({ data }: ICommentProps) => {
   const router = useRouter();
   const [deleteComment] = useMutation<
     Pick<IMutation, "deleteComment">,
@@ -30,12 +31,11 @@ const Comment = ({ data }: any) => {
       try {
         await updateComment({
           variables: { content: comment, commentId: id },
-          refetchQueries: [
-            {
-              query: FETCH_COMMENT,
-              variables: { boardId: router.query.id },
-            },
-          ],
+          update(cache) {
+            cache.modify({
+              fields: () => {},
+            });
+          },
         });
       } catch (error) {
         if (error instanceof Error) alert(error.message);
@@ -53,6 +53,7 @@ const Comment = ({ data }: any) => {
           },
         ],
       });
+      alert("댓글이 삭제되었습니다.");
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }

@@ -10,6 +10,9 @@ export const Wrapper = styled.div`
   width: 100%;
   margin: 0 auto;
 
+  @media ${breakPoints.tablet} {
+    padding: 0 2rem;
+  }
   @media ${breakPoints.mobile} {
     padding: 0 1rem;
   }
@@ -33,26 +36,51 @@ export const Title = styled.span`
   }
 `;
 
-export const ContentBox = styled.div`
+export const TopDaesungSolGD = styled.div`
+  width: 100%;
   display: flex;
-  align-items: flex-start;
+  justify-content: center;
+  gap: 5%;
+
   @media ${breakPoints.mobile} {
     flex-direction: column;
   }
 `;
 
+export const ContentBox = styled.div`
+  width: 35%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  @media ${breakPoints.mobile} {
+    width: 100%;
+    flex-direction: row;
+    margin-top: 2rem;
+  }
+`;
+
 export const ArtistInfoBox = styled.div`
+  position: relative;
   min-width: 250px;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   gap: 20px;
-  padding-top: 30px;
+  @media ${breakPoints.tablet} {
+    gap: 5px;
+  }
+  @media ${breakPoints.mobile} {
+    flex-direction: column;
+    gap: 0px;
+  }
 `;
 
 export const ArtistName = styled.h2`
   font-size: 2rem;
   width: 120px;
+  text-align: center;
+  margin: 0;
 `;
 
 export const Contents = styled.p`
@@ -63,6 +91,10 @@ export const Contents = styled.p`
   background-color: #eee;
   border-radius: 1rem;
   word-break: keep-all;
+  overflow: auto;
+  @media ${breakPoints.mobile} {
+    margin: 0;
+  }
 `;
 
 export const Genre = styled.span`
@@ -82,4 +114,34 @@ export const Genre = styled.span`
 export const KakaoBox = styled.div`
   width: 100%;
   height: 400px;
+`;
+
+export const ControllBox = styled.div`
+  position: absolute;
+  right: 0;
+  top: -10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  * {
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  & > span:nth-of-type(1) {
+    :hover {
+      color: green;
+    }
+  }
+  & > span:nth-of-type(2) {
+    :hover {
+      color: red;
+    }
+  }
+
+  @media ${breakPoints.mobile} {
+    right: 20px;
+  }
 `;

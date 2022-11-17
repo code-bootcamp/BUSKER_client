@@ -17,9 +17,11 @@ const MyPageDetailUI = (props: IMyPageProps) => {
             <ImageBox
               width="72px"
               height="72px"
-              src={props.data?.userImage?.url ?? ""}
+              src={props.data?.fetchUser.userImageURL ?? ""}
             />
-            <S.UserName>{props.data?.nickname ?? "유저 이름"}</S.UserName>
+            <S.UserName>
+              {props.data?.fetchUser.nickname.slice(0, 8) ?? "유저 이름"}
+            </S.UserName>
           </S.UserInfo>
           <S.ButtonBox>
             <Button01 onClick={props.onClickTab} style={S.buttonStyle}>
@@ -36,7 +38,7 @@ const MyPageDetailUI = (props: IMyPageProps) => {
                 <ImageBox
                   width="72px"
                   height="72px"
-                  src={props.data?.userImage?.url ?? ""}
+                  src={props.data?.fetchUser.userImageURL ?? ""}
                 />
                 <Button01 type="file" onClick={props.onClickEditProfileImage}>
                   프로필 변경
@@ -49,7 +51,7 @@ const MyPageDetailUI = (props: IMyPageProps) => {
                 </Button01>
               </S.FormBox>
               <S.FormBox>
-                <span>{props.data?.email ?? "유저 이메일"}</span>
+                <span>{props.data?.fetchUser.email ?? "유저 이메일"}</span>
               </S.FormBox>
               <S.FormBox>
                 {props.isEditMode ? (
@@ -70,7 +72,10 @@ const MyPageDetailUI = (props: IMyPageProps) => {
                   </div>
                 ) : (
                   <>
-                    <span>{props.data?.nickname ?? "유저 이름"}</span>
+                    <span>
+                      {props.data?.fetchUser.nickname.slice(0, 8) ??
+                        "유저 이름"}
+                    </span>
                     <Button01 onClick={props.onToggleEditMode}>
                       닉네임 변경
                     </Button01>
@@ -84,11 +89,11 @@ const MyPageDetailUI = (props: IMyPageProps) => {
           ) : (
             <S.MyPickBox>
               <S.PickComment>
-                {props.data?.nickname ?? "아무개"}님이 <span>찜한</span>{" "}
-                아티스트들이에요!
+                {props.data?.fetchUser.nickname.slice(0, 8) ?? "아무개"}님이{" "}
+                <span>찜한</span> 아티스트들이에요!
               </S.PickComment>
               <S.PickedArtistBox>
-                {props.data?.liked_artist.map((artistsData) => (
+                {props.data?.fetchUser.liked_artist.map((artistsData) => (
                   <S.PickedArtistLi
                     onClick={props.onClickPickedArtist(artistsData.artist.id)}
                     key={artistsData.artist.id}
@@ -97,7 +102,7 @@ const MyPageDetailUI = (props: IMyPageProps) => {
                       <ImageBox
                         width="4rem"
                         height="4rem"
-                        src={artistsData.artist.artist_image?.url ?? ""}
+                        src={artistsData.artist.artistImageURL ?? ""}
                       />
                       <S.PickedArtistName>
                         {artistsData.artist.active_name}

@@ -15,7 +15,9 @@ const MainListUI = (props: IMainListProps) => {
           <Cascader
             options={props.locationOptions}
             onChange={props.handleChangeLocation}
+            loadData={props.loadData}
             placeholder="지역 검색"
+            changeOnSelect
             // onClick={props.loadDistricts}
           />
         </S.LocationOptionBox>
@@ -29,7 +31,6 @@ const MainListUI = (props: IMainListProps) => {
             options={props.options}
           />
         </S.GenreOptionBox>
-        {props.isArtist ? <button>버스킹 등록하기</button> : null}
       </S.OptionBox>
       <S.ListBox>
         <AnimatePresence>

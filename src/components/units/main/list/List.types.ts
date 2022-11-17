@@ -13,11 +13,13 @@ export interface IMainListProps {
   onClickListItem: (id: string) => () => void;
   onClickToMap: () => void;
   filteredLocation: string;
-  // loadDistricts: () => void;
+  onClickMoveToArtRegister: () => void;
 }
 
 export interface Option {
-  value: string | number;
+  value: string;
   label: string;
   children?: Option[];
+  loading?: boolean;
+  isLeaf?: boolean;
 }

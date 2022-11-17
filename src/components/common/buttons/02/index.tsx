@@ -7,7 +7,7 @@ interface IButtonProps {
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
   onSubmit?: () => void;
   disabled?: boolean;
-  children?: string;
+  children?: string | JSX.Element;
   style?: React.CSSProperties;
   fontSize?: number | string;
 }
