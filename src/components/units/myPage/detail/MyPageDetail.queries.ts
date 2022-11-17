@@ -7,8 +7,13 @@ export const FETCH_USER = gql`
       email
       nickname
       wrong_pass
-      liked_artist
-      authorities
+      liked_artist {
+        id
+        artist {
+          id
+          active_name
+        }
+      }
       userImageURL
     }
   }

@@ -1,3 +1,4 @@
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Divider } from "antd";
 import { useRecoilState } from "recoil";
 import { userPositionState } from "../../../commons/store";
@@ -13,45 +14,46 @@ const ArtDetailUI = (props: IArtDetailProps) => {
   const [userPosition] = useRecoilState(userPositionState);
   return (
     <S.Wrapper>
-      <S.Title>버스커가 보여주는 버스킹 장소를 구경해보세요!</S.Title>
-      <ImageCarousel />
-      <Divider />
-      <S.Title>버스킹 시작까지 ...</S.Title>
-      <S.Title>2022.11.18 20:30 ~ 2022.11.18 22:30</S.Title>
-      <Divider />
-      <div
+      <S.Title
         style={{
-          display: "flex",
-          justifyContent: "",
-          alignItems: "center",
+          textAlign: "center",
+          color: "#6600FF",
+          fontSize: "3.5rem",
+          fontWeight: "600",
         }}
       >
-        <S.Title>어떤 버스킹을 보여주실 건가요?</S.Title>
-        <S.Genre># 악기 연주</S.Genre>
-      </div>
-      <S.ContentBox>
-        <S.ArtistInfoBox>
-          <ImageBox src="" width="75px" height="75px"></ImageBox>
-          <S.ArtistName>아티스트 이름</S.ArtistName>
-        </S.ArtistInfoBox>
-        <S.Contents>
-          오늘은 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구
-          저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구
-          저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구
-          저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구
-          저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구
-          저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구
-          저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구
-          저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구
-          저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구
-          저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구
-          저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구
-          저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구
-          저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구
-          저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구
-          저쩌구
-        </S.Contents>
-      </S.ContentBox>
+        버스킹 정보
+      </S.Title>
+      <S.TopDaesungSolGD>
+        <ImageCarousel data={props.data?.fetchBoard.boardImageURL} />
+        <S.ContentBox>
+          <S.ArtistInfoBox>
+            <ImageBox src="" width="75px" height="75px"></ImageBox>
+            <S.ArtistName>
+              <div style={{ fontSize: "1.5rem", color: "#6600FF" }}>버스커</div>
+              {props.data?.fetchBoard.artist.active_name}
+            </S.ArtistName>
+            <S.Genre># {props.data?.fetchBoard.category.name}</S.Genre>
+            {props.isArtist && (
+              <S.ControllBox>
+                <EditOutlined onClick={props.onClickMoveToEdit} />
+                <DeleteOutlined onClick={props.onClickDelete} />
+              </S.ControllBox>
+            )}
+          </S.ArtistInfoBox>
+          <S.Contents>{props.data?.fetchBoard.contents}</S.Contents>
+        </S.ContentBox>
+      </S.TopDaesungSolGD>
+      <Divider />
+      <S.Title>
+        {`${props.date?.[0] ?? ""}부터
+          `}
+      </S.Title>
+      <S.Title>
+        {`${props.date?.[1] ?? ""}
+          까지
+          진행됩니다!`}
+      </S.Title>
       <Divider />
       <S.Title>
         이번에는 <span>이곳에서</span> 버스킹을 진행해요!
@@ -60,12 +62,12 @@ const ArtDetailUI = (props: IArtDetailProps) => {
         <KakaoMap
           position={userPosition}
           isMap={false}
-          address="서울 구로구 디지털로 300"
+          address={props.data?.fetchBoard.boardAddress.address ?? ""}
         />
       </S.KakaoBox>
       <Divider />
       <S.Title>
-        버스킹에 대한 <span>코멘트</span>를 남겨주세요!
+        버스킹에 대한 <span>후기</span>를 남겨주세요!
       </S.Title>
       <NewComment />
       <CommentList boardId={String(props.routerId)} />
