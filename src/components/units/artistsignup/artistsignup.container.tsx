@@ -89,12 +89,18 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
   };
 
   const onClickSignup = async (data: IFormData) => {
-    const result = await createArtist({
-      variables: {
-        createArtistInput: data,
-      },
-    });
-    await router.push(`/artistdetail/${String(result.data?.createArtist.id)}`);
+    try {
+      const result = await createArtist({
+        variables: {
+          createArtistInput: data,
+        },
+      });
+      await router.push(
+        `/artistdetail/${String(result.data?.createArtist.id)}`
+      );
+    } catch (error) {
+      alert(error);
+    }
   };
 
   const onClickEdit = async (data: IFormData) => {

@@ -19,17 +19,19 @@ export interface IArtRegisterPageWriteUI {
     value: DatePickerProps["value"] | RangePickerProps["value"],
     dateString: [string, string] | string
   ) => void;
-  // onChangeFile: any;
-  // imgUrl: string[];
+  onChangeFile: any;
+  imgUrl: string[];
   endTime: string;
   setValue: UseFormSetValue<IFormData>;
+  preview: string[];
 }
 
 export interface IFormData {
   contents: string;
-  genre: string;
+  category: string;
   start_time: string;
   end_time: string;
+  boardImageURL: string[];
   boardAddressInput: BoardAddressInput;
 }
 
