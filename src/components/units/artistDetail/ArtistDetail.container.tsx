@@ -6,6 +6,7 @@ import { FETCH_ARTIST } from "./ArtistDetail.queries";
 const ArtistDetail = () => {
   const { data: artistData } =
     useQuery<Pick<IQuery, "fetchArtist">>(FETCH_ARTIST);
+  console.log(artistData);
   return <ArtistDetailUI data={artistData} />;
 };
 

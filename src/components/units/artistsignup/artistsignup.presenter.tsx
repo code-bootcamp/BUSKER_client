@@ -49,7 +49,7 @@ const ArtistSignupPageWriteUI = ({
                       <>
                         <S.ImgBtn
                           style={{
-                            backgroundImage: `url(https://storage.googleapis.com/${String(
+                            backgroundImage: `url(${String(
                               data?.fetchArtist.artistImageURL
                             )})`,
                             backgroundColor: "#fff",
@@ -57,7 +57,6 @@ const ArtistSignupPageWriteUI = ({
                           }}
                           htmlFor={"file"}
                         >
-                          +
                           <S.FileInput
                             type="file"
                             id={"file"}
@@ -83,13 +82,12 @@ const ArtistSignupPageWriteUI = ({
                       <>
                         <S.ImgBtn
                           style={{
-                            backgroundImage: `url(https://storage.googleapis.com/${imgUrl})`,
+                            backgroundImage: `url(${imgUrl})`,
                             backgroundColor: "#fff",
                             backgroundSize: "cover",
                           }}
                           htmlFor={"file"}
                         >
-                          +
                           <S.FileInput
                             type="file"
                             id={"file"}

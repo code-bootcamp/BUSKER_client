@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SelectProps } from "antd";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import ArtRegisterPageWriteUI from "./artregister.presenter";
 import { ArtRegisterYup } from "./artregister.schema";
@@ -10,13 +10,10 @@ import { Address } from "react-daum-postcode";
 import { useMutation } from "@apollo/client";
 import {
   IMutation,
-  // IMutationCreateBoardImagesArgs,
   IMutationCreateBoardsArgs,
-  // IQuery,
-  // IQueryFetchArtistArgs,
-  // IMutationUploadFileArgs,
+  IMutationUploadFileArgs,
 } from "../../../commons/types/generated/types";
-import { CREATE_BOARD } from "./ArtRegister.Quries";
+import { CREATE_BOARDS, UPLOAD_FILE } from "./ArtRegister.Quries";
 import { useRouter } from "next/router";
 
 const ArtRegisterPageWrite = () => {
@@ -25,17 +22,18 @@ const ArtRegisterPageWrite = () => {
   const [genre, setGenre] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
-  // const [imgUrl, setImgUrl] = useState([]);
+  const [imgUrl, setImgUrl] = useState(["", "", ""]);
+  const [preview, setPreview] = useState(["", "", ""]);
 
   const [createBoards] = useMutation<
     Pick<IMutation, "createBoards">,
     IMutationCreateBoardsArgs
-  >(CREATE_BOARD);
+  >(CREATE_BOARDS);
 
-  // const [createBoardImages] = useMutation<
-  //   Pick<IMutation, "createBoardImages">,
-  //   IMutationCreateBoardImagesArgs
-  // >(CREATE_BOARD_IMAGES);
+  const [uploadFile] = useMutation<
+    Pick<IMutation, "uploadFile">,
+    IMutationUploadFileArgs
+  >(UPLOAD_FILE);
 
   // const { data: ArtistData } = useQuery<
   //   Pick<IQuery, "fetchArtist">,
@@ -73,12 +71,11 @@ const ArtRegisterPageWrite = () => {
     setValue("boardAddressInput.address", data.address);
   };
 
-  const NameArr = ["춤", "노래", "마술", "악기연주"];
+  const NameArr = ["춤", "노래", "랩"];
   const ValueArr = [
-    "43684efd-63f6-11ed-9601-42010a36c002",
-    "5a783215-63f6-11ed-9601-42010a36c002",
-    "5444244e-63f6-11ed-9601-42010a36c002",
-    "4048c94a-63f6-11ed-9601-42010a36c002",
+    "1dbc3953-2195-4f45-92c7-4d31d4bbd448",
+    "8bc06edc-0454-4098-9b53-c96b201ef01e",
+    "12e5e0d3-8b8c-448d-a5a9-1b058d29dbf8",
   ];
 
   const options: SelectProps["options"] = [];
@@ -92,18 +89,28 @@ const ArtRegisterPageWrite = () => {
 
   const handleChange = (value: any) => {
     setGenre(value);
-    setValue("genre", value);
+    setValue("category", value);
   };
 
-  // const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
-  //   const file = event.target.files?.[0];
-  //   const result = await createBoardImages({
-  //     variables: {
-  //       urls: [String(file)],
-  //     },
-  //   });
-  //   setImgUrl([result.data?.createBoardImages]);
-  // };
+  const onChangeFile =
+    (index: number) => async (event: ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = (event) => {
+        const newPreview = [...preview];
+        if (event.target === null) return;
+        newPreview[index] = String(event.target.result);
+        setPreview(newPreview);
+      };
+
+      const result = await uploadFile({ variables: { file } });
+      const newImgUrls = [...imgUrl];
+      newImgUrls[index] = String(result.data?.uploadFile);
+      setImgUrl(newImgUrls);
+      setValue("boardImageURL", imgUrl);
+    };
 
   const onClickRegister = async (data: IFormData) => {
     try {
@@ -111,7 +118,7 @@ const ArtRegisterPageWrite = () => {
         variables: {
           createBoardInput: {
             contents: data.contents,
-            category: data.genre,
+            category: data.category,
             start_time: data.start_time,
             end_time: data.end_time,
             boardAddressInput: {
@@ -147,10 +154,11 @@ const ArtRegisterPageWrite = () => {
       genre={genre}
       TimeChange={TimeChange}
       startTime={startTime}
-      // onChangeFile={onChangeFile}
-      // imgUrl={imgUrl}
+      onChangeFile={onChangeFile}
+      imgUrl={imgUrl}
       endTime={endTime}
       setValue={setValue}
+      preview={preview}
     />
   );
 };
