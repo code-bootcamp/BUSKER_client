@@ -9,10 +9,9 @@ export interface IMainListProps {
     | undefined;
   options: DefaultOptionType[] | undefined;
   filteredGenre: string[];
-  data?: Pick<IQuery, "fetchBoards">;
+  data?: Pick<IQuery, "fetchBoardsBySearch">;
   onClickListItem: (id: string) => () => void;
   onClickToMap: () => void;
-  filteredLocation: string;
   onClickMoveToArtRegister: () => void;
 }
 
@@ -20,6 +19,4 @@ export interface Option {
   value: string;
   label: string;
   children?: Option[];
-  loading?: boolean;
-  isLeaf?: boolean;
 }
