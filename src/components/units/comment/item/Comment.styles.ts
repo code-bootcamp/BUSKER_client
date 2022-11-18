@@ -14,11 +14,15 @@ export const UserBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 50px;
+  min-width: 100px;
 `;
 
 export const UserName = styled.span`
   font-size: 1.5rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
 `;
 
 export const ContentBox = styled.textarea`

@@ -9,15 +9,14 @@ export interface IMainListProps {
     | undefined;
   options: DefaultOptionType[] | undefined;
   filteredGenre: string[];
-  data?: Pick<IQuery, "fetchBoards">;
+  data?: Pick<IQuery, "fetchBoardsBySearch">;
   onClickListItem: (id: string) => () => void;
   onClickToMap: () => void;
-  filteredLocation: string;
-  // loadDistricts: () => void;
+  onClickMoveToArtRegister: () => void;
 }
 
 export interface Option {
-  value: string | number;
+  value: string;
   label: string;
   children?: Option[];
 }

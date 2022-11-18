@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import AOS from "aos";
 import { useRouter } from "next/router";
@@ -9,9 +9,16 @@ import {
   breakPoints,
   stylePrimaryColor,
 } from "../../../commons/styles/globalStyles";
-import { IQuery } from "../../../commons/types/generated/types";
+import { IMutation, IQuery } from "../../../commons/types/generated/types";
 import { FETCH_USER } from "../../units/myPage/detail/MyPageDetail.queries";
+
 import Header from "./header";
+
+const LOGOUT = gql`
+  mutation {
+    logout
+  }
+`;
 
 interface ILayoutProps {
   children: ReactNode;
@@ -21,7 +28,7 @@ const Layout = ({ children }: ILayoutProps) => {
   const router = useRouter();
   const { data } = useQuery<Pick<IQuery, "fetchUser">>(FETCH_USER);
   const [isOpen, setIsOpen] = useRecoilState(sidebarState);
-
+  const [logout] = useMutation<Pick<IMutation, "logout">>(LOGOUT);
   useEffect(() => {
     AOS.init();
   }, []);
@@ -31,13 +38,31 @@ const Layout = ({ children }: ILayoutProps) => {
     setIsOpen(false);
   };
 
+  const onClickLogout = async () => {
+    try {
+      await logout({
+        update(cache) {
+          cache.modify({
+            fields: () => {},
+          });
+        },
+      });
+      alert("로그아웃 되었습니다.");
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
+    }
+  };
+
   return (
     <>
       <Sidebar className={isOpen ? "open" : ""}>
-        {data ? <Greeting>회원님 어서오세요!</Greeting> : null}
+        {data ? (
+          <Greeting>{data.fetchUser.nickname}님 어서오세요!</Greeting>
+        ) : null}
         <MenuUl>
           <MenuLi onClick={onClickMove("/main/list")}>List</MenuLi>
           {data && <MenuLi onClick={onClickMove("/myPage")}>MyPage</MenuLi>}
+          {data && <MenuLi onClick={onClickLogout}>Logout</MenuLi>}
           {data ? null : <MenuLi onClick={onClickMove("/login")}>Login</MenuLi>}
           {data ? null : (
             <MenuLi onClick={onClickMove("/signup")}>SignUp</MenuLi>

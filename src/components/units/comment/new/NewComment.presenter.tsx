@@ -6,6 +6,7 @@ const NewCommentUI = (props: INewCommentProps) => {
   return (
     <S.Wrapper>
       <S.NewCommentInput
+        placeholder="후기는 100자 이내로 작성해주세요."
         minLength={1}
         maxLength={100}
         value={props.comment}

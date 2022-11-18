@@ -16,7 +16,6 @@ const MainListUI = (props: IMainListProps) => {
             options={props.locationOptions}
             onChange={props.handleChangeLocation}
             placeholder="지역 검색"
-            // onClick={props.loadDistricts}
           />
         </S.LocationOptionBox>
         <S.GenreOptionBox>
@@ -29,31 +28,16 @@ const MainListUI = (props: IMainListProps) => {
             options={props.options}
           />
         </S.GenreOptionBox>
-        {props.isArtist ? <button>버스킹 등록하기</button> : null}
       </S.OptionBox>
       <S.ListBox>
         <AnimatePresence>
-          {props.filteredGenre.length || props.filteredLocation
-            ? props.data?.fetchBoards
-                ?.filter(
-                  (board: IBoards) =>
-                    props.filteredGenre?.includes(board.category.name) ||
-                    board.boardAddress.address === props.filteredLocation
-                )
-                .map((board: IBoards) => (
-                  <ListItem
-                    key={board.id}
-                    board={board}
-                    onClickListItem={props.onClickListItem}
-                  />
-                ))
-            : props.data?.fetchBoards.map((board: IBoards) => (
-                <ListItem
-                  key={board.id}
-                  board={board}
-                  onClickListItem={props.onClickListItem}
-                />
-              ))}
+          {props.data?.fetchBoardsBySearch.map((board: IBoards) => (
+            <ListItem
+              key={board.id}
+              board={board}
+              onClickListItem={props.onClickListItem}
+            />
+          ))}
         </AnimatePresence>
       </S.ListBox>
       <Button01
