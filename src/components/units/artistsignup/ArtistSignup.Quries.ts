@@ -20,23 +20,39 @@ export const FETCH_ARTIST = gql`
         id
         name
       }
-      member {
-        id
-        artist
-        memverImageURL
-      }
     }
   }
 `;
 
 export const UPDATE_ARTIST = gql`
   mutation updateArtist($updateArtistInput: UpdateArtistInput!) {
-    updateArtist(updateArtistInput: $updateArtistInput)
+    updateArtist(updateArtistInput: $updateArtistInput) {
+      id
+    }
   }
 `;
-
 export const UPLOAD_FILE = gql`
   mutation uploadFile($file: Upload!) {
     uploadFile(file: $file)
+  }
+`;
+
+export const CREATE_MEMBER = gql`
+  mutation createMember(
+    $artistId: String!
+    $createMemberInput: CreateMemberInput!
+  ) {
+    createMember(artistId: $artistId, createMemberInput: $createMemberInput) {
+      id
+    }
+  }
+`;
+
+export const FECTH_CATEGORIES = gql`
+  query fetchCategories {
+    fetchCategories {
+      id
+      name
+    }
   }
 `;

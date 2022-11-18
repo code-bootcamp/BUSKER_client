@@ -4,7 +4,6 @@ import { IQuery } from "../../../commons/types/generated/types";
 
 export interface IArtistSignupPageWriteUI {
   handleChange: any;
-  genre: any;
   options: any;
   address: string;
   isOpen: boolean;
@@ -24,7 +23,8 @@ export interface IArtistSignupPageWriteUI {
   onCreateArtistImage: (event: ChangeEvent<HTMLInputElement>) => void;
   register: UseFormRegister<IFormData>;
   data: Pick<IQuery, "fetchArtist"> | undefined;
-  onClickEditArtistImage: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeMemberName: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeRole: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface IArtistSignupPageWrite {

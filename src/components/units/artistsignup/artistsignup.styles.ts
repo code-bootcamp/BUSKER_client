@@ -12,6 +12,7 @@ export const MainWrapper = styled.form`
   display: flex;
   justify-content: center;
   padding-top: 5rem;
+  padding-bottom: 100px;
 `;
 
 export const ContentsWrapper = styled.div`
