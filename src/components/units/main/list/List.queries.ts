@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const FETCH_BOARDS_BY_SEARCH = gql`
-  query {
-    fetchBoards {
+  query fetchBoardsBySearch($searchBoardInput: SearchBoardInput) {
+    fetchBoardsBySearch(searchBoardInput: $searchBoardInput) {
       id
       artist {
         id

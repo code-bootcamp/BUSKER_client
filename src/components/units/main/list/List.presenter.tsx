@@ -15,10 +15,7 @@ const MainListUI = (props: IMainListProps) => {
           <Cascader
             options={props.locationOptions}
             onChange={props.handleChangeLocation}
-            loadData={props.loadData}
             placeholder="지역 검색"
-            changeOnSelect
-            // onClick={props.loadDistricts}
           />
         </S.LocationOptionBox>
         <S.GenreOptionBox>
@@ -34,27 +31,13 @@ const MainListUI = (props: IMainListProps) => {
       </S.OptionBox>
       <S.ListBox>
         <AnimatePresence>
-          {props.filteredGenre.length || props.filteredLocation
-            ? props.data?.fetchBoards
-                ?.filter(
-                  (board: IBoards) =>
-                    props.filteredGenre?.includes(board.category.name) ||
-                    board.boardAddress.address === props.filteredLocation
-                )
-                .map((board: IBoards) => (
-                  <ListItem
-                    key={board.id}
-                    board={board}
-                    onClickListItem={props.onClickListItem}
-                  />
-                ))
-            : props.data?.fetchBoards.map((board: IBoards) => (
-                <ListItem
-                  key={board.id}
-                  board={board}
-                  onClickListItem={props.onClickListItem}
-                />
-              ))}
+          {props.data?.fetchBoardsBySearch.map((board: IBoards) => (
+            <ListItem
+              key={board.id}
+              board={board}
+              onClickListItem={props.onClickListItem}
+            />
+          ))}
         </AnimatePresence>
       </S.ListBox>
       <Button01
