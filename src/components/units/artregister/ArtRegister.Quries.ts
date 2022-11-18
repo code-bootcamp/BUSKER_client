@@ -21,3 +21,12 @@ export const UPLOAD_FILE = gql`
     uploadFile(file: $file)
   }
 `;
+
+export const FECTH_CATEGORIES = gql`
+  query fetchCategories {
+    fetchCategories {
+      id
+      name
+    }
+  }
+`;
