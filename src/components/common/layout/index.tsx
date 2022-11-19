@@ -100,7 +100,9 @@ export const HomeWrapper = styled.div`
 `;
 
 export const Greeting = styled.div`
-  padding-top: 40px;
+  width: 100%;
+
+  padding-top: 80px;
   padding-left: 50px;
   font-size: 2rem;
   color: white;

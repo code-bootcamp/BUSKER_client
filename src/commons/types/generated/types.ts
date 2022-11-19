@@ -313,6 +313,7 @@ export type IQuery = {
   __typename?: 'Query';
   districtList: Array<IDistrict>;
   fetchArtist: IArtist;
+  fetchArtistWithoutAuth: IArtist;
   fetchBoard: IBoards;
   fetchBoards: Array<IBoards>;
   fetchBoardsBySearch: Array<IBoards>;
@@ -324,6 +325,11 @@ export type IQuery = {
   fetchMembers: Array<IMember>;
   fetchRecentBoards: Array<IBoards>;
   fetchUser: IUser;
+};
+
+
+export type IQueryFetchArtistWithoutAuthArgs = {
+  artistId: Scalars['String'];
 };
 
 

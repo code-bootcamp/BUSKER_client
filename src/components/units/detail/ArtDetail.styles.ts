@@ -81,6 +81,7 @@ export const ArtistName = styled.h2`
   width: 120px;
   text-align: center;
   margin: 0;
+  cursor: pointer;
 `;
 
 export const Contents = styled.p`

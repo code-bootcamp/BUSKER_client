@@ -15,6 +15,7 @@ export const FETCH_BOARDS_BY_SEARCH = gql`
       isShowTime
       boardAddress {
         id
+        address
         lat
         lng
       }

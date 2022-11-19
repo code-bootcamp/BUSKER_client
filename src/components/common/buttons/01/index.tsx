@@ -10,11 +10,12 @@ interface IButtonProps {
   children?: string | [string, JSX.Element];
   style?: React.CSSProperties;
   fontSize?: number | string;
+  id?: string;
 }
 
 const Button01 = (props: IButtonProps) => {
   return (
-    <ButtonStyle style={props.style} onClick={props.onClick}>
+    <ButtonStyle id={props.id} style={props.style} onClick={props.onClick}>
       <>{props.children}</>
     </ButtonStyle>
   );

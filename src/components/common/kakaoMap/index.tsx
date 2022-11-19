@@ -121,7 +121,7 @@ const KakaoMap = ({
                     <div className="wrap">
                       <div className="info">
                         <div className="title">
-                          아티스트 이름
+                          {board.artist.active_name}
                           <div
                             className="close"
                             onClick={onClickMarker(i)}
@@ -135,7 +135,9 @@ const KakaoMap = ({
                             <ImageBox width="75px" height="75px" src="" />
                           </div>
                           <div className="desc">
-                            <div className="ellipsis"># 악기 연주</div>
+                            <div className="ellipsis">
+                              # {board.category.name}
+                            </div>
                             <div className="jibun ellipsis">
                               시작: {startAt}
                             </div>
@@ -143,7 +145,7 @@ const KakaoMap = ({
                             <span
                               className="link"
                               title=""
-                              onClick={onClickMoveToArtDetail("123")}
+                              onClick={onClickMoveToArtDetail(board.id)}
                             >
                               버스킹 정보 보러가기
                             </span>

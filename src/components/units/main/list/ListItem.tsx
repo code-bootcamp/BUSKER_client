@@ -21,13 +21,20 @@ const ListItem = ({ board, onClickListItem }: IListItemProps) => {
       <Wrapper>
         <ImageBox>
           <Image
-            src={`https://storage.googleapis.com/busker-storage/${
-              board?.boardImageURL[0]?.url ?? ""
-            }`}
+            src={`https://storage.googleapis.com/busker-storage/${board?.boardImageURL[0]}`}
           />
         </ImageBox>
         <ContentBox>
-          <span>{board?.artist.active_name}</span>
+          {/* <span style={{ minWidth: "70px" }}>{board?.artist.active_name}</span> */}
+          <span
+            style={{
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            {board?.boardAddress.address}
+          </span>
           <span>{board?.category.name}</span>
         </ContentBox>
       </Wrapper>
@@ -41,6 +48,7 @@ const Wrapper = styled.div`
   max-width: 355px;
   width: 100%;
   aspect-ratio: 1 / 1.2;
+  margin: 0 auto;
 `;
 
 const ImageBox = styled.div`
@@ -60,6 +68,7 @@ const ContentBox = styled.div`
   padding: 1rem 2rem;
   padding-top: 1.5rem;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
 

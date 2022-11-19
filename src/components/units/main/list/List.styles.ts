@@ -38,12 +38,15 @@ export const LocationOptionBox = styled.div``;
 export const GenreOptionBox = styled.div``;
 
 export const ListBox = styled.ul`
+  height: 100%;
+  & > div {
+    display: grid;
+    grid-auto-flow: row dense;
+    grid-auto-rows: minmax(min-content, max-content);
+    gap: 3%;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    padding: 0 30px;
+    padding-top: 2rem;
+  }
   list-style: none;
-  display: grid;
-  grid-auto-flow: row dense;
-  grid-auto-rows: minmax(min-content, max-content);
-  gap: 10px;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  padding: 0 30px;
-  padding-top: 2rem;
 `;

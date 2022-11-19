@@ -6,7 +6,7 @@ export interface IMyPageProps {
   onClickEditPassword: () => void;
   onClickEditName: () => void;
   onClickEditProfileImage: () => void;
-  onClickTab: () => void;
+  onClickTab: (event: MouseEvent<HTMLButtonElement>) => void;
   isEdit: boolean;
   data?: Pick<IQuery, "fetchUser">;
   onClickPickedArtist: (

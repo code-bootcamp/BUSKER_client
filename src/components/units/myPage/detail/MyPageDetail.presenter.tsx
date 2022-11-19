@@ -24,14 +24,27 @@ const MyPageDetailUI = (props: IMyPageProps) => {
             </S.UserName>
           </S.UserInfo>
           <S.ButtonBox>
-            <Button01 onClick={props.onClickTab} style={S.buttonStyle}>
+            <Button01
+              id="pick"
+              onClick={props.onClickTab}
+              style={{
+                border: "none",
+              }}
+            >
               내가 찜한 아티스트 보기
             </Button01>
-            <Button01 onClick={props.onClickTab} style={S.buttonStyle}>
+            <div
+              style={{ width: "1px", height: "18px", backgroundColor: "#ddd" }}
+            ></div>
+            <Button01
+              id="info"
+              onClick={props.onClickTab}
+              style={{ border: "none" }}
+            >
               내 정보 수정하기
             </Button01>
           </S.ButtonBox>
-          <Divider style={{ marginTop: "0", backgroundColor: "#9900FF" }} />
+          <Divider style={{ marginTop: "5px" }} />
           {props.isEdit ? (
             <S.MyDetailEditBox>
               <S.FormBox>
