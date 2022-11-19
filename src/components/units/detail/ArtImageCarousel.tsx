@@ -26,6 +26,7 @@ const ImageCarousel = (props: ICarouselProps) => {
           ? props.data?.map((url, i) => (
               <ImageBox key={i}>
                 <StyledImage
+                  // eslint-disable-next-line @typescript-eslint/no-base-to-string, @typescript-eslint/restrict-template-expressions
                   src={`https://storage.googleapis.com/busker-shop/${url}`}
                 />
               </ImageBox>

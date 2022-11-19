@@ -10,9 +10,12 @@ import {
   ARTIST_LIKE_TOGGLE,
   FETCH_ARTIST_WITHOUT_AUTH,
 } from "./ArtistDetail.queries";
-import { IArtistDetailProps } from "./ArtistDetail.types";
 
-const ArtistDetail = ({ artistId }: IArtistDetailProps) => {
+interface IArtistProps {
+  artistId?: string;
+}
+
+const ArtistDetail = ({ artistId }: IArtistProps) => {
   const { data } = useQuery<
     Pick<IQuery, "fetchArtistWithoutAuth">,
     IQueryFetchArtistWithoutAuthArgs
