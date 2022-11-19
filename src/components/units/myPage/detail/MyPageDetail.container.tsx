@@ -21,7 +21,7 @@ const MyPageDetail = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [nickname, setNickname] = useState("");
   const { data } = useQuery<Pick<IQuery, "fetchUser">>(FETCH_USER);
-
+  console.log(data);
   const [artistLikeToggle] = useMutation<
     Pick<IMutation, "artistLikeToggle">,
     IMutationArtistLikeToggleArgs

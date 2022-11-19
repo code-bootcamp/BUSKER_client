@@ -14,12 +14,9 @@ import {
   IMutationUploadFileArgs,
   IQuery,
 } from "../../../commons/types/generated/types";
-import {
-  CREATE_BOARDS,
-  FECTH_CATEGORIES,
-  UPLOAD_FILE,
-} from "./ArtRegister.Quries";
+import { CREATE_BOARDS, UPLOAD_FILE } from "./ArtRegister.Quries";
 import { useRouter } from "next/router";
+import { FETCH_CATEGORIES } from "../main/list/List.queries";
 
 interface IArtRegisterPageWriteProps {
   isEdit?: boolean;
@@ -45,7 +42,7 @@ const ArtRegisterPageWrite = ({ isEdit }: IArtRegisterPageWriteProps) => {
   >(UPLOAD_FILE);
 
   const { data: CategoryData } =
-    useQuery<Pick<IQuery, "fetchCategories">>(FECTH_CATEGORIES);
+    useQuery<Pick<IQuery, "fetchCategories">>(FETCH_CATEGORIES);
 
   const router = useRouter();
 

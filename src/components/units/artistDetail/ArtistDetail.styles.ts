@@ -52,7 +52,8 @@ export const TypingIntro = styled.div`
   }
 
   .typewriter span:nth-of-type(1) {
-    width: 100%;
+    width: fit-content;
+    margin: 0;
     animation: typing1 3.5s steps(30, end),
       blink-caret 0.5s step-end infinite alternate;
     animation-fill-mode: forwards;
@@ -60,7 +61,7 @@ export const TypingIntro = styled.div`
 
   .typewriter span:nth-of-type(2) {
     opacity: 0;
-    width: 340px;
+    width: fit-content;
     animation: typing2 3.5s steps(30, end),
       blink-caret 0.5s step-end infinite alternate;
     animation-delay: 3.5s;
@@ -80,6 +81,7 @@ export const TypingIntro = styled.div`
     }
     99% {
       border-right: 0.15rem solid ${styleSecondColor};
+      width: 100%;
     }
     100% {
       border: none;
@@ -94,7 +96,7 @@ export const TypingIntro = styled.div`
 
     to {
       opacity: 1;
-      width: 340px;
+      width: 100%;
     }
   }
 

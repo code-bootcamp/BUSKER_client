@@ -12,13 +12,17 @@ const ArtistDetailUI = (props: IArtistDetailProps) => {
           <div className="typewriter">
             <span>
               안녕하세요.{" "}
-              <strong>{props.data?.fetchArtistWithoutAuth.active_name}</strong>
+              <strong>
+                {props.data?.fetchArtistWithoutAuth.active_name ??
+                  "아무개ㅁㄴ이럼ㄴ이;ㅏ러"}
+              </strong>
               입니다.
             </span>
             <span>
-              저의 버스킹 주제는
+              저의 버스킹 주제는{" "}
               <strong>
-                {props.data?.fetchArtistWithoutAuth.category?.name}
+                {props.data?.fetchArtistWithoutAuth.category?.name ??
+                  "악기 연주"}
               </strong>{" "}
               입니다.
             </span>

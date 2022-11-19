@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from "@apollo/client";
+import { Modal } from "antd";
 import {
   IMutation,
   IMutationArtistLikeToggleArgs,
@@ -26,12 +27,14 @@ const ArtistDetail = ({ artistId }: IArtistProps) => {
     IMutationArtistLikeToggleArgs
   >(ARTIST_LIKE_TOGGLE);
 
+  // const {data: memberData} = useQuery<>();
+
   const onClickLikeArtist = async () => {
     try {
-      await artistLikeToggle({
+      const result = await artistLikeToggle({
         variables: {
           artistId: artistId ?? "",
-          status: true,
+          status: false,
         },
         update(cache) {
           cache.modify({
@@ -39,6 +42,8 @@ const ArtistDetail = ({ artistId }: IArtistProps) => {
           });
         },
       });
+      console.log(result);
+      Modal.success({ content: "이 버스커를 찜했습니다." });
     } catch (error) {
       if (error instanceof Error) alert(error);
     }

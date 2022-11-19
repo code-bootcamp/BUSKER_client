@@ -1,5 +1,5 @@
 import MainListUI from "./List.presenter";
-import type { SelectProps } from "antd";
+import { Modal, SelectProps } from "antd";
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import {
@@ -9,6 +9,8 @@ import {
 import { FETCH_BOARDS_BY_SEARCH } from "./List.queries";
 import DistrcitData from "./DistrictData";
 import { useState } from "react";
+import { FETCH_ARTIST } from "../../detail/ArtDetail.queries";
+import { FETCH_USER } from "../../myPage/detail/MyPageDetail.queries";
 
 const MainList = () => {
   const router = useRouter();
@@ -22,9 +24,9 @@ const MainList = () => {
     IQueryFetchBoardsBySearchArgs
   >(FETCH_BOARDS_BY_SEARCH);
 
-  // const { data: genres } =
-  // useQuery<Pick<IQuery, "fetchCategories">>(FETCH_CATEGORIES);
-
+  const { data: isArtist } =
+    useQuery<Pick<IQuery, "fetchArtist">>(FETCH_ARTIST);
+  const { data: isUser } = useQuery<Pick<IQuery, "fetchUser">>(FETCH_USER);
   const genreOptions: SelectProps["options"] = [
     {
       value: "55e17492-ff90-4dc7-b765-93e032a27e3c",
@@ -88,7 +90,32 @@ const MainList = () => {
   };
 
   const onClickMoveToArtRegister = async () => {
-    await router.push("/artregister");
+    if (isArtist) {
+      await router.push("/artregister");
+    } else if (isUser) {
+      Modal.confirm({
+        content: (
+          <div style={{ width: "100%", textAlign: "center" }}>
+            <span style={{ textAlign: "center" }}>
+              버스커로 등록 후 이용 가능합니다.
+            </span>
+            <br />
+            <span style={{ textAlign: "center" }}>
+              버스커로 등록하시겠습니까?
+            </span>
+          </div>
+        ),
+        onOk: () => {
+          router.push("/artistsignup");
+        },
+      });
+    } else {
+      Modal.warning({
+        bodyStyle: { fontSize: "1.5rem" },
+        content: "로그인 후에 이용하실 수 있습니다.",
+      });
+      await router.push("/login");
+    }
   };
 
   const loadMore = async () => {
