@@ -7,16 +7,22 @@ import { ArtRegisterYup } from "./artregister.schema";
 import type { DatePickerProps, RangePickerProps } from "antd/es/date-picker";
 import { IFormData } from "./artregister.types";
 import { Address } from "react-daum-postcode";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import {
   IMutation,
   IMutationCreateBoardsArgs,
   IMutationUploadFileArgs,
+  IQuery,
 } from "../../../commons/types/generated/types";
 import { CREATE_BOARDS, UPLOAD_FILE } from "./ArtRegister.Quries";
 import { useRouter } from "next/router";
+import { FETCH_CATEGORIES } from "../main/list/List.queries";
 
-const ArtRegisterPageWrite = () => {
+interface IArtRegisterPageWriteProps {
+  isEdit?: boolean;
+}
+
+const ArtRegisterPageWrite = ({ isEdit }: IArtRegisterPageWriteProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [address, setAddress] = useState("");
   const [genre, setGenre] = useState("");
@@ -35,10 +41,8 @@ const ArtRegisterPageWrite = () => {
     IMutationUploadFileArgs
   >(UPLOAD_FILE);
 
-  // const { data: ArtistData } = useQuery<
-  //   Pick<IQuery, "fetchArtist">,
-  //   IQueryFetchArtistArgs
-  // >(FETCH_ARTIST);
+  const { data: CategoryData } =
+    useQuery<Pick<IQuery, "fetchCategories">>(FETCH_CATEGORIES);
 
   const router = useRouter();
 
@@ -71,19 +75,12 @@ const ArtRegisterPageWrite = () => {
     setValue("boardAddressInput.address", data.address);
   };
 
-  const NameArr = ["춤", "노래", "랩"];
-  const ValueArr = [
-    "1dbc3953-2195-4f45-92c7-4d31d4bbd448",
-    "8bc06edc-0454-4098-9b53-c96b201ef01e",
-    "12e5e0d3-8b8c-448d-a5a9-1b058d29dbf8",
-  ];
-
   const options: SelectProps["options"] = [];
 
-  for (let i = 0; i < ValueArr.length; i++) {
+  for (let i = 0; i < Number(CategoryData?.fetchCategories.length); i++) {
     options.push({
-      value: ValueArr[i],
-      label: NameArr[i],
+      value: CategoryData?.fetchCategories[i].id,
+      label: CategoryData?.fetchCategories[i].name,
     });
   }
 

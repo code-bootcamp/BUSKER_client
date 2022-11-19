@@ -4,8 +4,13 @@ import {
   breakPoints,
   stylePrimaryColor,
 } from "../../../commons/styles/globalStyles";
+import { IBoardImages } from "../../../commons/types/generated/types";
 
-const ImageCarousel = () => {
+interface ICarouselProps {
+  data?: IBoardImages[];
+}
+
+const ImageCarousel = (props: ICarouselProps) => {
   const settings = {
     className: "center",
     centerMode: true,
@@ -17,11 +22,20 @@ const ImageCarousel = () => {
   return (
     <SlideWrapper>
       <StyledSlider {...settings}>
-        {new Array(3).fill(1).map((_, i) => (
-          <ImageBox key={i}>
-            <StyledImage src="" />
-          </ImageBox>
-        ))}
+        {props.data?.length
+          ? props.data?.map((url, i) => (
+              <ImageBox key={i}>
+                <StyledImage
+                  // eslint-disable-next-line @typescript-eslint/no-base-to-string, @typescript-eslint/restrict-template-expressions
+                  src={`https://storage.googleapis.com/busker-shop/${url}`}
+                />
+              </ImageBox>
+            ))
+          : new Array(3).fill(1).map((_, i) => (
+              <ImageBox key={i}>
+                <StyledImage src="" />
+              </ImageBox>
+            ))}
       </StyledSlider>
     </SlideWrapper>
   );
@@ -29,7 +43,14 @@ const ImageCarousel = () => {
 
 export default ImageCarousel;
 
-const SlideWrapper = styled.div``;
+const SlideWrapper = styled.div`
+  width: 60%;
+  @media ${breakPoints.mobile} {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+  }
+`;
 
 const StyledImage = styled.img`
   width: 100%;

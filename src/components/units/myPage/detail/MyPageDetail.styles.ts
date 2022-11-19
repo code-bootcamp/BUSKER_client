@@ -5,11 +5,6 @@ import {
   stylePrimaryColor,
 } from "../../../../commons/styles/globalStyles";
 
-export const buttonStyle = {
-  borderBottom: "none",
-  borderRadius: "0px",
-};
-
 export const Wrapper = styled.div`
   @media ${breakPoints.desktop} {
     padding: 0 80px;
@@ -73,6 +68,7 @@ export const UserName = styled.span`
 export const ButtonBox = styled.div`
   display: flex;
   padding-top: 2.5rem;
+  align-items: center;
 `;
 
 export const MyPickBox = styled.div``;

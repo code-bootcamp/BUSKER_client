@@ -16,15 +16,17 @@ const LoginPageWriteUI = ({
         <S.MainWrapper>
           <S.LoginMainWrapper onSubmit={handleSubmit(onClickLogin)}>
             <S.LoginTopWrapper>
-              <S.LogoStyle>BUSKER</S.LogoStyle>
+              <S.LogoStyle>로그인</S.LogoStyle>
               <S.LoginInputWrapper>
                 <Input01
+                  style={{ textAlign: "center" }}
                   type="text"
                   placeholder="이메일을 입력해 주세요"
                   register={register("email")}
                 />
                 <S.ErrorStyle>{formState.errors.email?.message}</S.ErrorStyle>
                 <Input01
+                  style={{ textAlign: "center" }}
                   type="password"
                   placeholder="비밀번호를 입력해 주세요"
                   register={register("password")}
@@ -32,7 +34,7 @@ const LoginPageWriteUI = ({
                 <S.ErrorStyle>
                   {formState.errors.password?.message}
                 </S.ErrorStyle>
-                <S.LoginBtnStyle>Login</S.LoginBtnStyle>
+                <S.LoginBtnStyle>로그인</S.LoginBtnStyle>
               </S.LoginInputWrapper>
               <S.LoginOptionWrapper>
                 <S.LoginOptionStyle onClick={onClickRestorePassword}>

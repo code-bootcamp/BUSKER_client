@@ -21,11 +21,11 @@ const ArtistSignupPageWriteUI = ({
   address,
   handleChange,
   options,
-  genre,
   onCreateArtistImage,
   imgUrl,
   data,
-  onClickEditArtistImage,
+  onChangeMemberName,
+  onChangeRole,
 }: IArtistSignupPageWriteUI) => {
   return (
     <>
@@ -45,12 +45,12 @@ const ArtistSignupPageWriteUI = ({
               <S.ArtistProfileWrapper>
                 {isEdit ? (
                   <>
-                    {imgUrl ? (
+                    {data?.fetchArtist.artistImageURL ? (
                       <>
                         <S.ImgBtn
                           style={{
-                            backgroundImage: `url(${String(
-                              data?.fetchArtist.artistImageURL
+                            backgroundImage: `url(https://storage.googleapis.com/busker-storage/${String(
+                              data?.fetchArtist.artistImageURL ?? ""
                             )})`,
                             backgroundColor: "#fff",
                             backgroundSize: "cover",
@@ -60,7 +60,7 @@ const ArtistSignupPageWriteUI = ({
                           <S.FileInput
                             type="file"
                             id={"file"}
-                            onChange={onClickEditArtistImage}
+                            onChange={onCreateArtistImage}
                           />
                         </S.ImgBtn>
                       </>
@@ -69,7 +69,7 @@ const ArtistSignupPageWriteUI = ({
                         <S.ImgBtn>
                           +
                           <S.FileInput
-                            onChange={onClickEditArtistImage}
+                            onChange={onCreateArtistImage}
                             type="file"
                           />
                         </S.ImgBtn>
@@ -110,11 +110,7 @@ const ArtistSignupPageWriteUI = ({
                 )}
 
                 <S.TextStyle>아티스트 이름(팀명)</S.TextStyle>
-                <Input01
-                  type="text"
-                  register={register("active_name")}
-                  defaultValue={data?.fetchArtist.active_name}
-                />
+                <Input01 type="text" register={register("active_name")} />
                 <S.ErrorMsg>{formState.errors.active_name?.message}</S.ErrorMsg>
               </S.ArtistProfileWrapper>
               <S.PlaceGenreWrapper>
@@ -146,7 +142,6 @@ const ArtistSignupPageWriteUI = ({
                   type="text"
                   placeholder="소개글을 적어주세요"
                   register={register("description")}
-                  defaultValue={data?.fetchArtist.description}
                 />
                 <S.ErrorMsg>{formState.errors.description?.message}</S.ErrorMsg>
               </S.RemarksInputWrapper>
@@ -156,7 +151,6 @@ const ArtistSignupPageWriteUI = ({
                   type="text"
                   placeholder="SNS링크 또는 유튜브 URL을 올려주세요"
                   register={register("promotion_url")}
-                  defaultValue={data?.fetchArtist.promotion_url}
                 />
               </S.RemarksInputWrapper>
             </S.RemarksLinkWrapper>
@@ -172,13 +166,44 @@ const ArtistSignupPageWriteUI = ({
                     ? new Array(addCount).fill(addCount).map((item) => {
                         return (
                           <>
-                            <S.AddTeamInputWrapper>
-                              <S.MemberImgBtn>
-                                +
-                                <S.FileInput type="file" />
-                              </S.MemberImgBtn>
-                              <Input01 type="text" placeholder="이름" />
-                              <Input01 type="text" placeholder="역할" />
+                            <S.AddTeamInputWrapper key={item}>
+                              {imgUrl ? (
+                                <>
+                                  <S.MemberImgBtn
+                                    style={{
+                                      backgroundImage: `url(${imgUrl})`,
+                                      backgroundColor: "#fff",
+                                      backgroundSize: "cover",
+                                    }}
+                                  >
+                                    <S.FileInput
+                                      type="file"
+                                      onChange={onCreateArtistImage}
+                                    />
+                                  </S.MemberImgBtn>
+                                </>
+                              ) : (
+                                <>
+                                  <S.MemberImgBtn>
+                                    +
+                                    <S.FileInput
+                                      type="file"
+                                      onChange={onCreateArtistImage}
+                                    />
+                                  </S.MemberImgBtn>
+                                </>
+                              )}
+
+                              <Input01
+                                type="text"
+                                placeholder="이름"
+                                onChange={onChangeMemberName}
+                              />
+                              <Input01
+                                type="text"
+                                placeholder="역할"
+                                onChange={onChangeRole}
+                              />
                               <S.AddBtn type="button" onClick={onClickAddTeam}>
                                 +
                               </S.AddBtn>
@@ -192,8 +217,8 @@ const ArtistSignupPageWriteUI = ({
                 ""
               )}
             </S.AddTeamWrapper>
-            <S.SubmitBtn>{isEdit ? "수정하기" : "등록하기"}</S.SubmitBtn>
           </S.ContentsBottomWrapper>
+          <S.SubmitBtn>{isEdit ? "수정하기" : "등록하기"}</S.SubmitBtn>
         </S.ContentsWrapper>
       </S.MainWrapper>
     </>
