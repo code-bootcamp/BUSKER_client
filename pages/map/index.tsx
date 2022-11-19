@@ -14,7 +14,7 @@ import {
 } from "../../src/commons/types/generated/types";
 import Button01 from "../../src/components/common/buttons/01";
 import KakaoMap from "../../src/components/common/kakaoMap";
-import { FETCH_MAP_BOARDS } from "./Map.queries";
+import { FETCH_MAP_BOARDS } from "../../src/commons/map/Map.queries";
 
 export default function KaKaoMapPage() {
   const router = useRouter();

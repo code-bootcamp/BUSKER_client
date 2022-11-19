@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from "@apollo/client";
+import { Modal } from "antd";
 import {
   IMutation,
   IMutationArtistLikeToggleArgs,
@@ -10,9 +11,12 @@ import {
   ARTIST_LIKE_TOGGLE,
   FETCH_ARTIST_WITHOUT_AUTH,
 } from "./ArtistDetail.queries";
-import { IArtistDetailProps } from "./ArtistDetail.types";
 
-const ArtistDetail = ({ artistId }: IArtistDetailProps) => {
+interface IArtistProps {
+  artistId?: string;
+}
+
+const ArtistDetail = ({ artistId }: IArtistProps) => {
   const { data } = useQuery<
     Pick<IQuery, "fetchArtistWithoutAuth">,
     IQueryFetchArtistWithoutAuthArgs
@@ -23,12 +27,14 @@ const ArtistDetail = ({ artistId }: IArtistDetailProps) => {
     IMutationArtistLikeToggleArgs
   >(ARTIST_LIKE_TOGGLE);
 
+  // const {data: memberData} = useQuery<>();
+
   const onClickLikeArtist = async () => {
     try {
-      await artistLikeToggle({
+      const result = await artistLikeToggle({
         variables: {
           artistId: artistId ?? "",
-          status: true,
+          status: false,
         },
         update(cache) {
           cache.modify({
@@ -36,6 +42,8 @@ const ArtistDetail = ({ artistId }: IArtistDetailProps) => {
           });
         },
       });
+      console.log(result);
+      Modal.success({ content: "이 버스커를 찜했습니다." });
     } catch (error) {
       if (error instanceof Error) alert(error);
     }

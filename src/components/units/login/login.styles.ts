@@ -9,7 +9,7 @@ export const MainWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
-  max-width: ${breakPoints.desktop};
+  max-width: 1100px;
   width: 100%;
 `;
 
@@ -54,37 +54,32 @@ export const LoginBtnStyle = styled.button`
 
 export const SocialLoginGoogleStyled = styled.div`
   width: 100%;
-  height: 65px;
-  margin: 0.2rem 0;
+  padding: 1rem;
   display: flex;
   align-items: center;
   gap: 20px;
   cursor: pointer;
-  border: 1px solid gray;
-  border-radius: 50px;
+  border: 1px solid #ddd;
   justify-content: center;
   :hover {
     background-color: #ddd;
-  }
-  @media ${breakPoints.mobile} {
-    width: 250px;
   }
 `;
 
 export const LoginBottomWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 10px;
   align-items: center;
-  width: 50%;
+  max-width: 500px;
+  width: 100%;
 `;
 
 export const LoginInputWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 50%;
-  @media ${breakPoints.mobile} {
-    width: 250px;
-  }
+  max-width: 500px;
+  width: 100%;
 `;
 
 export const LoginMainWrapper = styled.form`

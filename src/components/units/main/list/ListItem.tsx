@@ -21,7 +21,9 @@ const ListItem = ({ board, onClickListItem }: IListItemProps) => {
       <Wrapper>
         <ImageBox>
           <Image
-            src={`https://storage.googleapis.com/busker-storage/${board?.boardImageURL[0]}`}
+            src={`https://storage.googleapis.com/busker-storage/${String(
+              board?.boardImageURL?.[0]
+            )}`}
           />
         </ImageBox>
         <ContentBox>

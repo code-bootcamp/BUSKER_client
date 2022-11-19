@@ -137,6 +137,14 @@ export const globalStyles = css`
     display: block;
     margin: 20px;
   }
+  .ant-modal-confirm-body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ant-modal-confirm-body * {
+    font-size: 1.5rem;
+  }
 `;
 
 export const stylePrimaryColor = "#9900FF";

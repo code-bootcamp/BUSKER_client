@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const FETCH_ARTIST_WITHOUT_AUTH = gql`
-  query fetchArtist($artistId: String!) {
-    fetchArtist(artistId: artistId) {
+  query fetchArtistWithoutAuth($artistId: String!) {
+    fetchArtistWithoutAuth(artistId: $artistId) {
       id
       active_name
       description

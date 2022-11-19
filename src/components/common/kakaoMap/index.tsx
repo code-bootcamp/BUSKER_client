@@ -3,7 +3,7 @@ import { MapMarker, Map, CustomOverlayMap } from "react-kakao-maps-sdk";
 import ImageBox from "../imageBox";
 import { CloseOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
-import { IKakaoMapProps } from "../../../../pages/map/Map.types";
+import { IKakaoMapProps } from "../../../commons/map/Map.types";
 import styled from "@emotion/styled";
 
 // 모바일 범위 0.008
