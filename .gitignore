@@ -851,8 +851,6 @@ FodyWeavers.xsd
 /coverage
 
 # next.js
-/.next/
-/out/
 
 # production
 /build
