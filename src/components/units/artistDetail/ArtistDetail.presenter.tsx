@@ -11,11 +11,16 @@ const ArtistDetailUI = (props: IArtistDetailProps) => {
         <S.TypingIntro>
           <div className="typewriter">
             <span>
-              안녕하세요. <strong>버스커 ㅁㄴㅇㄹㅁㅇㄴㄹㅁㄴㅇㄹ</strong>
+              안녕하세요.{" "}
+              <strong>{props.data?.fetchArtistWithoutAuth.active_name}</strong>
               입니다.
             </span>
             <span>
-              저의 버스킹 주제는 <strong>춤</strong> 입니다.
+              저의 버스킹 주제는
+              <strong>
+                {props.data?.fetchArtistWithoutAuth.category?.name}
+              </strong>{" "}
+              입니다.
             </span>
           </div>
         </S.TypingIntro>
@@ -24,20 +29,7 @@ const ArtistDetailUI = (props: IArtistDetailProps) => {
       <S.ArtistContents>
         <S.ArtistContentsLeft>
           <S.ArtistIntro>
-            안녕하세요. 저는 어쩌구 저쩌구 블라블라 어쩌구 저쩌구 블라블라어쩌구
-            저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구
-            저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구
-            저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구
-            저쩌구 블라블라어쩌구 저쩌구 블라블라 어쩌구 저쩌구 블라블라 어쩌구
-            저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구
-            저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구
-            저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구
-            저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구 저쩌구 블라블라 어쩌구
-            저쩌구 블라블라 어쩌구 저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구
-            저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구
-            저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구
-            저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구 저쩌구 블라블라어쩌구
-            저쩌구 블라블라 왤케 말이 많을까요 저는 꺄륵쿠스투스!
+            {props.data?.fetchArtistWithoutAuth.description}
           </S.ArtistIntro>
           <Divider />
           {/* 팀 멤버가 존재한다면 start */}
@@ -47,7 +39,7 @@ const ArtistDetailUI = (props: IArtistDetailProps) => {
               <S.Member key={index}>
                 <ImageBox width="50px" height="50px" src="" />
                 <S.MemberInfo>
-                  <span>멤버{index} 이름</span>
+                  <span>멤버{index} </span>
                   <span>멤버{index} 역할</span>
                 </S.MemberInfo>
               </S.Member>
@@ -57,8 +49,10 @@ const ArtistDetailUI = (props: IArtistDetailProps) => {
         </S.ArtistContentsLeft>
         <S.ArtistContentsRight>
           <S.StickyBox>
-            유저한테는 대충 돌아가기 버튼이랑 찜하기 버튼
-            <br /> 아티스트한테는 수정하기 버튼 삭제하기 버튼
+            <button onClick={props.onClickLikeArtist}>찜하기</button>
+            <button>돌아가기</button>
+            <Divider />
+            <button>수정하기</button>
           </S.StickyBox>
         </S.ArtistContentsRight>
       </S.ArtistContents>

@@ -1,9 +1,9 @@
 import { ChangeEvent, MouseEvent } from "react";
 import { UseFormRegister } from "react-hook-form";
+import { IQuery } from "../../../commons/types/generated/types";
 
 export interface IArtistSignupPageWriteUI {
   handleChange: any;
-  genre: any;
   options: any;
   address: string;
   isOpen: boolean;
@@ -12,7 +12,7 @@ export interface IArtistSignupPageWriteUI {
   onClickHandleCancel: () => void;
   onCompleteAddressSearch: (data: any) => void;
   onClickTeam: () => void;
-  onClickEdit: () => void;
+  onClickEdit: (data: IFormData) => void;
   isTeam: boolean;
   onClickAddTeam: () => void;
   addCount: number;
@@ -22,6 +22,9 @@ export interface IArtistSignupPageWriteUI {
   imgUrl: string;
   onCreateArtistImage: (event: ChangeEvent<HTMLInputElement>) => void;
   register: UseFormRegister<IFormData>;
+  data: Pick<IQuery, "fetchArtist"> | undefined;
+  onChangeMemberName: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeRole: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface IArtistSignupPageWrite {
@@ -33,5 +36,5 @@ export interface IFormData {
   category: string;
   description: string;
   promotion_url: string;
-  artist_image: string;
+  artistImageURL: string;
 }

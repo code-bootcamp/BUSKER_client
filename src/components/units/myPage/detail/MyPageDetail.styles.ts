@@ -65,11 +65,19 @@ export const UserName = styled.span`
   padding-left: 10px;
 `;
 
-export const MyPickBox = styled.div``;
+export const ButtonBox = styled.div`
+  display: flex;
+  padding-top: 2.5rem;
+  align-items: center;
+`;
 
+export const MyPickBox = styled.div``;
 export const PickComment = styled.h2`
-  font-size: 2em;
-  color: ${stylePrimaryColor};
+  font-size: 2rem;
+  & > span {
+    font-size: 2rem;
+    color: ${stylePrimaryColor};
+  }
 `;
 
 export const PickedArtistBox = styled.ul`
@@ -90,9 +98,6 @@ export const PickedArtistLi = styled.li`
   cursor: pointer;
   transition: all ease 0.2s;
   border-radius: 5px;
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
 `;
 
 export const PickedArtistProfile = styled.div`
@@ -103,4 +108,26 @@ export const PickedArtistProfile = styled.div`
 
 export const PickedArtistName = styled.span`
   font-size: 1.4rem;
+`;
+
+export const MyDetailEditBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2.5rem;
+`;
+export const FormBox = styled.div`
+  min-width: 250px;
+  max-width: 50%;
+  width: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+
+  & > span,
+  & > div {
+    font-size: 1.5rem;
+  }
 `;

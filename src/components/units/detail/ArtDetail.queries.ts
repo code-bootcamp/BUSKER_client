@@ -8,7 +8,6 @@ export const FETCH_BOARD = gql`
       contents
       start_time
       end_time
-      day
       isShowTime
       createAt
       category {
@@ -18,10 +17,7 @@ export const FETCH_BOARD = gql`
       artist {
         id
         active_name
-        artist_image {
-          id
-          url
-        }
+        artistImageURL
       }
       boardAddress {
         id
@@ -31,7 +27,7 @@ export const FETCH_BOARD = gql`
         lat
         lng
       }
-      boardImages {
+      boardImageURL {
         id
         url
       }
@@ -40,11 +36,23 @@ export const FETCH_BOARD = gql`
         content
         user {
           nickname
-          userImage {
-            url
-          }
+          userImageURL
         }
       }
+    }
+  }
+`;
+
+export const DELETE_BOARD = gql`
+  mutation deleteBoard($boardId: String!) {
+    deleteBoard(boardId: $boardId)
+  }
+`;
+
+export const FETCH_ARTIST = gql`
+  query {
+    fetchArtist {
+      id
     }
   }
 `;

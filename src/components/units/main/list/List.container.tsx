@@ -1,101 +1,82 @@
-import { data } from "./dummy";
-import { useState } from "react";
 import MainListUI from "./List.presenter";
 import type { SelectProps } from "antd";
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import {
   IQuery,
-  IQueryFetchBoardArgs,
+  IQueryFetchBoardsBySearchArgs,
 } from "../../../../commons/types/generated/types";
-import { FETCH_BOARDS } from "./List.queries";
-
-interface Option {
-  value: string | number;
-  label: string;
-  children?: Option[];
-}
+import { FETCH_BOARDS_BY_SEARCH } from "./List.queries";
+import DistrcitData from "./DistrictData";
+import { useState } from "react";
 
 const MainList = () => {
   const router = useRouter();
-  const [filteredGenre, setFilteredGenre] = useState<string[]>([]);
-  const [filteredLocation, setFilteredLocation] = useState("");
-  const { data: boardsData } = useQuery<
-    Pick<IQuery, "fetchBoards">,
-    IQueryFetchBoardArgs
-  >(FETCH_BOARDS);
-  const options: SelectProps["options"] = [
+  const locationOptions = [...DistrcitData];
+  const {
+    data: boardsData,
+    refetch,
+    fetchMore,
+  } = useQuery<
+    Pick<IQuery, "fetchBoardsBySearch">,
+    IQueryFetchBoardsBySearchArgs
+  >(FETCH_BOARDS_BY_SEARCH);
+
+  // const { data: genres } =
+  // useQuery<Pick<IQuery, "fetchCategories">>(FETCH_CATEGORIES);
+
+  const genreOptions: SelectProps["options"] = [
     {
-      value: "춤",
-      label: "춤",
-    },
-    {
-      value: "노래",
+      value: "55e17492-ff90-4dc7-b765-93e032a27e3c",
       label: "노래",
     },
     {
-      value: "악기",
+      value: "94d9ea62-8b17-4498-85b8-93675e65020d",
+      label: "랩",
+    },
+    {
+      value: "87bf8af2-b764-4c3e-91a2-94583b858dca",
+      label: "마술",
+    },
+    {
+      value: "80350a1c-acef-4fd1-a989-a0aa24dfae2c",
       label: "악기",
     },
     {
-      value: "몰라",
-      label: "몰라",
+      value: "d3f6c47f-9041-4618-b9a9-5f6d78f58629",
+      label: "춤",
     },
   ];
 
-  const locationOptions: Option[] = [
-    {
-      value: "수도권",
-      label: "수도권",
-      children: [
-        {
-          value: "서울",
-          label: "서울",
-          children: [
-            {
-              value: "구로구",
-              label: "구로구",
-            },
-          ],
-        },
-        {
-          value: "경기",
-          label: "경기",
-          children: [
-            {
-              value: "성남시",
-              label: "성남시",
-            },
-          ],
-        },
-        {
-          value: "인천",
-          label: "인천",
-          children: [
-            {
-              value: "미추홀구",
-              label: "미추홀구",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      value: "수도권 외",
-      label: "수도권 외",
-    },
-  ];
+  const [selectedGenre, setSelectedGenre] = useState<string[] | null>(null);
+  const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null);
 
-  const handleChangeGenre = (value: string[]) => {
-    setFilteredGenre(value);
+  const handleChangeGenre = async (value: string[]) => {
+    setSelectedGenre(value);
+    if (value.length) {
+      await refetch({
+        searchBoardInput: { category: value, district: selectedDistrict },
+      });
+    } else {
+      await refetch({
+        searchBoardInput: { page: 1, district: selectedDistrict },
+      });
+      setSelectedGenre(null);
+    }
   };
 
-  const handleChangeLocation = (value: string[]) => {
-    let arrToString = `${value?.[1]} ${value?.[2]}`;
-    if (arrToString === "undefined undefined") {
-      arrToString = "";
+  const handleChangeLocation = async (value: string[]) => {
+    const district = `${value?.[0]} ${value?.[1]}`;
+    setSelectedDistrict(district);
+
+    if (district === "undefined undefined") {
+      await refetch({ searchBoardInput: { page: 1, category: selectedGenre } });
+      setSelectedDistrict(null);
+    } else {
+      await refetch({
+        searchBoardInput: { district, category: selectedGenre },
+      });
     }
-    setFilteredLocation(arrToString);
   };
 
   const onClickListItem = (id: string) => async () => {
@@ -105,19 +86,51 @@ const MainList = () => {
   const onClickToMap = async () => {
     await router.push("/map");
   };
-  console.log(filteredLocation);
-  console.log(boardsData);
+
+  const onClickMoveToArtRegister = async () => {
+    await router.push("/artregister");
+  };
+
+  const loadMore = async () => {
+    if (boardsData === undefined) return;
+    try {
+      await fetchMore({
+        variables: {
+          searchBoardInput: {
+            page: Math.ceil(boardsData.fetchBoardsBySearch.length / 12) + 1,
+            district: selectedDistrict,
+            category: selectedGenre,
+          },
+        },
+        updateQuery: (prev, options) => {
+          console.log(prev, options);
+          if (options.fetchMoreResult.fetchBoardsBySearch === undefined) {
+            return { fetchBoardsBySearch: [...prev.fetchBoardsBySearch] };
+          }
+          return {
+            fetchBoardsBySearch: [
+              ...prev.fetchBoardsBySearch,
+              ...options.fetchMoreResult.fetchBoardsBySearch,
+            ],
+          };
+        },
+      });
+    } catch (error) {
+      if (error instanceof Error) console.log(error);
+    }
+  };
+
   return (
     <MainListUI
       onClickToMap={onClickToMap}
       onClickListItem={onClickListItem}
       handleChangeGenre={handleChangeGenre}
       handleChangeLocation={handleChangeLocation}
-      filteredGenre={filteredGenre}
-      filteredLocation={filteredLocation}
       locationOptions={locationOptions}
-      options={options}
-      data={data}
+      genreOptions={genreOptions}
+      data={boardsData}
+      onClickMoveToArtRegister={onClickMoveToArtRegister}
+      loadMore={loadMore}
     />
   );
 };

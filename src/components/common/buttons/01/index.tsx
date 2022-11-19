@@ -7,15 +7,16 @@ interface IButtonProps {
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
   onSubmit?: () => void;
   disabled?: boolean;
-  children?: string;
+  children?: string | [string, JSX.Element];
   style?: React.CSSProperties;
   fontSize?: number | string;
+  id?: string;
 }
 
 const Button01 = (props: IButtonProps) => {
   return (
-    <ButtonStyle style={props.style} onClick={props.onClick}>
-      {props.children}
+    <ButtonStyle id={props.id} style={props.style} onClick={props.onClick}>
+      <>{props.children}</>
     </ButtonStyle>
   );
 };
@@ -30,9 +31,4 @@ const ButtonStyle = styled.button`
   border-radius: 5px;
   color: ${stylePrimaryColor};
   cursor: pointer;
-  transition: all ease 0.15s;
-  :hover {
-    color: white;
-    background-color: ${stylePrimaryColor};
-  }
 `;

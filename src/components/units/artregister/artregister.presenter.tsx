@@ -21,10 +21,11 @@ const ArtRegisterPageWriteUI = ({
   genre,
   TimeChange,
   startTime,
-  // onChangeFile,
-  // imgUrl,
+  onChangeFile,
+  imgUrl,
   endTime,
   setValue,
+  preview,
 }: IArtRegisterPageWriteUI) => {
   const { RangePicker } = DatePicker;
   const [userPosition] = useRecoilState(userPositionState);
@@ -55,26 +56,24 @@ const ArtRegisterPageWriteUI = ({
               style={{ width: "100%" }}
               options={options}
             />
-            <Input01 type="text" readOnly={true} value={genre} />
             <S.ErrorMsg>{formState.errors.genre?.message}</S.ErrorMsg>
           </S.GenreWrapper>
           <div>
             <S.TextStyle>공연장소 사진</S.TextStyle>
             <S.ImgWrapper>
-              {/* {new Array(3).fill(1).map((_, index) => {
+              {new Array(3).fill(3).map((_, index) => {
                 return (
                   <>
                     {imgUrl[index] ? (
                       <S.ImgBtn
                         style={{
-                          backgroundImage: `url(https://storage.googleapis.com/${imgUrl[index]})`,
+                          backgroundImage: `url(${preview[index]})`,
                           backgroundColor: "#fff",
                           backgroundSize: "cover",
                         }}
                         key={index}
                         htmlFor={`file${index}`}
                       >
-                        +
                         <S.FileInput
                           type="file"
                           id={`file${index}`}
@@ -93,7 +92,7 @@ const ArtRegisterPageWriteUI = ({
                     )}
                   </>
                 );
-              })} */}
+              })}
             </S.ImgWrapper>
           </div>
           <S.DateWrapper>

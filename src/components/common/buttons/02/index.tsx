@@ -7,7 +7,7 @@ interface IButtonProps {
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
   onSubmit?: () => void;
   disabled?: boolean;
-  children?: string;
+  children?: string | JSX.Element;
   style?: React.CSSProperties;
   fontSize?: number | string;
 }
@@ -31,9 +31,4 @@ const ButtonStyle = styled.button`
   color: white;
   background-color: ${stylePrimaryColor};
   cursor: pointer;
-  transition: all ease 0.15s;
-  :hover {
-    color: ${stylePrimaryColor};
-    background-color: white;
-  }
 `;

@@ -2,20 +2,25 @@ import { useMutation, useQuery } from "@apollo/client";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SelectProps } from "antd";
 import { useRouter } from "next/router";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Address } from "react-daum-postcode";
 import { useForm } from "react-hook-form";
 import {
   IMutation,
   IMutationCreateArtistArgs,
-  IMutationCreateArtistImageArgs,
+  IMutationCreateMemberArgs,
+  IMutationUpdateArtistArgs,
+  IMutationUploadFileArgs,
   IQuery,
 } from "../../../commons/types/generated/types";
 import ArtistSignupPageWriteUI from "./artistsignup.presenter";
 import {
   CREATE_ARTIST,
-  CREATE_ARTIST_IMAGE,
-  FETCH_USER,
+  CREATE_MEMBER,
+  FECTH_CATEGORIES,
+  FETCH_ARTIST,
+  UPDATE_ARTIST,
+  UPLOAD_FILE,
 } from "./ArtistSignup.Quries";
 import { ArtistSignupYup } from "./ArtistSignup.Schema";
 import { IArtistSignupPageWrite, IFormData } from "./artistsignup.types";
@@ -26,8 +31,10 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
   const [isTeam, setIsTeam] = useState(false);
   const [addCount, setAddCount] = useState(1);
   const [address, setAddress] = useState("");
-  const [genre, setGenre] = useState("");
   const [imgUrl, setImgUrl] = useState("");
+  const [name, setName] = useState("");
+  const [role, setRole] = useState("");
+  const [editUrl, setEditUrl] = useState("");
 
   const { register, handleSubmit, formState, setValue } = useForm<IFormData>({
     resolver: yupResolver(ArtistSignupYup),
@@ -38,12 +45,32 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
     IMutationCreateArtistArgs
   >(CREATE_ARTIST);
 
-  const [createArtistImage] = useMutation<
-    Pick<IMutation, "createArtistImage">,
-    IMutationCreateArtistImageArgs
-  >(CREATE_ARTIST_IMAGE);
+  const [updateArtist] = useMutation<
+    Pick<IMutation, "updateArtist">,
+    IMutationUpdateArtistArgs
+  >(UPDATE_ARTIST);
 
-  const { data } = useQuery<Pick<IQuery, "fetchUser">>(FETCH_USER);
+  const [uploadFile] = useMutation<
+    Pick<IMutation, "uploadFile">,
+    IMutationUploadFileArgs
+  >(UPLOAD_FILE);
+
+  const [createMember] = useMutation<
+    Pick<IMutation, "createMember">,
+    IMutationCreateMemberArgs
+  >(CREATE_MEMBER);
+
+  const { data } = useQuery<Pick<IQuery, "fetchArtist">>(FETCH_ARTIST);
+
+  const { data: CategoryData } =
+    useQuery<Pick<IQuery, "fetchCategories">>(FECTH_CATEGORIES);
+
+  useEffect(() => {
+    setValue("active_name", String(data?.fetchArtist.active_name));
+    setValue("description", String(data?.fetchArtist.description));
+    setValue("promotion_url", String(data?.fetchArtist.promotion_url));
+    setValue("artistImageURL", String(data?.fetchArtist.artistImageURL));
+  }, [data]);
 
   const onClickSearchAddress = () => {
     setIsOpen((prev) => !prev);
@@ -67,45 +94,77 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
     setAddCount((prev) => prev + 1);
   };
 
-  const onClickEdit = () => {};
+  const onChangeMemberName = (event: ChangeEvent<HTMLInputElement>) => {
+    setName(event.currentTarget.value);
+  };
 
-  const ValueArr = ["춤", "노래", "마술", "악기연주"];
+  const onChangeRole = (event: ChangeEvent<HTMLInputElement>) => {
+    setRole(event.currentTarget.value);
+  };
 
   const options: SelectProps["options"] = [];
 
-  for (let i = 0; i < ValueArr.length; i++) {
+  for (let i = 0; i < Number(CategoryData?.fetchCategories.length); i++) {
     options.push({
-      value: ValueArr[i],
-      label: ValueArr[i],
+      value: CategoryData?.fetchCategories[i].id,
+      label: CategoryData?.fetchCategories[i].name,
     });
   }
 
-  const handleChange = (value: any) => {
-    setGenre(value);
+  const handleChange = (value: string) => {
     setValue("category", value);
   };
 
   const onClickSignup = async (data: IFormData) => {
-    await createArtist({
+    try {
+      const result = await createArtist({
+        variables: {
+          createArtistInput: data,
+        },
+      });
+      await router.push(
+        `/artistdetail/${String(result.data?.createArtist.id)}`
+      );
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  const onClickEdit = async (data: IFormData) => {
+    console.log("sdfsadf", data);
+    const result = await updateArtist({
       variables: {
-        createArtistInput: data,
+        updateArtistInput: data,
       },
     });
-    await router.push("/main/list");
+
+    await createMember({
+      variables: {
+        artistId: String(router.query.id),
+        createMemberInput: {
+          name,
+          role,
+          memberImageURL: editUrl,
+        },
+      },
+    });
+
+    void router.push(`/artistdetail/${String(result.data?.updateArtist.id)}`);
   };
 
   const onCreateArtistImage = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    const result = await createArtistImage({
-      variables: {
-        createArtistImageInput: {
-          userId: String(data?.fetchUser.id),
-          url: String(file),
-        },
-      },
-    });
-    setImgUrl(String(result.data?.createArtistImage.url));
-    setValue("artist_image", imgUrl);
+    if (!file) return;
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = (event) => {
+      if (typeof event.target?.result === "string") {
+        setImgUrl(event.target.result);
+      }
+    };
+    const result = await uploadFile({ variables: { file } });
+    setValue("artistImageURL", String(result.data?.uploadFile));
+    setEditUrl(String(result.data?.uploadFile));
   };
 
   return (
@@ -127,9 +186,11 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
       address={address}
       handleChange={handleChange}
       options={options}
-      genre={genre}
       onCreateArtistImage={onCreateArtistImage}
       imgUrl={imgUrl}
+      data={data}
+      onChangeMemberName={onChangeMemberName}
+      onChangeRole={onChangeRole}
     />
   );
 };

@@ -1,45 +1,53 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SelectProps } from "antd";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import ArtRegisterPageWriteUI from "./artregister.presenter";
 import { ArtRegisterYup } from "./artregister.schema";
 import type { DatePickerProps, RangePickerProps } from "antd/es/date-picker";
 import { IFormData } from "./artregister.types";
 import { Address } from "react-daum-postcode";
-import { useMutation } from "@apollo/client";
-// // import { UPLOAD_FILE } from "./ArtRegister.Quries";
+import { useMutation, useQuery } from "@apollo/client";
 import {
   IMutation,
   IMutationCreateBoardsArgs,
-  // IQuery,
-  // IQueryFetchArtistArgs,
-  // IMutationUploadFileArgs,
+  IMutationUploadFileArgs,
+  IQuery,
 } from "../../../commons/types/generated/types";
-import { CREATE_BOARD } from "./ArtRegister.Quries";
+import {
+  CREATE_BOARDS,
+  FECTH_CATEGORIES,
+  UPLOAD_FILE,
+} from "./ArtRegister.Quries";
+import { useRouter } from "next/router";
 
-const ArtRegisterPageWrite = () => {
+interface IArtRegisterPageWriteProps {
+  isEdit?: boolean;
+}
+
+const ArtRegisterPageWrite = ({ isEdit }: IArtRegisterPageWriteProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [address, setAddress] = useState("");
   const [genre, setGenre] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
-  // const [imgUrl, setImgUrl] = useState([]);
+  const [imgUrl, setImgUrl] = useState(["", "", ""]);
+  const [preview, setPreview] = useState(["", "", ""]);
 
   const [createBoards] = useMutation<
     Pick<IMutation, "createBoards">,
     IMutationCreateBoardsArgs
-  >(CREATE_BOARD);
+  >(CREATE_BOARDS);
 
-  // const { data: ArtistData } = useQuery<
-  //   Pick<IQuery, "fetchArtist">,
-  //   IQueryFetchArtistArgs
-  // >(FETCH_ARTIST);
+  const [uploadFile] = useMutation<
+    Pick<IMutation, "uploadFile">,
+    IMutationUploadFileArgs
+  >(UPLOAD_FILE);
 
-  // const [uploadFile] = useMutation<
-  //   Pick<IMutation, "uploadFile">,
-  //   IMutationUploadFileArgs
-  // >(UPLOAD_FILE);
+  const { data: CategoryData } =
+    useQuery<Pick<IQuery, "fetchCategories">>(FECTH_CATEGORIES);
+
+  const router = useRouter();
 
   const { register, formState, handleSubmit, setValue } = useForm<IFormData>({
     resolver: yupResolver(ArtRegisterYup),
@@ -70,47 +78,64 @@ const ArtRegisterPageWrite = () => {
     setValue("boardAddressInput.address", data.address);
   };
 
-  const ValueArr = ["춤", "노래", "마술", "악기연주"];
-
   const options: SelectProps["options"] = [];
 
-  for (let i = 0; i < ValueArr.length; i++) {
+  for (let i = 0; i < Number(CategoryData?.fetchCategories.length); i++) {
     options.push({
-      value: ValueArr[i],
-      label: ValueArr[i],
+      value: CategoryData?.fetchCategories[i].id,
+      label: CategoryData?.fetchCategories[i].name,
     });
   }
 
   const handleChange = (value: any) => {
     setGenre(value);
-    setValue("genre", value);
+    setValue("category", value);
   };
 
-  // const onChangeFile =
-  //   (index: number) => (event: ChangeEvent<HTMLInputElement>) => {
-  //     const file = event.target.files?.[0];
-  //     const result = uploadFile({ variables: { file } });
-  //     const newImgUrls = [...imgUrl];
-  //     newImgUrls[index] = result.data?.uploadFile.url;
-  //     setImgUrl(newImgUrls);
-  //   };
+  const onChangeFile =
+    (index: number) => async (event: ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = (event) => {
+        const newPreview = [...preview];
+        if (event.target === null) return;
+        newPreview[index] = String(event.target.result);
+        setPreview(newPreview);
+      };
+
+      const result = await uploadFile({ variables: { file } });
+      const newImgUrls = [...imgUrl];
+      newImgUrls[index] = String(result.data?.uploadFile);
+      setImgUrl(newImgUrls);
+      setValue("boardImageURL", imgUrl);
+    };
 
   const onClickRegister = async (data: IFormData) => {
-    await createBoards({
-      variables: {
-        createBoardInput: {
-          contents: data.contents,
-          category: data.genre,
-          start_time: data.start_time,
-          end_time: data.end_time,
-          boardAddressInput: {
-            address,
-            lat: Number(data.boardAddressInput.lat),
-            lng: Number(data.boardAddressInput.lng),
+    try {
+      const result = await createBoards({
+        variables: {
+          createBoardInput: {
+            contents: data.contents,
+            category: data.category,
+            start_time: data.start_time,
+            end_time: data.end_time,
+            boardAddressInput: {
+              address,
+              lat: Number(data.boardAddressInput.lat),
+              lng: Number(data.boardAddressInput.lng),
+            },
           },
         },
-      },
-    });
+      });
+
+      await router.push(`/main/list/${String(result.data?.createBoards.id)}`);
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error);
+      }
+    }
   };
 
   return (
@@ -129,10 +154,11 @@ const ArtRegisterPageWrite = () => {
       genre={genre}
       TimeChange={TimeChange}
       startTime={startTime}
-      // onChangeFile={onChangeFile}
-      // imgUrl={imgUrl}
+      onChangeFile={onChangeFile}
+      imgUrl={imgUrl}
       endTime={endTime}
       setValue={setValue}
+      preview={preview}
     />
   );
 };

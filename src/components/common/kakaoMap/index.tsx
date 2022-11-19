@@ -1,40 +1,39 @@
 import { useEffect, useState } from "react";
 import { MapMarker, Map, CustomOverlayMap } from "react-kakao-maps-sdk";
-import { UseFormSetValue } from "react-hook-form";
-import { IFormData } from "../../units/artregister/artregister.types";
 import ImageBox from "../imageBox";
 import { CloseOutlined } from "@ant-design/icons";
+import { useRouter } from "next/router";
+import { IKakaoMapProps } from "../../../commons/map/Map.types";
+import styled from "@emotion/styled";
 
-interface IKakaoMapProps {
-  address: string;
-  position?: {
-    lat: string;
-    lng: string;
-  };
-  isMap?: boolean;
-  setValue?: UseFormSetValue<IFormData>;
-}
+// 모바일 범위 0.008
+// 데탑 범위 0.005 -> 지도 밖 마커 표시 기능 넣으면 0.001 까지 가능..!
 
-const KakaoMap = ({ position, address, isMap, setValue }: IKakaoMapProps) => {
-  const [dummyPosition, setPosition] = useState([
-    { lat: Number(position?.lat) - 0.001, lng: Number(position?.lng) - 0.003 },
-    { lat: Number(position?.lat) + 0.002, lng: Number(position?.lng) + 0.004 },
-    { lat: Number(position?.lat) - 0.003, lng: Number(position?.lng) - 0.008 },
-    { lat: Number(position?.lat) + 0.004, lng: Number(position?.lng) + 0.009 },
-  ]);
+const KakaoMap = ({
+  position,
+  address,
+  isMap,
+  setValue,
+  data,
+}: IKakaoMapProps) => {
+  const router = useRouter();
 
-  const [isOpen, setIsOpen] = useState(new Array(4).fill(false));
+  // console.log("주변 버스킹 데이터:", data);
+
+  const [isOpen, setIsOpen] = useState<boolean[]>([]);
   const [center, setCenter] = useState({
     lat: position?.lat,
     lng: position?.lng,
   });
 
   const onClickMarker = (i: number) => () => {
+    console.log(i, "클릭됨");
     setIsOpen((prev) => {
       const filteredPrev = prev.map((TF, index) => (index === i ? !TF : TF));
       return filteredPrev;
     });
   };
+  console.log(isOpen);
   useEffect(() => {
     kakao.maps.load(() => {
       if (!isMap) {
@@ -43,7 +42,7 @@ const KakaoMap = ({ position, address, isMap, setValue }: IKakaoMapProps) => {
         geocoder.addressSearch(address, function (result, status) {
           if (status === kakao.maps.services.Status.OK) {
             // 정상적으로 검색이 완료됐으면
-            console.log("!", result[0]);
+
             const newSearch = result[0];
             setCenter({ lat: newSearch.y, lng: newSearch.x });
 
@@ -52,27 +51,13 @@ const KakaoMap = ({ position, address, isMap, setValue }: IKakaoMapProps) => {
           }
         });
       }
-      setPosition([
-        {
-          lat: Number(position?.lat) - 0.001,
-          lng: Number(position?.lng) - 0.003,
-        },
-        {
-          lat: Number(position?.lat) + 0.002,
-          lng: Number(position?.lng) + 0.003,
-        },
-        {
-          lat: Number(position?.lat) - 0.003,
-          lng: Number(position?.lng) + 0.002,
-        },
-        {
-          lat: Number(position?.lat) + 0.002,
-          lng: Number(position?.lng) - 0.004,
-        },
-      ]);
     });
-  }, [position, address, isMap, setValue]);
-  console.log(center);
+    if (data) setIsOpen(new Array(data.fetchMapBoards.length).fill(false));
+  }, [position, address, isMap, setValue, data]);
+
+  const onClickMoveToArtDetail = (id: string) => async () => {
+    await router.push(`/main/list/${id}`);
+  };
   return (
     <Map
       center={{
@@ -92,44 +77,112 @@ const KakaoMap = ({ position, address, isMap, setValue }: IKakaoMapProps) => {
           position={{ lat: Number(center.lat), lng: Number(center.lng) }}
         ></MapMarker>
       ) : (
-        dummyPosition.map((pos, i) => (
-          <div key={i}>
-            <MapMarker position={pos} onClick={onClickMarker(i)} />
-            {isOpen[i] && (
-              <CustomOverlayMap position={pos}>
-                <div className="wrap">
-                  <div className="info">
-                    <div className="title">
-                      아티스트 이름
-                      <div
-                        className="close"
-                        onClick={onClickMarker(i)}
-                        title="닫기"
-                      >
-                        <CloseOutlined />
-                      </div>
-                    </div>
-                    <div className="body">
-                      <div className="img">
-                        <ImageBox width="75px" height="75px" src="" />
-                      </div>
-                      <div className="desc">
-                        <div className="ellipsis"># 악기 연주</div>
-                        <div className="jibun ellipsis">
-                          오후 7시 30분 ~ 오후 9시 30분
+        <>
+          <CustomOverlayMap
+            position={{
+              lat: Number(position?.lat),
+              lng: Number(position?.lng),
+            }}
+            clickable={false}
+          >
+            <UserPosition></UserPosition>
+            <span
+              style={{
+                color: "red",
+                fontWeight: "bold",
+                position: "relative",
+                left: "-20px",
+                fontSize: "1.5rem",
+                cursor: "none",
+              }}
+            >
+              현재 위치
+            </span>
+          </CustomOverlayMap>
+          {data?.fetchMapBoards.map((board, i) => {
+            const position = {
+              lat: board.boardAddress.lat,
+              lng: board.boardAddress.lng,
+            };
+
+            const startAt = new Intl.DateTimeFormat("ko-KR", {
+              hour: "numeric",
+              minute: "numeric",
+            }).format(new Date(board.start_time));
+            const endAt = new Intl.DateTimeFormat("ko-KR", {
+              hour: "numeric",
+              minute: "numeric",
+            }).format(new Date(board.end_time));
+            return (
+              <div key={i}>
+                <MapMarker position={position} onClick={onClickMarker(i)} />
+                {isOpen[i] && (
+                  <CustomOverlayMap position={position} zIndex={99}>
+                    <div className="wrap">
+                      <div className="info">
+                        <div className="title">
+                          {board.artist.active_name}
+                          <div
+                            className="close"
+                            onClick={onClickMarker(i)}
+                            title="닫기"
+                          >
+                            <CloseOutlined />
+                          </div>
                         </div>
-                        <span>버스킹 정보 보러가기</span>
+                        <div className="body">
+                          <div className="img">
+                            <ImageBox width="75px" height="75px" src="" />
+                          </div>
+                          <div className="desc">
+                            <div className="ellipsis">
+                              # {board.category.name}
+                            </div>
+                            <div className="jibun ellipsis">
+                              시작: {startAt}
+                            </div>
+                            <div className="jibun ellipsis">종료: {endAt}</div>
+                            <span
+                              className="link"
+                              title=""
+                              onClick={onClickMoveToArtDetail(board.id)}
+                            >
+                              버스킹 정보 보러가기
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </CustomOverlayMap>
-            )}
-          </div>
-        ))
+                  </CustomOverlayMap>
+                )}
+              </div>
+            );
+          })}
+        </>
       )}
     </Map>
   );
 };
 
 export default KakaoMap;
+
+const UserPosition = styled.div`
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: red;
+
+  animation: flicker 1.5s infinite;
+
+  @keyframes flicker {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+`;

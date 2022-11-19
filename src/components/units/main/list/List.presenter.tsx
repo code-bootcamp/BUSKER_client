@@ -6,6 +6,7 @@ import { Select, Cascader } from "antd";
 import Button01 from "../../../common/buttons/01";
 import { stylePrimaryColor } from "../../../../commons/styles/globalStyles";
 import { IMainListProps } from "./List.types";
+import InfiniteScroll from "react-infinite-scroller";
 
 const MainListUI = (props: IMainListProps) => {
   return (
@@ -25,48 +26,44 @@ const MainListUI = (props: IMainListProps) => {
             style={{ width: "100%" }}
             placeholder="장르 검색"
             onChange={props.handleChangeGenre}
-            options={props.options}
+            options={props.genreOptions}
           />
         </S.GenreOptionBox>
+        <button onClick={props.onClickMoveToArtRegister}>
+          버스킹 등록하기
+        </button>
       </S.OptionBox>
       <S.ListBox>
         <AnimatePresence>
-          {props.filteredGenre.length || props.filteredLocation
-            ? props.data
-                ?.filter(
-                  (board: IBoards) =>
-                    props.filteredGenre?.includes(board.category.name) ||
-                    board.boardAddress.address === props.filteredLocation
-                )
-                .map((board: IBoards) => (
-                  <ListItem
-                    key={board.id}
-                    board={board}
-                    onClickListItem={props.onClickListItem}
-                  />
-                ))
-            : props.data?.map((board: IBoards) => (
-                <ListItem
-                  key={board.id}
-                  board={board}
-                  onClickListItem={props.onClickListItem}
-                />
-              ))}
+          <InfiniteScroll
+            pageStart={0}
+            loadMore={props.loadMore}
+            hasMore={true || false}
+          >
+            {props.data?.fetchBoardsBySearch.map((board: IBoards) => (
+              <ListItem
+                key={board.id}
+                board={board}
+                onClickListItem={props.onClickListItem}
+              />
+            ))}
+          </InfiniteScroll>
         </AnimatePresence>
       </S.ListBox>
       <Button01
         style={{
           position: "fixed",
-          bottom: "5px",
+          bottom: "40px",
           left: "50%",
           transform: "translate(-50%,-50%)",
           zIndex: "2",
           backgroundColor: `${stylePrimaryColor}`,
           color: "white",
+          boxShadow: "3px 5px 10px 3px rgba(0,0,0,0.5)",
         }}
         onClick={props.onClickToMap}
       >
-        지도로 가기
+        주변 버스킹 확인하기
       </Button01>
     </S.Wrapper>
   );

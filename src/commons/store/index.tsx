@@ -23,3 +23,8 @@ export const sidebarState = atom({
   key: `sidebarState${uniqueId()}`,
   default: false,
 });
+
+// export const districtDataState = atom({
+//   key: `districtListState${uniqueId()}`,
+//   default: {},
+// });

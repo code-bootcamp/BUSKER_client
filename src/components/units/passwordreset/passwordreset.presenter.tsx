@@ -31,7 +31,6 @@ const PasswordResetPageWriteUI = ({
             </S.ConfirmBtn>
           </S.InputBtnWrapper>
           <S.ErrorStyle>{formState.errors.email?.message}</S.ErrorStyle>
-
           <S.InputBtnWrapper>
             <Input01
               type="text"
