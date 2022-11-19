@@ -48,3 +48,11 @@ export const DELETE_BOARD = gql`
     deleteBoard(boardId: $boardId)
   }
 `;
+
+export const FETCH_ARTIST = gql`
+  query {
+    fetchArtist {
+      id
+    }
+  }
+`;

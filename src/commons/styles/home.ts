@@ -122,4 +122,29 @@ export const ContentBox = styled.div`
   }
 `;
 
-export const LinkPage = styled.div``;
+export const LastContent = styled.div`
+  height: 100vh;
+  background-color: #9900ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const GoToMainButton = styled.button`
+  cursor: pointer;
+  border: none;
+  color: white;
+  background-color: transparent;
+  padding: 2rem 5rem;
+  font-size: 2rem;
+  transition: all 0.3s ease-in-out;
+  letter-spacing: 2px;
+  box-shadow: inset 0 0 0 0 white;
+  font-weight: 600;
+  border: 1px dashed white;
+  :hover {
+    color: #9900ff;
+    box-shadow: inset 312px 0 0 0 white;
+    border: 1px solid white;
+  }
+`;

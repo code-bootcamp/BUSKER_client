@@ -43,7 +43,7 @@ const MyPageDetail = () => {
 
   const onClickEditName = async () => {
     try {
-      const result = await updateUser({
+      await updateUser({
         variables: { updateUserInput: { nickname } },
         refetchQueries: [
           {
@@ -51,7 +51,7 @@ const MyPageDetail = () => {
           },
         ],
       });
-      console.log(result);
+      alert("닉네임이 변경되었습니다!");
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
@@ -81,8 +81,8 @@ const MyPageDetail = () => {
       }
     };
 
-  const onClickTab = () => {
-    setIsEdit((prev) => !prev);
+  const onClickTab = (event: MouseEvent<HTMLButtonElement>) => {
+    event.currentTarget.id === "pick" ? setIsEdit(false) : setIsEdit(true);
   };
 
   const onToggleEditMode = () => {

@@ -111,11 +111,11 @@ export default function Home() {
             </S.Content>
           )}
         </S.ContentBox>
-        <div style={{ height: "100vh", backgroundColor: "#9900FF" }}>
-          <button onClick={async () => await router.push("/map")}>
-            근처의 버스킹 확인하기
-          </button>
-        </div>
+        <S.LastContent>
+          <S.GoToMainButton onClick={async () => await router.push("/map")}>
+            버스킹 즐기러 가기{" "}
+          </S.GoToMainButton>
+        </S.LastContent>
       </S.Wrapper>
     </>
   );

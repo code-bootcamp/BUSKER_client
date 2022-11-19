@@ -29,7 +29,11 @@ const ArtDetailUI = (props: IArtDetailProps) => {
         <S.ContentBox>
           <S.ArtistInfoBox>
             <ImageBox src="" width="75px" height="75px"></ImageBox>
-            <S.ArtistName>
+            <S.ArtistName
+              onClick={props.onClickMoveToArtistDetail(
+                props.data?.fetchBoard.artist.id ?? ""
+              )}
+            >
               <div style={{ fontSize: "1.5rem", color: "#6600FF" }}>버스커</div>
               {props.data?.fetchBoard.artist.active_name}
             </S.ArtistName>

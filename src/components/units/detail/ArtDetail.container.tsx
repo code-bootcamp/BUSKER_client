@@ -9,10 +9,8 @@ import {
   IQuery,
   IQueryFetchBoardArgs,
 } from "../../../commons/types/generated/types";
-import { FETCH_ARTIST } from "../artistDetail/ArtistDetail.queries";
-
 import ArtDetailUI from "./ArtDetail.presenter";
-import { DELETE_BOARD, FETCH_BOARD } from "./ArtDetail.queries";
+import { DELETE_BOARD, FETCH_ARTIST, FETCH_BOARD } from "./ArtDetail.queries";
 
 const ArtDetail = () => {
   useAuth();
@@ -57,8 +55,13 @@ const ArtDetail = () => {
     }
   };
 
+  const onClickMoveToArtistDetail = (id: string) => () => {
+    void router.push(`/artistdetail/${id}`);
+  };
+
   return (
     <ArtDetailUI
+      onClickMoveToArtistDetail={onClickMoveToArtistDetail}
       onClickMoveToEdit={onClickMoveToEdit}
       onClickDelete={onClickDelete}
       isArtist={isArtist}

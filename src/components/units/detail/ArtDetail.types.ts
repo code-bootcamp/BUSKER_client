@@ -7,4 +7,5 @@ export interface IArtDetailProps {
   isArtist: boolean;
   onClickDelete: () => void;
   onClickMoveToEdit: () => void;
+  onClickMoveToArtistDetail: (id: string) => () => void;
 }
