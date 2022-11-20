@@ -1,0 +1,18 @@
+import { useQuery } from "@apollo/client";
+import { IQuery } from "../../../../commons/types/generated/types";
+import CommentListUI from "./CommentList.presenter";
+import { FETCH_COMMENT } from "./CommentList.queries";
+
+interface ICommentListProps {
+  boardId?: string | string[];
+}
+
+const CommentList = ({ boardId }: ICommentListProps) => {
+  const { data } = useQuery<Pick<IQuery, "fetchComment">>(FETCH_COMMENT, {
+    variables: { boardId },
+  });
+  console.log(data);
+  return <CommentListUI data={data} />;
+};
+
+export default CommentList;

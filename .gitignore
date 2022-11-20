@@ -241,8 +241,7 @@ Temporary Items
 /coverage
 
 # Next.js
-/.next/
-/out/
+
 
 # Production
 /build
@@ -343,8 +342,7 @@ web_modules/
 .parcel-cache
 
 # Next.js build output
-.next
-out
+
 
 # Nuxt.js build / generate output
 .nuxt
@@ -853,8 +851,8 @@ FodyWeavers.xsd
 /coverage
 
 # next.js
-/.next/
-/out/
+.next
+/.next
 
 # production
 /build
