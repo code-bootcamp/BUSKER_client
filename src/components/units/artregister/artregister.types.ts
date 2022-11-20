@@ -1,5 +1,6 @@
 import { UseFormRegister, UseFormSetValue } from "react-hook-form";
 import type { DatePickerProps, RangePickerProps } from "antd/es/date-picker";
+import { IQuery } from "../../../commons/types/generated/types";
 
 export interface IArtRegisterPageWriteUI {
   onClickHandleCancel: () => void;
@@ -24,6 +25,9 @@ export interface IArtRegisterPageWriteUI {
   endTime: string;
   setValue: UseFormSetValue<IFormData>;
   preview: string[];
+  isEdit?: boolean;
+  onClickEdit: (data: IFormData) => void;
+  data: Pick<IQuery, "fetchBoard"> | undefined;
 }
 
 export interface IFormData {
@@ -37,6 +41,6 @@ export interface IFormData {
 
 export interface BoardAddressInput {
   address: string;
-  lat: string;
-  lng: string;
+  lat: Number;
+  lng: Number;
 }

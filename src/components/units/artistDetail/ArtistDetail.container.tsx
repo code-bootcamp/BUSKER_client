@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { Modal } from "antd";
+import { useRouter } from "next/router";
 import {
   IMutation,
   IMutationArtistLikeToggleArgs,
@@ -17,6 +18,7 @@ interface IArtistProps {
 }
 
 const ArtistDetail = ({ artistId }: IArtistProps) => {
+  const router = useRouter();
   const { data } = useQuery<
     Pick<IQuery, "fetchArtistWithoutAuth">,
     IQueryFetchArtistWithoutAuthArgs
@@ -48,7 +50,18 @@ const ArtistDetail = ({ artistId }: IArtistProps) => {
       if (error instanceof Error) alert(error);
     }
   };
-  return <ArtistDetailUI data={data} onClickLikeArtist={onClickLikeArtist} />;
+
+  const onClickMoveEdit = () => {
+    void router.push(`/artistdetail/${router.query.id}/edit`);
+  };
+
+  return (
+    <ArtistDetailUI
+      data={data}
+      onClickLikeArtist={onClickLikeArtist}
+      onClickMoveEdit={onClickMoveEdit}
+    />
+  );
 };
 
 export default ArtistDetail;

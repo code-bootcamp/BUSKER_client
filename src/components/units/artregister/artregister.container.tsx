@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SelectProps } from "antd";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import ArtRegisterPageWriteUI from "./artregister.presenter";
 import { ArtRegisterYup } from "./artregister.schema";
@@ -11,10 +11,17 @@ import { useMutation, useQuery } from "@apollo/client";
 import {
   IMutation,
   IMutationCreateBoardsArgs,
+  IMutationUpdateBoardArgs,
   IMutationUploadFileArgs,
   IQuery,
+  IQueryFetchBoardArgs,
 } from "../../../commons/types/generated/types";
-import { CREATE_BOARDS, UPLOAD_FILE } from "./ArtRegister.Quries";
+import {
+  CREATE_BOARDS,
+  FETCH_BOARD,
+  UPDATE_BOARD,
+  UPLOAD_FILE,
+} from "./ArtRegister.Quries";
 import { useRouter } from "next/router";
 import { FETCH_CATEGORIES } from "../main/list/List.queries";
 
@@ -41,14 +48,41 @@ const ArtRegisterPageWrite = ({ isEdit }: IArtRegisterPageWriteProps) => {
     IMutationUploadFileArgs
   >(UPLOAD_FILE);
 
+  const [updateBoard] = useMutation<
+    Pick<IMutation, "updateBoard">,
+    IMutationUpdateBoardArgs
+  >(UPDATE_BOARD);
+  const router = useRouter();
+
+  const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
+    FETCH_BOARD,
+    { variables: { boardId: String(router.query.id) } }
+  );
+
   const { data: CategoryData } =
     useQuery<Pick<IQuery, "fetchCategories">>(FETCH_CATEGORIES);
-
-  const router = useRouter();
 
   const { register, formState, handleSubmit, setValue } = useForm<IFormData>({
     resolver: yupResolver(ArtRegisterYup),
   });
+
+  useEffect(() => {
+    setValue("contents", String(data?.fetchBoard.contents));
+    setValue("start_time", data?.fetchBoard.start_time);
+    setValue("end_time", data?.fetchBoard.end_time);
+    setValue(
+      "boardAddressInput.address",
+      String(data?.fetchBoard.boardAddress.address)
+    );
+    setValue(
+      "boardAddressInput.lat",
+      Number(data?.fetchBoard.boardAddress.lat)
+    );
+    setValue(
+      "boardAddressInput.lng",
+      Number(data?.fetchBoard.boardAddress.lng)
+    );
+  }, [data]);
 
   const TimeChange = (
     value: DatePickerProps["value"] | RangePickerProps["value"],
@@ -58,7 +92,6 @@ const ArtRegisterPageWrite = ({ isEdit }: IArtRegisterPageWriteProps) => {
     setEndTime(dateString[1]);
     setValue("start_time", dateString[0]);
     setValue("end_time", dateString[1]);
-    console.log(dateString);
   };
 
   const onClickAddressOpen = () => {
@@ -109,8 +142,33 @@ const ArtRegisterPageWrite = ({ isEdit }: IArtRegisterPageWriteProps) => {
       setValue("boardImageURL", imgUrl);
     };
 
+  const onClickEdit = async (data: IFormData) => {
+    console.log(data);
+    data.boardImageURL = imgUrl;
+    const result = await updateBoard({
+      variables: {
+        boardId: String(router.query.id),
+        updateBoardInput: {
+          contents: data.contents,
+          category: data.category,
+          start_time: data.start_time,
+          end_time: data.end_time,
+          boardAddressInput: {
+            address,
+            lat: Number(data.boardAddressInput.lat),
+            lng: Number(data.boardAddressInput.lng),
+          },
+          boardImageURL: data.boardImageURL,
+        },
+      },
+    });
+    router.push(`/main/list/${String(result.data?.updateBoard.id)}`);
+  };
+
   const onClickRegister = async (data: IFormData) => {
     try {
+      data.boardImageURL = imgUrl;
+
       const result = await createBoards({
         variables: {
           createBoardInput: {
@@ -123,6 +181,7 @@ const ArtRegisterPageWrite = ({ isEdit }: IArtRegisterPageWriteProps) => {
               lat: Number(data.boardAddressInput.lat),
               lng: Number(data.boardAddressInput.lng),
             },
+            boardImageURL: data.boardImageURL,
           },
         },
       });
@@ -130,13 +189,14 @@ const ArtRegisterPageWrite = ({ isEdit }: IArtRegisterPageWriteProps) => {
       await router.push(`/main/list/${String(result.data?.createBoards.id)}`);
     } catch (error) {
       if (error instanceof Error) {
-        alert(error);
+        console.log(error);
       }
     }
   };
 
   return (
     <ArtRegisterPageWriteUI
+      data={data}
       onClickAddressOpen={onClickAddressOpen}
       isOpen={isOpen}
       onClickHandleCancel={onClickHandleCancel}
@@ -156,6 +216,8 @@ const ArtRegisterPageWrite = ({ isEdit }: IArtRegisterPageWriteProps) => {
       endTime={endTime}
       setValue={setValue}
       preview={preview}
+      isEdit={isEdit}
+      onClickEdit={onClickEdit}
     />
   );
 };
