@@ -46,8 +46,8 @@ const KakaoMap = ({
             const newSearch = result[0];
             setCenter({ lat: newSearch.y, lng: newSearch.x });
 
-            setValue?.("boardAddressInput.lat", newSearch.y);
-            setValue?.("boardAddressInput.lng", newSearch.x);
+            setValue?.("boardAddressInput.lat", Number(newSearch.y));
+            setValue?.("boardAddressInput.lng", Number(newSearch.x));
           }
         });
       }

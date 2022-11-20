@@ -7,7 +7,13 @@ const ArtistDetailUI = (props: IArtistDetailProps) => {
   return (
     <S.Wrapper>
       <S.Header>
-        <ImageBox width="150px" height="150px" src="" />
+        <ImageBox
+          width="150px"
+          height="150px"
+          src={`https://storage.googleapis.com/busker-storage/${String(
+            props.data?.fetchArtistWithoutAuth.artistImageURL
+          )}`}
+        />
         <S.TypingIntro>
           <div className="typewriter">
             <span>
@@ -56,7 +62,7 @@ const ArtistDetailUI = (props: IArtistDetailProps) => {
             <button onClick={props.onClickLikeArtist}>찜하기</button>
             <button>돌아가기</button>
             <Divider />
-            <button>수정하기</button>
+            <button onClick={props.onClickMoveEdit}>수정하기</button>
           </S.StickyBox>
         </S.ArtistContentsRight>
       </S.ArtistContents>

@@ -144,6 +144,8 @@ export type IMember = {
   artist?: Maybe<IArtist>;
   id: Scalars['String'];
   memberImageURL: Scalars['String'];
+  name: Scalars['String'];
+  role: Scalars['String'];
 };
 
 export type IMutation = {
@@ -240,7 +242,7 @@ export type IMutationDeleteCommentArgs = {
 
 
 export type IMutationDeleteMemberArgs = {
-  memberId: Scalars['String'];
+  artistId: Scalars['String'];
 };
 
 
@@ -290,7 +292,7 @@ export type IMutationUpdateCommentArgs = {
 
 
 export type IMutationUpdateMemberArgs = {
-  memberId: Scalars['String'];
+  artistId: Scalars['String'];
   updateMemberInput: IUpdateMemberInput;
 };
 
@@ -360,6 +362,11 @@ export type IQueryFetchMapBoardsArgs = {
 };
 
 
+export type IQueryFetchMembersArgs = {
+  artistId: Scalars['String'];
+};
+
+
 export type IQueryFetchRecentBoardsArgs = {
   artistId: Scalars['String'];
 };
@@ -399,6 +406,7 @@ export type IUpdatePasswordInput = {
 
 export type IUpdateUserInput = {
   nickname: Scalars['String'];
+  userImageURL: Scalars['String'];
 };
 
 export type IUser = {

@@ -66,10 +66,12 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
     useQuery<Pick<IQuery, "fetchCategories">>(FECTH_CATEGORIES);
 
   useEffect(() => {
-    setValue("active_name", String(data?.fetchArtist.active_name));
-    setValue("description", String(data?.fetchArtist.description));
-    setValue("promotion_url", String(data?.fetchArtist.promotion_url));
-    setValue("artistImageURL", String(data?.fetchArtist.artistImageURL));
+    if (data) {
+      setValue("active_name", String(data?.fetchArtist.active_name));
+      setValue("description", String(data?.fetchArtist.description));
+      setValue("promotion_url", String(data?.fetchArtist.promotion_url));
+      setValue("artistImageURL", String(data?.fetchArtist.artistImageURL));
+    }
   }, [data]);
 
   const onClickSearchAddress = () => {

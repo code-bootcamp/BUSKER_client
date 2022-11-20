@@ -18,7 +18,6 @@ const ArtRegisterPageWriteUI = ({
   onClickRegister,
   handleChange,
   options,
-  genre,
   TimeChange,
   startTime,
   onChangeFile,
@@ -26,6 +25,9 @@ const ArtRegisterPageWriteUI = ({
   endTime,
   setValue,
   preview,
+  isEdit,
+  onClickEdit,
+  data,
 }: IArtRegisterPageWriteUI) => {
   const { RangePicker } = DatePicker;
   const [userPosition] = useRecoilState(userPositionState);
@@ -37,8 +39,12 @@ const ArtRegisterPageWriteUI = ({
           <S.AddressSearchInput onComplete={onCompleteAddressSearch} />
         </S.AddressModal>
       )}
-      <S.MainWrapper onSubmit={handleSubmit(onClickRegister)}>
-        공연 등록
+      <S.MainWrapper
+        onSubmit={
+          isEdit ? handleSubmit(onClickEdit) : handleSubmit(onClickRegister)
+        }
+      >
+        {isEdit ? "공연 수정" : "공연 등록"}
         <S.ContentsWrapper>
           <S.ArtContentsWrapper>
             <S.TextStyle>공연설명</S.TextStyle>
@@ -60,40 +66,89 @@ const ArtRegisterPageWriteUI = ({
           </S.GenreWrapper>
           <div>
             <S.TextStyle>공연장소 사진</S.TextStyle>
-            <S.ImgWrapper>
-              {new Array(3).fill(3).map((_, index) => {
-                return (
-                  <>
-                    {imgUrl[index] ? (
-                      <S.ImgBtn
-                        style={{
-                          backgroundImage: `url(${preview[index]})`,
-                          backgroundColor: "#fff",
-                          backgroundSize: "cover",
-                        }}
-                        key={index}
-                        htmlFor={`file${index}`}
-                      >
-                        <S.FileInput
-                          type="file"
-                          id={`file${index}`}
-                          onChange={onChangeFile(index)}
-                        />
-                      </S.ImgBtn>
-                    ) : (
-                      <S.ImgBtn key={index} htmlFor={`file${index}`}>
-                        +
-                        <S.FileInput
-                          type="file"
-                          id={`file${index}`}
-                          onChange={onChangeFile(index)}
-                        />
-                      </S.ImgBtn>
-                    )}
-                  </>
-                );
-              })}
-            </S.ImgWrapper>
+            {isEdit ? (
+              <>
+                <S.ImgWrapper>
+                  {new Array(3).fill(3).map((_, index) => {
+                    return (
+                      <>
+                        {data?.fetchBoard.boardImageURL[index] ? (
+                          <>
+                            <S.ImgBtn
+                              style={{
+                                backgroundImage: preview[index]
+                                  ? `url(${preview[index]})`
+                                  : `url(https://storage.googleapis.com/busker-storage/${String(
+                                      data.fetchBoard.boardImageURL[index].url
+                                    )})`,
+                                backgroundColor: "#fff",
+                                backgroundSize: "cover",
+                              }}
+                              key={index}
+                              htmlFor={`file${index}`}
+                            >
+                              <S.FileInput
+                                type="file"
+                                id={`file${index}`}
+                                onChange={onChangeFile(index)}
+                              />
+                            </S.ImgBtn>
+                          </>
+                        ) : (
+                          <>
+                            <S.ImgBtn key={index} htmlFor={`file${index}`}>
+                              +
+                              <S.FileInput
+                                type="file"
+                                id={`file${index}`}
+                                onChange={onChangeFile(index)}
+                              />
+                            </S.ImgBtn>
+                          </>
+                        )}
+                      </>
+                    );
+                  })}
+                </S.ImgWrapper>
+              </>
+            ) : (
+              <>
+                <S.ImgWrapper>
+                  {new Array(3).fill(3).map((_, index) => {
+                    return (
+                      <>
+                        {imgUrl[index] ? (
+                          <S.ImgBtn
+                            style={{
+                              backgroundImage: `url(${preview[index]})`,
+                              backgroundColor: "#fff",
+                              backgroundSize: "cover",
+                            }}
+                            key={index}
+                            htmlFor={`file${index}`}
+                          >
+                            <S.FileInput
+                              type="file"
+                              id={`file${index}`}
+                              onChange={onChangeFile(index)}
+                            />
+                          </S.ImgBtn>
+                        ) : (
+                          <S.ImgBtn key={index} htmlFor={`file${index}`}>
+                            +
+                            <S.FileInput
+                              type="file"
+                              id={`file${index}`}
+                              onChange={onChangeFile(index)}
+                            />
+                          </S.ImgBtn>
+                        )}
+                      </>
+                    );
+                  })}
+                </S.ImgWrapper>
+              </>
+            )}
           </div>
           <S.DateWrapper>
             <S.TextStyle>공연시간</S.TextStyle>
@@ -150,7 +205,9 @@ const ArtRegisterPageWriteUI = ({
               </S.KakaoWrapper>
             )}
           </S.AddressWrapper>
-          <S.CategoryBtnStyle>등록하기</S.CategoryBtnStyle>
+          <S.CategoryBtnStyle>
+            {isEdit ? "수정하기" : "등록하기"}
+          </S.CategoryBtnStyle>
         </S.ContentsWrapper>
       </S.MainWrapper>
     </>
