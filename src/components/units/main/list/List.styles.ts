@@ -16,20 +16,58 @@ export const Header = styled.div`
 export const OptionBox = styled.div`
   width: 100%;
   height: 100px;
-  background-color: ${stylePrimaryColor};
+  background: rgb(113, 0, 189);
+  background: linear-gradient(
+    90deg,
+    rgba(113, 0, 189, 1) 0%,
+    rgba(153, 0, 255, 1) 50%,
+    rgba(113, 0, 189, 1) 100%
+  );
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 100px;
+  gap: 5%;
 
-  & > div {
-    width: 100px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .ant-cascader {
+    width: 100%;
+  }
+
+  .ant-select {
+    outline: none !important;
+    min-width: 100px;
+  }
+
+  .ant-select-selector {
+    background-color: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid white !important;
+
+    & span {
+      font-size: 1.3rem;
+      background-color: transparent;
+    }
+  }
+
+  .ant-select-selector input {
     color: white;
-    font-size: 1.3rem;
+  }
+
+  .ant-select-arrow {
+    color: white;
+  }
+
+  .ant-select-clear {
+    background-color: #9900ff;
+    color: white;
+  }
+
+  .ant-select-selection-item {
+    color: white;
+    background-color: #9900ff;
+  }
+
+  .ant-select-selection-item-remove {
+    color: white;
   }
 `;
 

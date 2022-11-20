@@ -1,10 +1,12 @@
 import { useMutation, useQuery } from "@apollo/client";
+import { Modal } from "antd";
 import { useRouter } from "next/router";
 import { ChangeEvent, MouseEvent, useRef, useState } from "react";
 import {
   IMutation,
   IMutationArtistLikeToggleArgs,
   IMutationUpdateUserArgs,
+  IMutationUploadFileArgs,
   IQuery,
 } from "../../../../commons/types/generated/types";
 import MyPageDetailUI from "./MyPageDetail.presenter";
@@ -12,6 +14,7 @@ import {
   ARTIST_LIKE_TOGGLE,
   FETCH_USER,
   UPDATE_USER,
+  UPLOAD_FILE,
 } from "./MyPageDetail.queries";
 
 const MyPageDetail = () => {
@@ -20,8 +23,9 @@ const MyPageDetail = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [nickname, setNickname] = useState("");
+  const [userImageURL, setUserImageURL] = useState("");
   const { data } = useQuery<Pick<IQuery, "fetchUser">>(FETCH_USER);
-  console.log(data);
+
   const [artistLikeToggle] = useMutation<
     Pick<IMutation, "artistLikeToggle">,
     IMutationArtistLikeToggleArgs
@@ -32,9 +36,14 @@ const MyPageDetail = () => {
     IMutationUpdateUserArgs
   >(UPDATE_USER);
 
+  const [uploadFile] = useMutation<
+    Pick<IMutation, "uploadFile">,
+    IMutationUploadFileArgs
+  >(UPLOAD_FILE);
+
   const onClickPickedArtist =
     (id: string) => (event: MouseEvent<HTMLLIElement>) => {
-      void router.push(`/artistDetail/${id}`);
+      void router.push(`/artistdetail/${id}`);
     };
 
   const onClickEditPassword = () => {
@@ -44,14 +53,15 @@ const MyPageDetail = () => {
   const onClickEditName = async () => {
     try {
       await updateUser({
-        variables: { updateUserInput: { nickname } },
+        variables: { updateUserInput: { nickname, userImageURL } },
         refetchQueries: [
           {
             query: FETCH_USER,
           },
         ],
       });
-      alert("닉네임이 변경되었습니다!");
+      Modal.success({ content: "닉네임이 변경되었습니다." });
+      setIsEditMode(false);
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
@@ -60,14 +70,18 @@ const MyPageDetail = () => {
   const onChangeImage = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file == null) return;
-
-    console.log(file);
+    try {
+      const result = await uploadFile({ variables: { file } });
+      setUserImageURL(result.data?.uploadFile ?? "");
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
+    }
   };
   const onClickPickOff =
     (id: string) => async (event: MouseEvent<HTMLButtonElement>) => {
       event.stopPropagation();
       try {
-        const result = await artistLikeToggle({
+        await artistLikeToggle({
           variables: { status: true, artistId: id },
           refetchQueries: [
             {
@@ -75,7 +89,6 @@ const MyPageDetail = () => {
             },
           ],
         });
-        console.log(result);
       } catch (error) {
         if (error instanceof Error) alert(error.message);
       }
@@ -107,6 +120,7 @@ const MyPageDetail = () => {
       onClickPickOff={onClickPickOff}
       onClickPickedArtist={onClickPickedArtist}
       data={data}
+      userImageURL={userImageURL}
     />
   );
 };

@@ -44,7 +44,7 @@ export default function KaKaoMapPage() {
     variables: {
       lat: Number(userPosition.lat),
       lng: Number(userPosition.lng),
-      distance: isMobile ? 0.008 : 0.006,
+      distance: 2,
     },
   });
 
@@ -55,6 +55,9 @@ export default function KaKaoMapPage() {
           style={{
             width: "100%",
             height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
           불러오는 중입니다...

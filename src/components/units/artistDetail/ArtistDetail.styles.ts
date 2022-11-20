@@ -112,12 +112,11 @@ export const TypingIntro = styled.div`
   }
 
   @media ${breakPoints.mobile} {
-    width: 350px;
     .typewriter span {
       font-size: 1.5rem;
     }
     span {
-      font-size: 2rem;
+      font-size: 1.8rem;
     }
 
     @keyframes typing2 {
@@ -128,7 +127,7 @@ export const TypingIntro = styled.div`
 
       to {
         opacity: 1;
-        width: 260px;
+        width: 100%;
       }
     }
   }
@@ -148,7 +147,9 @@ export const ArtistContentsLeft = styled.div`
 
 export const ArtistIntro = styled.p`
   font-size: 2rem;
-
+  width: 100%;
+  word-wrap: break-word;
+  word-break: keep-all;
   @media ${breakPoints.mobile} {
     font-size: 1.8rem;
   }
@@ -210,10 +211,14 @@ export const StickyBox = styled.div`
   position: sticky;
   top: 50px;
   width: 100%;
-  height: 200px;
+
   border-radius: 15px;
   padding: 1.5rem;
   box-shadow: ${boxShadow};
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 
   @media ${breakPoints.mobile} {
     position: static;
@@ -223,6 +228,13 @@ export const StickyBox = styled.div`
     padding: 0;
     box-shadow: none;
     background-color: white;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    & button {
+      min-width: 80px;
+    }
   }
 `;
 
@@ -238,9 +250,17 @@ export const RecentArts = styled.div`
 
 export const RecentArt = styled.div`
   flex: 1;
-  border: 1px solid red;
-  padding: 1rem;
-  padding-bottom: 25%;
+  aspect-ratio: 1/1;
   overflow: hidden;
   word-break: keep-all;
+`;
+
+export const RecentContent = styled.div`
+  width: 100%;
+  aspect-ratio: 1.2 / 1;
+`;
+
+export const RecentImage = styled.img`
+  width: 100%;
+  height: 100%;
 `;

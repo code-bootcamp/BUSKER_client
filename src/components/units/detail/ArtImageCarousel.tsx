@@ -7,7 +7,7 @@ import {
 import { IBoardImages } from "../../../commons/types/generated/types";
 
 interface ICarouselProps {
-  data?: IBoardImages[];
+  data?: any;
 }
 
 const ImageCarousel = (props: ICarouselProps) => {
@@ -22,20 +22,15 @@ const ImageCarousel = (props: ICarouselProps) => {
   return (
     <SlideWrapper>
       <StyledSlider {...settings}>
-        {props.data?.length
-          ? props.data?.map((url, i) => (
-              <ImageBox key={i}>
-                <StyledImage
-                  // eslint-disable-next-line @typescript-eslint/no-base-to-string, @typescript-eslint/restrict-template-expressions
-                  src={`https://storage.googleapis.com/busker-shop/${url}`}
-                />
-              </ImageBox>
-            ))
-          : new Array(3).fill(1).map((_, i) => (
-              <ImageBox key={i}>
-                <StyledImage src="" />
-              </ImageBox>
-            ))}
+        {props.data?.map((images: IBoardImages, i: number) => (
+          <ImageBox key={i}>
+            <StyledImage
+              src={`https://storage.googleapis.com/busker-storage/${String(
+                images.url
+              )}`}
+            />
+          </ImageBox>
+        ))}
       </StyledSlider>
     </SlideWrapper>
   );

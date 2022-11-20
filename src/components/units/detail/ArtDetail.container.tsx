@@ -26,6 +26,9 @@ const ArtDetail = () => {
     variables: { boardId: String(router.query.id) },
   });
 
+  console.log("fetchArtist:", artistData?.fetchArtist.id);
+  console.log("fetchBoard:", artData?.fetchBoard.artist.id);
+  console.log(isArtist);
   const [deleteBoard] = useMutation<
     Pick<IMutation, "deleteBoard">,
     IMutationDeleteBoardArgs
@@ -38,7 +41,9 @@ const ArtDetail = () => {
         getDate(artData?.fetchBoard.end_time),
       ]);
 
-    if (artistData) setIsArtist(true);
+    artistData?.fetchArtist.id === artData?.fetchBoard.artist.id
+      ? setIsArtist(true)
+      : setIsArtist(false);
   }, [artData, artistData]);
 
   const onClickMoveToEdit = async () => {

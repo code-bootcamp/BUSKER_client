@@ -1,0 +1,21 @@
+{
+  "/_app": "pages/_app.js",
+  "/artistdetail/[id]/edit": "pages/artistdetail/[id]/edit.html",
+  "/artistdetail/[id]": "pages/artistdetail/[id].html",
+  "/artistsignup": "pages/artistsignup.html",
+  "/artregister": "pages/artregister.html",
+  "/": "pages/index.html",
+  "/login": "pages/login.html",
+  "/main/list/[id]/edit": "pages/main/list/[id]/edit.html",
+  "/main/list/[id]": "pages/main/list/[id].html",
+  "/main/list": "pages/main/list.html",
+  "/map": "pages/map.html",
+  "/myPage/edit": "pages/myPage/edit.html",
+  "/myPage": "pages/myPage.html",
+  "/password/change": "pages/password/change.html",
+  "/password/reset": "pages/password/reset.html",
+  "/signup": "pages/signup.html",
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js",
+  "/404": "pages/404.html"
+}

@@ -133,7 +133,6 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
   };
 
   const onClickEdit = async (data: IFormData) => {
-    console.log("sdfsadf", data);
     const result = await updateArtist({
       variables: {
         updateArtistInput: data,

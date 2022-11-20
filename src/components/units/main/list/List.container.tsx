@@ -29,23 +29,23 @@ const MainList = () => {
   const { data: isUser } = useQuery<Pick<IQuery, "fetchUser">>(FETCH_USER);
   const genreOptions: SelectProps["options"] = [
     {
-      value: "55e17492-ff90-4dc7-b765-93e032a27e3c",
+      value: "c1aaac2c-cff4-4615-b0f0-e193ab5b23bc",
       label: "노래",
     },
     {
-      value: "94d9ea62-8b17-4498-85b8-93675e65020d",
+      value: "a27e5a6b-592f-4975-809c-7067abd17573",
       label: "랩",
     },
     {
-      value: "87bf8af2-b764-4c3e-91a2-94583b858dca",
+      value: "d89e1e22-32f7-4c4b-9ed0-c0d85f9396cc",
       label: "마술",
     },
     {
-      value: "80350a1c-acef-4fd1-a989-a0aa24dfae2c",
-      label: "악기",
+      value: "6131d818-3140-4d4b-98ca-a84bd3e8398c",
+      label: "악기 연주",
     },
     {
-      value: "d3f6c47f-9041-4618-b9a9-5f6d78f58629",
+      value: "6c63004f-144a-4f51-9f64-c0e91ef878fd",
       label: "춤",
     },
   ];

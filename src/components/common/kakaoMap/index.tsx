@@ -27,13 +27,12 @@ const KakaoMap = ({
   });
 
   const onClickMarker = (i: number) => () => {
-    console.log(i, "클릭됨");
     setIsOpen((prev) => {
       const filteredPrev = prev.map((TF, index) => (index === i ? !TF : TF));
       return filteredPrev;
     });
   };
-  console.log(isOpen);
+
   useEffect(() => {
     kakao.maps.load(() => {
       if (!isMap) {

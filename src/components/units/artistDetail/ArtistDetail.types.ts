@@ -4,5 +4,9 @@ export interface IArtistDetailProps {
   data?: Pick<IQuery, "fetchArtistWithoutAuth">;
   artistId?: string;
   onClickLikeArtist: () => void;
-  onClickMoveEdit: () => void;
+  onClickMoveToEdit: () => void;
+  onClickGoBack: () => void;
+  artistData?: Pick<IQuery, "fetchArtist">;
+  fetchRecentBoards?: Pick<IQuery, "fetchRecentBoards">;
+  memberData?: Pick<IQuery, "fetchMembers">;
 }

@@ -23,15 +23,14 @@ const MainListUI = (props: IMainListProps) => {
           <Select
             mode="multiple"
             allowClear
-            style={{ width: "100%" }}
             placeholder="장르 검색"
             onChange={props.handleChangeGenre}
             options={props.genreOptions}
           />
         </S.GenreOptionBox>
-        <button onClick={props.onClickMoveToArtRegister}>
+        <Button01 onClick={props.onClickMoveToArtRegister}>
           버스킹 등록하기
-        </button>
+        </Button01>
       </S.OptionBox>
       <S.ListBox>
         <AnimatePresence>

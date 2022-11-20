@@ -1,6 +1,12 @@
 import styled from "@emotion/styled";
 import { breakPoints } from "./globalStyles";
 
+export const Wrapper = styled.div`
+  position: relative;
+  padding-top: 100vh;
+  width: 100%;
+`;
+
 export const ImageBoxes = styled.div`
   width: 400px;
   aspect-ratio: 1 / 1;
@@ -45,13 +51,8 @@ export const Content = styled.div`
   }
 
   @media (max-width: 920px) {
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
-`;
-
-export const Wrapper = styled.div`
-  position: relative;
-  padding-top: 100vh;
 `;
 
 export const VideoBox = styled.div`
@@ -124,7 +125,12 @@ export const ContentBox = styled.div`
 
 export const LastContent = styled.div`
   height: 100vh;
-  background-color: #9900ff;
+  background: rgb(153, 0, 255);
+  background: radial-gradient(
+    circle,
+    rgba(153, 0, 255, 1) 0%,
+    rgba(148, 153, 233, 1) 100%
+  );
   display: flex;
   justify-content: center;
   align-items: center;

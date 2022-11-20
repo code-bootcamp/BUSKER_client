@@ -52,7 +52,8 @@ export const LoginBtnStyle = styled.button`
   }
 `;
 
-export const SocialLoginGoogleStyled = styled.div`
+export const SocialLoginGoogleStyled = styled.a`
+  display: block;
   width: 100%;
   padding: 1rem;
   display: flex;

@@ -31,14 +31,6 @@ export const FETCH_BOARD = gql`
         id
         url
       }
-      comments {
-        id
-        content
-        user {
-          nickname
-          userImageURL
-        }
-      }
     }
   }
 `;
