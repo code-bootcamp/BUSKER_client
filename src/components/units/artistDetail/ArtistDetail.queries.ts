@@ -20,3 +20,36 @@ export const ARTIST_LIKE_TOGGLE = gql`
     artistLikeToggle(artistId: $artistId, status: $status)
   }
 `;
+
+export const FETCH_RECENT_BOARDS = gql`
+  query fetchRecentBoards($artistId: String!) {
+    fetchRecentBoards(artistId: $artistId) {
+      id
+      boardImageURL {
+        id
+        url
+      }
+      start_time
+      end_time
+    }
+  }
+`;
+
+export const FETCH_ARTIST = gql`
+  query {
+    fetchArtist {
+      id
+    }
+  }
+`;
+
+export const FETCH_MEMBERS = gql`
+  query fetchMembers($artistId: String!) {
+    fetchMembers(artistId: $artistId) {
+      id
+      name
+      role
+      memberImageURL
+    }
+  }
+`;

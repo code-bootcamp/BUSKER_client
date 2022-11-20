@@ -34,15 +34,6 @@ export const UPDATE_USER = gql`
   }
 `;
 
-export const UPDATE_USER_IMAGE = gql`
-  mutation updateUserImage($updateUserImageInput: UpdateUserImageInput) {
-    updateUserImage(updateUserImageInput: $updateUserImageInput) {
-      id
-      url
-    }
-  }
-`;
-
 export const NON_LOGIN_RESET_PASSWORD = gql`
   mutation nonLoginResetPassword(
     $email: String!
@@ -52,5 +43,11 @@ export const NON_LOGIN_RESET_PASSWORD = gql`
       email: $email
       updatePasswordInput: $updatePasswordInput
     )
+  }
+`;
+
+export const UPLOAD_FILE = gql`
+  mutation uploadFile($file: Upload!) {
+    uploadFile(file: $file)
   }
 `;

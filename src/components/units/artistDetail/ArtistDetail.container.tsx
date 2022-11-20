@@ -6,11 +6,15 @@ import {
   IMutationArtistLikeToggleArgs,
   IQuery,
   IQueryFetchArtistWithoutAuthArgs,
+  IQueryFetchMembersArgs,
 } from "../../../commons/types/generated/types";
 import ArtistDetailUI from "./ArtistDetail.presenter";
 import {
   ARTIST_LIKE_TOGGLE,
+  FETCH_ARTIST,
   FETCH_ARTIST_WITHOUT_AUTH,
+  FETCH_MEMBERS,
+  FETCH_RECENT_BOARDS,
 } from "./ArtistDetail.queries";
 
 interface IArtistProps {
@@ -24,16 +28,26 @@ const ArtistDetail = ({ artistId }: IArtistProps) => {
     IQueryFetchArtistWithoutAuthArgs
   >(FETCH_ARTIST_WITHOUT_AUTH, { variables: { artistId: artistId ?? "" } });
 
+  const { data: artistData } =
+    useQuery<Pick<IQuery, "fetchArtist">>(FETCH_ARTIST);
+
   const [artistLikeToggle] = useMutation<
     Pick<IMutation, "artistLikeToggle">,
     IMutationArtistLikeToggleArgs
   >(ARTIST_LIKE_TOGGLE);
 
-  // const {data: memberData} = useQuery<>();
+  const { data: fetchRecentBoards } = useQuery<
+    Pick<IQuery, "fetchRecentBoards">
+  >(FETCH_RECENT_BOARDS, { variables: { artistId } });
+
+  const { data: memberData } = useQuery<
+    Pick<IQuery, "fetchMembers">,
+    IQueryFetchMembersArgs
+  >(FETCH_MEMBERS);
 
   const onClickLikeArtist = async () => {
     try {
-      const result = await artistLikeToggle({
+      await artistLikeToggle({
         variables: {
           artistId: artistId ?? "",
           status: false,
@@ -44,22 +58,30 @@ const ArtistDetail = ({ artistId }: IArtistProps) => {
           });
         },
       });
-      console.log(result);
+
       Modal.success({ content: "이 버스커를 찜했습니다." });
     } catch (error) {
       if (error instanceof Error) alert(error);
     }
   };
 
-  const onClickMoveEdit = () => {
+  const onClickMoveToEdit = () => {
     void router.push(`/artistdetail/${router.query.id}/edit`);
+  };
+
+  const onClickGoBack = () => {
+    void router.back();
   };
 
   return (
     <ArtistDetailUI
+      artistData={artistData}
       data={data}
+      fetchRecentBoards={fetchRecentBoards}
+      onClickGoBack={onClickGoBack}
+      onClickMoveToEdit={onClickMoveToEdit}
       onClickLikeArtist={onClickLikeArtist}
-      onClickMoveEdit={onClickMoveEdit}
+      memberData={memberData}
     />
   );
 };

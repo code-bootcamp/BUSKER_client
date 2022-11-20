@@ -2,6 +2,7 @@ import { ChangeEvent, MouseEvent, RefObject } from "react";
 import { IQuery } from "../../../../commons/types/generated/types";
 
 export interface IMyPageProps {
+  userImageURL: string | undefined;
   imageRef: RefObject<HTMLInputElement>;
   onClickEditPassword: () => void;
   onClickEditName: () => void;

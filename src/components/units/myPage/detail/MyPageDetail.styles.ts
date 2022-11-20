@@ -83,7 +83,7 @@ export const PickComment = styled.h2`
 export const PickedArtistBox = styled.ul`
   list-style: none;
   padding: 0;
-  max-width: 700px;
+  max-width: 500px;
   min-width: 200px;
 `;
 
@@ -119,9 +119,9 @@ export const MyDetailEditBox = styled.div`
 `;
 export const FormBox = styled.div`
   min-width: 250px;
-  max-width: 50%;
   width: auto;
   display: flex;
+
   justify-content: space-between;
   align-items: center;
   gap: 50px;
@@ -130,4 +130,12 @@ export const FormBox = styled.div`
   & > div {
     font-size: 1.5rem;
   }
+`;
+
+export const ButtonBoxEdit = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding-left: 10px;
 `;

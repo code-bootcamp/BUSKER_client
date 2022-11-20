@@ -27,10 +27,7 @@ export default function Home() {
       )
     );
   }, []);
-  console.log("현재 좌표:", userPosition);
-  console.log(isMobile ? "데탑아님" : "데탑임");
-  console.log(data ? "로그인 상태" : "로그인 안된 상태");
-  console.log(typeof window !== "undefined" && window.outerWidth);
+
   return (
     <>
       <Head>

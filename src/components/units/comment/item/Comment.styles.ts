@@ -18,6 +18,7 @@ export const UserBox = styled.div`
 `;
 
 export const UserName = styled.span`
+  text-align: center;
   font-size: 1.5rem;
   overflow: hidden;
   white-space: nowrap;

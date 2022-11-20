@@ -17,7 +17,9 @@ const MyPageDetailUI = (props: IMyPageProps) => {
             <ImageBox
               width="72px"
               height="72px"
-              src={props.data?.fetchUser.userImageURL ?? ""}
+              src={`https://storage.googleapis.com/busker-storage/${
+                props.data?.fetchUser.userImageURL ?? ""
+              }`}
             />
             <S.UserName>
               {props.data?.fetchUser.nickname.slice(0, 8) ?? "유저 이름"}
@@ -48,11 +50,19 @@ const MyPageDetailUI = (props: IMyPageProps) => {
           {props.isEdit ? (
             <S.MyDetailEditBox>
               <S.FormBox>
-                <ImageBox
-                  width="72px"
-                  height="72px"
-                  src={props.data?.fetchUser.userImageURL ?? ""}
-                />
+                {props.userImageURL ? (
+                  <ImageBox
+                    width="72px"
+                    height="72px"
+                    src={`https://storage.googleapis.com/busker-storage/${props.userImageURL}`}
+                  />
+                ) : (
+                  <ImageBox
+                    width="72px"
+                    height="72px"
+                    src={`https://storage.googleapis.com/busker-storage/${props.data?.fetchUser.userImageURL}`}
+                  />
+                )}
                 <Button01 type="file" onClick={props.onClickEditProfileImage}>
                   프로필 변경
                   <input
@@ -68,20 +78,16 @@ const MyPageDetailUI = (props: IMyPageProps) => {
               </S.FormBox>
               <S.FormBox>
                 {props.isEditMode ? (
-                  <div style={{ display: "flex" }}>
-                    <Input01 type="text" onChange={props.onChangeName} />
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        gap: "10px",
-                        paddingLeft: "10px",
-                      }}
-                    >
+                  <div style={{ display: "flex", flexWrap: "wrap" }}>
+                    <Input01
+                      type="text"
+                      defaultValue={props.data?.fetchUser.nickname}
+                      onChange={props.onChangeName}
+                    />
+                    <S.ButtonBoxEdit>
                       <Button02 onClick={props.onClickEditName}>변경</Button02>
                       <Button01 onClick={props.onToggleEditMode}>취소</Button01>
-                    </div>
+                    </S.ButtonBoxEdit>
                   </div>
                 ) : (
                   <>
