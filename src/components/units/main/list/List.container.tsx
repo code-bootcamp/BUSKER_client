@@ -86,7 +86,16 @@ const MainList = () => {
   };
 
   const onClickToMap = async () => {
-    await router.push("/map");
+    if (isUser) {
+      await router.push("/map");
+    } else {
+      Modal.warning({
+        content: "로그인 후 이용해주세요.",
+        onOk: () => {
+          void router.push("/login");
+        },
+      });
+    }
   };
 
   const onClickMoveToArtRegister = async () => {

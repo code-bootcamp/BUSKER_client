@@ -11,9 +11,9 @@ import { FETCH_USER } from "../src/components/units/myPage/detail/MyPageDetail.q
 
 export default function Home() {
   const router = useRouter();
-  const { data } = useQuery<Pick<IQuery, "fetchUser">>(FETCH_USER);
-  const [isMobile, setIsMobile] = useRecoilState(deviceState);
-  const [userPosition, setUserPosition] = useRecoilState(userPositionState);
+  // const { data } = useQuery<Pick<IQuery, "fetchUser">>(FETCH_USER);
+  const [, setIsMobile] = useRecoilState(deviceState);
+  const [, setUserPosition] = useRecoilState(userPositionState);
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       setUserPosition({
@@ -109,7 +109,9 @@ export default function Home() {
           )}
         </S.ContentBox>
         <S.LastContent>
-          <S.GoToMainButton onClick={async () => await router.push("/map")}>
+          <S.GoToMainButton
+            onClick={async () => await router.push("/main/list")}
+          >
             버스킹 즐기러 가기{" "}
           </S.GoToMainButton>
         </S.LastContent>

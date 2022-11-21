@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { MouseEventHandler } from "react";
 
 interface IImageBoxProps {
-  src: string;
+  src: string | undefined;
   width: string;
   height: string;
   onClick?: MouseEventHandler<HTMLImageElement> | undefined;

@@ -28,7 +28,9 @@ const MyPageDetail = () => {
   const [nickname, setNickname] = useState("");
   const [userImageURL, setUserImageURL] = useState("");
   const [file, setFile] = useState<File>();
-  const { data } = useQuery<Pick<IQuery, "fetchUser">>(FETCH_USER, {});
+  const { data } = useQuery<Pick<IQuery, "fetchUser">>(FETCH_USER, {
+    fetchPolicy: "cache-and-network",
+  });
 
   const [artistLikeToggle] = useMutation<
     Pick<IMutation, "artistLikeToggle">,
@@ -58,17 +60,16 @@ const MyPageDetail = () => {
   };
 
   const onClickEditName = async () => {
-    const resultFile = await uploadFile({ variables: { file: file } });
-    const url = resultFile.data?.uploadFile ?? data?.fetchUser.userImageURL;
-
     try {
+      const resultFile = await uploadFile({ variables: { file } });
+      const url = resultFile.data?.uploadFile ?? data?.fetchUser.userImageURL;
       await updateUser({
         variables: { updateUserInput: { nickname, userImageURL: String(url) } },
-        refetchQueries: [
-          {
-            query: FETCH_USER,
-          },
-        ],
+        update(cache) {
+          cache.modify({
+            fields: () => {},
+          });
+        },
       });
       Modal.success({ content: "유저정보가 변경되었습니다." });
     } catch (error) {
