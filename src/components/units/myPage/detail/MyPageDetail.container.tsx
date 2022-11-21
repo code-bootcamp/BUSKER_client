@@ -60,7 +60,7 @@ const MyPageDetail = () => {
           },
         ],
       });
-      Modal.success({ content: "닉네임이 변경되었습니다." });
+      Modal.success({ content: "유저정보가 변경되었습니다." });
       setIsEditMode(false);
     } catch (error) {
       if (error instanceof Error) alert(error.message);
@@ -72,7 +72,7 @@ const MyPageDetail = () => {
     if (file == null) return;
     try {
       const result = await uploadFile({ variables: { file } });
-      setUserImageURL(result.data?.uploadFile ?? "");
+      setUserImageURL(String(result.data?.uploadFile));
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }

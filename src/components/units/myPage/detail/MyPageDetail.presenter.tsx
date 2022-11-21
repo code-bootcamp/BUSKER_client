@@ -50,19 +50,15 @@ const MyPageDetailUI = (props: IMyPageProps) => {
           {props.isEdit ? (
             <S.MyDetailEditBox>
               <S.FormBox>
-                {props.userImageURL ? (
-                  <ImageBox
-                    width="72px"
-                    height="72px"
-                    src={`https://storage.googleapis.com/busker-storage/${props.userImageURL}`}
-                  />
-                ) : (
-                  <ImageBox
-                    width="72px"
-                    height="72px"
-                    src={`https://storage.googleapis.com/busker-storage/${props.data?.fetchUser.userImageURL}`}
-                  />
-                )}
+                <ImageBox
+                  width="72px"
+                  height="72px"
+                  src={
+                    props.userImageURL
+                      ? `https://storage.googleapis.com/busker-storage/${props.userImageURL}`
+                      : `https://storage.googleapis.com/busker-storage/${props.data?.fetchUser.userImageURL}`
+                  }
+                />
                 <Button01 type="file" onClick={props.onClickEditProfileImage}>
                   프로필 변경
                   <input
@@ -91,19 +87,19 @@ const MyPageDetailUI = (props: IMyPageProps) => {
                   </div>
                 ) : (
                   <>
-                    <span>
-                      {props.data?.fetchUser.nickname.slice(0, 8) ??
-                        "유저 이름"}
-                    </span>
+                    <span>{props.data?.fetchUser.nickname ?? "유저 이름"}</span>
                     <Button01 onClick={props.onToggleEditMode}>
                       닉네임 변경
                     </Button01>
                   </>
                 )}
               </S.FormBox>
-              <Button01 onClick={props.onClickEditPassword}>
-                비밀번호 변경
-              </Button01>
+              <S.FormBox>
+                <Button01 onClick={props.onClickEditPassword}>
+                  비밀번호 변경
+                </Button01>
+                <Button02>변경 사항 저장</Button02>
+              </S.FormBox>
             </S.MyDetailEditBox>
           ) : (
             <S.MyPickBox>
