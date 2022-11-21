@@ -169,9 +169,9 @@ export const TeamMemberBox = styled.ul`
   list-style: none;
   flex-wrap: wrap;
   gap: 20px;
-  border: 1px solid blue;
   padding: 1rem;
-
+  border: 1px solid #9900ff;
+  border-radius: 30px;
   @media ${breakPoints.mobile} {
     flex-direction: column;
   }
@@ -180,7 +180,6 @@ export const TeamMemberBox = styled.ul`
 export const Member = styled.li`
   width: 100%;
   flex: 1;
-  border: 1px solid red;
   height: 100px;
   display: flex;
   justify-content: center;

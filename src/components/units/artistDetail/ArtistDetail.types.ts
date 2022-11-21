@@ -3,7 +3,7 @@ import { IQuery } from "../../../commons/types/generated/types";
 export interface IArtistDetailProps {
   data?: Pick<IQuery, "fetchArtistWithoutAuth">;
   artistId?: string;
-  onClickLikeArtist: () => void;
+  onClickLikeArtist: (state: boolean) => () => void;
   onClickMoveToEdit: () => void;
   onClickGoBack: () => void;
   artistData?: Pick<IQuery, "fetchArtist">;
@@ -11,4 +11,5 @@ export interface IArtistDetailProps {
   memberData?: Pick<IQuery, "fetchMembers">;
   likeCount?: Pick<IQuery, "fetchArtistCount">;
   onClickMoveToRecent: (id: string) => () => void;
+  userData?: Pick<IQuery, "fetchUser">;
 }

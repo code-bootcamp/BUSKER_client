@@ -67,7 +67,7 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
   >(CREATE_MEMBER);
 
   const { data } = useQuery<Pick<IQuery, "fetchArtist">>(FETCH_ARTIST);
-
+  console.log(data);
   const { data: MemberData } = useQuery<
     Pick<IQuery, "fetchMembers">,
     IQueryFetchMembersArgs
@@ -198,11 +198,11 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
         variables: {
           updateArtistInput: data,
         },
-        refetchQueries: [
-          {
-            query: FETCH_ARTIST,
-          },
-        ],
+        update(cache) {
+          cache.modify({
+            fields: () => {},
+          });
+        },
       });
 
       void router.push(`/artistdetail/${String(result.data?.updateArtist.id)}`);
@@ -230,6 +230,7 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
 
   return (
     <ArtistSignupPageWriteUI
+      editUrl={editUrl}
       MemberData={MemberData}
       onClickSearchAddress={onClickSearchAddress}
       isOpen={isOpen}
