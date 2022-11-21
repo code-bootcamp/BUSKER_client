@@ -16,13 +16,22 @@ export const MainWrapper = styled.form`
 `;
 
 export const ContentsWrapper = styled.div`
+  max-width: 1100px;
   width: 100%;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   padding: 0 30px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+
+  @media ${breakPoints.desktop} {
+    margin: 0 30px;
+  }
+  @media ${breakPoints.tablet} {
+    margin: 0 20px;
+  }
   @media ${breakPoints.mobile} {
-    width: 280px;
+    margin: 0 10px;
   }
 `;
 
@@ -48,9 +57,13 @@ export const PlaceGenreWrapper = styled.div`
   justify-content: space-between;
   gap: 20px;
   @media ${breakPoints.mobile} {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    width: 200px;
+
+    input {
+      width: 100%;
+    }
   }
 `;
 
@@ -60,7 +73,6 @@ export const ArtistPlaceWrapper = styled.div`
   @media ${breakPoints.mobile} {
     display: flex;
     flex-direction: column;
-    width: 200px;
     justify-content: center;
   }
 `;
@@ -69,10 +81,10 @@ export const MainPlaceGenreWrapper = styled.div`
   display: flex;
   flex-direction: column;
   &.map {
-    width: 70%;
+    width: 100%;
   }
   &.select {
-    width: 30%;
+    width: 100%;
   }
   .ant-select-single .ant-select-selector {
     align-items: center !important;
@@ -238,6 +250,7 @@ export const SubmitBtn = styled.button`
   width: 20%;
   min-width: 200px;
   border-radius: 1.5rem;
+  font-size: 2rem;
   font-weight: 600;
   cursor: pointer;
   color: ${stylePrimaryColor};

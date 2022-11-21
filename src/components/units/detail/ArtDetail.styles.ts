@@ -54,14 +54,14 @@ export const ContentBox = styled.div`
   flex-direction: column;
   @media ${breakPoints.mobile} {
     width: 100%;
-    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     margin-top: 2rem;
   }
 `;
 
 export const ArtistInfoBox = styled.div`
   position: relative;
-  min-width: 250px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -72,14 +72,11 @@ export const ArtistInfoBox = styled.div`
   }
   @media ${breakPoints.mobile} {
     min-width: 100px;
-    flex-direction: column;
-    gap: 0px;
   }
 `;
 
 export const ArtistName = styled.h2`
   font-size: 2rem;
-  width: 120px;
   text-align: center;
   margin: 0;
   cursor: pointer;

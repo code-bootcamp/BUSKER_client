@@ -1,4 +1,5 @@
 import { useMutation } from "@apollo/client";
+import { Modal } from "antd";
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 import {
@@ -53,7 +54,7 @@ const Comment = ({ data }: ICommentProps) => {
           },
         ],
       });
-      alert("댓글이 삭제되었습니다.");
+      Modal.success({ content: "댓글이 삭제되었습니다." });
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }

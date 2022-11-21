@@ -10,7 +10,7 @@ const CommentUI = (props: ICommentProps) => {
         <ImageBox
           width="42px"
           height="42px"
-          src={props.data?.user.userImageURL ?? ""}
+          src={`https://storage.googleapis.com/busker-storage/${props.data?.user.userImageURL}`}
         />
         <S.UserName>{props.data?.user.nickname ?? "익명"}</S.UserName>
       </S.UserBox>
