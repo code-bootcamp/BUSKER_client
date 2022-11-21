@@ -37,6 +37,13 @@ export const Header = styled.div`
   }
 `;
 
+export const SummaryInfo = styled.div`
+  position: relative;
+  span * {
+    font-size: 3rem;
+  }
+`;
+
 export const TypingIntro = styled.div`
   width: fit-content;
   .typewriter span {
@@ -240,9 +247,8 @@ export const StickyBox = styled.div`
 
 export const RecentArts = styled.div`
   width: 100%;
-  border: 1px solid blue;
   display: flex;
-  gap: 10px;
+  gap: 30px;
   justify-content: center;
   align-items: center;
   padding: 1rem;
@@ -250,14 +256,29 @@ export const RecentArts = styled.div`
 
 export const RecentArt = styled.div`
   flex: 1;
-  aspect-ratio: 1/1;
+  max-width: 360px;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
   word-break: keep-all;
+  cursor: pointer;
 `;
 
-export const RecentContent = styled.div`
+export const RecentImageBox = styled.div`
   width: 100%;
   aspect-ratio: 1.2 / 1;
+  border-radius: 15px;
+  overflow: hidden;
+`;
+
+export const RecentInfo = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 1rem;
+
+  * span {
+    font-size: 1.2rem;
+  }
 `;
 
 export const RecentImage = styled.img`

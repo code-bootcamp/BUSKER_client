@@ -315,6 +315,7 @@ export type IQuery = {
   __typename?: 'Query';
   districtList: Array<IDistrict>;
   fetchArtist: IArtist;
+  fetchArtistCount: Scalars['Int'];
   fetchArtistWithoutAuth: IArtist;
   fetchBoard: IBoards;
   fetchBoards: Array<IBoards>;
@@ -327,6 +328,11 @@ export type IQuery = {
   fetchMembers: Array<IMember>;
   fetchRecentBoards: Array<IBoards>;
   fetchUser: IUser;
+};
+
+
+export type IQueryFetchArtistCountArgs = {
+  artistId: Scalars['String'];
 };
 
 

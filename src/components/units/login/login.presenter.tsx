@@ -46,20 +46,7 @@ const LoginPageWriteUI = ({
                 </S.LoginOptionStyle>
               </S.LoginOptionWrapper>
             </S.LoginTopWrapper>
-            <S.LoginBottomWrapper>
-              <S.SocialLoginGoogleStyled href="https://busker.shop/login/google">
-                <div>
-                  <S.IconStyle src="GoogleIcon.png" />
-                </div>
-                <S.SocialLogInText>구글로 로그인하기</S.SocialLogInText>
-              </S.SocialLoginGoogleStyled>
-              <S.SocialLoginGoogleStyled href="https://busker.shop/login/kakao">
-                <div>
-                  <S.IconStyle src="kakao.png" />
-                </div>
-                <S.SocialLogInText>카카오로 로그인하기</S.SocialLogInText>
-              </S.SocialLoginGoogleStyled>
-            </S.LoginBottomWrapper>
+            <S.LoginBottomWrapper></S.LoginBottomWrapper>
           </S.LoginMainWrapper>
         </S.MainWrapper>
       </div>

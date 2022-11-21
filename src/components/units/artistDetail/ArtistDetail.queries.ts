@@ -31,6 +31,13 @@ export const FETCH_RECENT_BOARDS = gql`
       }
       start_time
       end_time
+      category {
+        id
+        name
+      }
+      boardAddress {
+        address
+      }
     }
   }
 `;
@@ -51,5 +58,11 @@ export const FETCH_MEMBERS = gql`
       role
       memberImageURL
     }
+  }
+`;
+
+export const FETCH_ARTIST_COUNT = gql`
+  query fetchArtistCount($artistId: String!) {
+    fetchArtistCount(artistId: $artistId)
   }
 `;

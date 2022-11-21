@@ -28,7 +28,11 @@ const ArtDetailUI = (props: IArtDetailProps) => {
         <ImageCarousel data={props.data?.fetchBoard.boardImageURL} />
         <S.ContentBox>
           <S.ArtistInfoBox>
-            <ImageBox src="" width="75px" height="75px"></ImageBox>
+            <ImageBox
+              src={`https://storage.googleapis.com/busker-storage/${props.data?.fetchBoard.artist.artistImageURL}`}
+              width="75px"
+              height="75px"
+            ></ImageBox>
             <S.ArtistName
               onClick={props.onClickMoveToArtistDetail(
                 props.data?.fetchBoard.artist.id ?? ""
