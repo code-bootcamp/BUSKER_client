@@ -153,6 +153,7 @@ const ArtistSignupPageWriteUI = ({
               <S.RemarksInputWrapper>
                 <S.TextStyle>소개</S.TextStyle>
                 <Input01
+                  style={{ margin: "0", marginBottom: "10px" }}
                   type="text"
                   placeholder="소개글을 적어주세요"
                   register={register("description")}
@@ -162,8 +163,9 @@ const ArtistSignupPageWriteUI = ({
               <S.RemarksInputWrapper>
                 <S.TextStyle>SNS링크 또는 유튜브 URL</S.TextStyle>
                 <Input01
+                  style={{ margin: "0" }}
                   type="text"
-                  placeholder="SNS링크 또는 유튜브 URL을 올려주세요"
+                  placeholder="SNS 링크 또는 유튜브 URL을 올려주세요"
                   register={register("promotion_url")}
                 />
               </S.RemarksInputWrapper>

@@ -98,6 +98,7 @@ const ArtistDetail = ({ artistId }: IArtistProps) => {
       onClickMoveToEdit={onClickMoveToEdit}
       onClickLikeArtist={onClickLikeArtist}
       memberData={memberData}
+      artistId={artistId}
     />
   );
 };

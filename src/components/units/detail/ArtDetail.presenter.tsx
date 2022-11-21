@@ -53,15 +53,8 @@ const ArtDetailUI = (props: IArtDetailProps) => {
         </S.ContentBox>
       </S.TopDaesungSolGD>
       <Divider />
-      <S.Title>
-        {`${props.date?.[0] ?? ""}부터
-          `}
-      </S.Title>
-      <S.Title>
-        {`${props.date?.[1] ?? ""}
-          까지
-          진행됩니다!`}
-      </S.Title>
+      <S.Title>{`${props.date?.[0] ?? ""}부터`}</S.Title>
+      <S.Title>{`${props.date?.[1] ?? ""}까지`}</S.Title>
       <Divider />
       <S.Title>
         이번에는 <span>이곳에서</span> 버스킹을 진행해요!
