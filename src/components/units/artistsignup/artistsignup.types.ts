@@ -14,8 +14,6 @@ export interface IArtistSignupPageWriteUI {
   onClickTeam: () => void;
   onClickEdit: (data: IFormData) => void;
   isTeam: boolean;
-  onClickAddTeam: () => void;
-  addCount: number;
   isEdit: boolean;
   handleSubmit: any;
   formState: any;
@@ -25,6 +23,12 @@ export interface IArtistSignupPageWriteUI {
   data: Pick<IQuery, "fetchArtist"> | undefined;
   onChangeMemberName: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeRole: (event: ChangeEvent<HTMLInputElement>) => void;
+  onClickMember: () => void;
+  MemberData: Pick<IQuery, "fetchMembers"> | undefined;
+  setIsMemberEdit: any;
+  isMemberEdit: boolean;
+  setGetId: any;
+  onClickMemberEdit: () => void;
 }
 
 export interface IArtistSignupPageWrite {

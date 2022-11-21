@@ -56,3 +56,14 @@ export const FECTH_CATEGORIES = gql`
     }
   }
 `;
+
+export const FETCH_MEMBERS = gql`
+  query fetchMembers($artistId: String!) {
+    fetchMembers(artistId: $artistId) {
+      id
+      name
+      role
+      memberImageURL
+    }
+  }
+`;

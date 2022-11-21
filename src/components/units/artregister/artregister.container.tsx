@@ -67,21 +67,23 @@ const ArtRegisterPageWrite = ({ isEdit }: IArtRegisterPageWriteProps) => {
   });
 
   useEffect(() => {
-    setValue("contents", String(data?.fetchBoard.contents));
-    setValue("start_time", data?.fetchBoard.start_time);
-    setValue("end_time", data?.fetchBoard.end_time);
-    setValue(
-      "boardAddressInput.address",
-      String(data?.fetchBoard.boardAddress.address)
-    );
-    setValue(
-      "boardAddressInput.lat",
-      Number(data?.fetchBoard.boardAddress.lat)
-    );
-    setValue(
-      "boardAddressInput.lng",
-      Number(data?.fetchBoard.boardAddress.lng)
-    );
+    if (data) {
+      setValue("contents", String(data?.fetchBoard.contents));
+      setValue("start_time", data?.fetchBoard.start_time);
+      setValue("end_time", data?.fetchBoard.end_time);
+      setValue(
+        "boardAddressInput.address",
+        String(data?.fetchBoard.boardAddress.address)
+      );
+      setValue(
+        "boardAddressInput.lat",
+        Number(data?.fetchBoard.boardAddress.lat)
+      );
+      setValue(
+        "boardAddressInput.lng",
+        Number(data?.fetchBoard.boardAddress.lng)
+      );
+    }
   }, [data]);
 
   const TimeChange = (
@@ -143,7 +145,6 @@ const ArtRegisterPageWrite = ({ isEdit }: IArtRegisterPageWriteProps) => {
     };
 
   const onClickEdit = async (data: IFormData) => {
-    console.log(data);
     data.boardImageURL = imgUrl;
     const result = await updateBoard({
       variables: {
@@ -161,6 +162,14 @@ const ArtRegisterPageWrite = ({ isEdit }: IArtRegisterPageWriteProps) => {
           boardImageURL: data.boardImageURL,
         },
       },
+      refetchQueries: [
+        {
+          query: FETCH_BOARD,
+          variables: {
+            boardId: router.query.id,
+          },
+        },
+      ],
     });
     router.push(`/main/list/${String(result.data?.updateBoard.id)}`);
   };
@@ -184,6 +193,14 @@ const ArtRegisterPageWrite = ({ isEdit }: IArtRegisterPageWriteProps) => {
             boardImageURL: data.boardImageURL,
           },
         },
+        refetchQueries: [
+          {
+            query: FETCH_BOARD,
+            variables: {
+              boardId: router.query.id,
+            },
+          },
+        ],
       });
 
       await router.push(`/main/list/${String(result.data?.createBoards.id)}`);
