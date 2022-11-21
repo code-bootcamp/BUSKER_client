@@ -1,15 +1,17 @@
 import styled from "@emotion/styled";
+import { MouseEventHandler } from "react";
 
 interface IImageBoxProps {
   src: string;
   width: string;
   height: string;
+  onClick?: MouseEventHandler<HTMLImageElement> | undefined;
 }
 
 const ImageBox = (props: IImageBoxProps) => {
   return (
     <StyledImageBox style={{ width: props.width, height: props.height }}>
-      <StyledImage src={props.src || "/avatar.png"} />
+      <StyledImage onClick={props.onClick} src={props.src || "/avatar.png"} />
     </StyledImageBox>
   );
 };

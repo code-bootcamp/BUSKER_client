@@ -4,7 +4,7 @@ import { stylePrimaryColor } from "../../../../commons/styles/globalStyles";
 
 interface IButtonProps {
   type?: string;
-  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void | undefined;
   onSubmit?: () => void;
   disabled?: boolean;
   children?: string | JSX.Element;
