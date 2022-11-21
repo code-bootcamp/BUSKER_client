@@ -40,6 +40,7 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
   const [role, setRole] = useState("");
   const [editUrl, setEditUrl] = useState("");
   const [getId, setGetId] = useState("");
+  const [editData, setEditData] = useState(["", "", ""]);
 
   const { register, handleSubmit, formState, setValue } = useForm<IFormData>({
     resolver: yupResolver(ArtistSignupYup),
@@ -255,6 +256,8 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
       isMemberEdit={isMemberEdit}
       setGetId={setGetId}
       onClickMemberEdit={onClickMemberEdit}
+      editData={editData}
+      setEditData={setEditData}
     />
   );
 };
