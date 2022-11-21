@@ -1,5 +1,6 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { Modal } from "antd";
 import AOS from "aos";
 import { useRouter } from "next/router";
 import { ReactNode, useEffect } from "react";
@@ -47,7 +48,12 @@ const Layout = ({ children }: ILayoutProps) => {
           });
         },
       });
-      alert("로그아웃 되었습니다.");
+      Modal.success({
+        content: "로그아웃 되었습니다.",
+        onOk: () => {
+          void router.reload();
+        },
+      });
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
@@ -101,9 +107,8 @@ export const HomeWrapper = styled.div`
 
 export const Greeting = styled.div`
   width: 100%;
-
   padding-top: 80px;
-  padding-left: 50px;
+  padding-left: 20px;
   font-size: 2rem;
   color: white;
   font-weight: bold;

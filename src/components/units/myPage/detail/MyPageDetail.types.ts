@@ -2,6 +2,8 @@ import { ChangeEvent, MouseEvent, RefObject } from "react";
 import { IQuery } from "../../../../commons/types/generated/types";
 
 export interface IMyPageProps {
+  nickname: string | undefined;
+  artistData?: Pick<IQuery, "fetchArtist">;
   userImageURL: string | undefined;
   imageRef: RefObject<HTMLInputElement>;
   onClickEditPassword: () => void;
@@ -18,6 +20,7 @@ export interface IMyPageProps {
   ) => (event: MouseEvent<HTMLButtonElement>) => void;
   onChangeImage: (event: ChangeEvent<HTMLInputElement>) => void;
   isEditMode: boolean;
-  onToggleEditMode: () => void;
+  onToggleEditMode: (mode: string) => () => void;
   onChangeName: (event: ChangeEvent<HTMLInputElement>) => void;
+  onClickMoveToDetail: (id: string) => () => void;
 }

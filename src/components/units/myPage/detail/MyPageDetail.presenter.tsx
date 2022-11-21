@@ -4,7 +4,6 @@ import "antd/dist/antd.css";
 import Button01 from "../../../common/buttons/01";
 import ImageBox from "../../../common/imageBox";
 import { IMyPageProps } from "./MyPageDetail.types";
-import Input01 from "../../../common/inputs/01";
 import Button02 from "../../../common/buttons/02";
 
 const MyPageDetailUI = (props: IMyPageProps) => {
@@ -17,13 +16,19 @@ const MyPageDetailUI = (props: IMyPageProps) => {
             <ImageBox
               width="72px"
               height="72px"
-              src={`https://storage.googleapis.com/busker-storage/${
-                props.data?.fetchUser.userImageURL ?? ""
-              }`}
+              src={`https://storage.googleapis.com/busker-storage/${props.data?.fetchUser.userImageURL}`}
             />
-            <S.UserName>
-              {props.data?.fetchUser.nickname.slice(0, 8) ?? "유저 이름"}
-            </S.UserName>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+                paddingLeft: "1rem",
+              }}
+            >
+              <S.UserName>{props.data?.fetchUser.nickname}</S.UserName>
+              <span>{props.data?.fetchUser.email}</span>
+            </div>
           </S.UserInfo>
           <S.ButtonBox>
             <Button01
@@ -31,9 +36,10 @@ const MyPageDetailUI = (props: IMyPageProps) => {
               onClick={props.onClickTab}
               style={{
                 border: "none",
+                color: "black",
               }}
             >
-              내가 찜한 아티스트 보기
+              찜한 아티스트
             </Button01>
             <div
               style={{ width: "1px", height: "18px", backgroundColor: "#ddd" }}
@@ -41,71 +47,113 @@ const MyPageDetailUI = (props: IMyPageProps) => {
             <Button01
               id="info"
               onClick={props.onClickTab}
-              style={{ border: "none" }}
+              style={{ color: "black", border: "none" }}
             >
-              내 정보 수정하기
+              내 정보 수정
             </Button01>
+            <div
+              style={{ width: "1px", height: "18px", backgroundColor: "#ddd" }}
+            ></div>
+            <Button01
+              style={{
+                color: "black",
+                border: "none",
+              }}
+              onClick={props.onClickEditPassword}
+            >
+              비밀번호 변경
+            </Button01>
+            {props.artistData && (
+              <>
+                <div
+                  style={{
+                    width: "1px",
+                    height: "18px",
+                    backgroundColor: "#ddd",
+                  }}
+                ></div>
+                <Button01
+                  style={{
+                    color: "black",
+                    border: "none",
+                  }}
+                  onClick={props.onClickMoveToDetail(
+                    props.artistData.fetchArtist.id
+                  )}
+                >
+                  나의 버스커 상세
+                </Button01>
+              </>
+            )}
           </S.ButtonBox>
           <Divider style={{ marginTop: "5px" }} />
           {props.isEdit ? (
             <S.MyDetailEditBox>
               <S.FormBox>
+                이미지
                 <ImageBox
                   width="72px"
                   height="72px"
                   src={
-                    props.userImageURL
-                      ? `https://storage.googleapis.com/busker-storage/${props.userImageURL}`
-                      : `https://storage.googleapis.com/busker-storage/${props.data?.fetchUser.userImageURL}`
+                    props.userImageURL ||
+                    `https://storage.googleapis.com/busker-storage/${props.data?.fetchUser.userImageURL}`
                   }
                 />
-                <Button01 type="file" onClick={props.onClickEditProfileImage}>
-                  프로필 변경
-                  <input
-                    type="file"
-                    ref={props.imageRef}
-                    style={{ opacity: "0", width: "0px" }}
-                    onChange={props.onChangeImage}
-                  />
+                <Button01 onClick={props.onClickEditProfileImage}>
+                  이미지 변경
                 </Button01>
+                <input
+                  type="file"
+                  ref={props.imageRef}
+                  style={{ display: "none" }}
+                  onChange={props.onChangeImage}
+                />
               </S.FormBox>
-              <S.FormBox>
-                <span>{props.data?.fetchUser.email ?? "유저 이메일"}</span>
-              </S.FormBox>
-              <S.FormBox>
-                {props.isEditMode ? (
-                  <div style={{ display: "flex", flexWrap: "wrap" }}>
-                    <Input01
-                      type="text"
-                      defaultValue={props.data?.fetchUser.nickname}
-                      onChange={props.onChangeName}
-                    />
+              <Divider style={{ margin: "0" }} />
+              <S.FormBox style={{ alignItems: "center" }}>
+                닉네임
+                <S.StyledInput
+                  type="text"
+                  defaultValue={props.data?.fetchUser.nickname}
+                  disabled={!props.isEditMode}
+                  onChange={props.onChangeName}
+                />
+                <div style={{ display: "flex", flexWrap: "wrap" }}>
+                  {props.isEditMode ? (
                     <S.ButtonBoxEdit>
-                      <Button02 onClick={props.onClickEditName}>변경</Button02>
-                      <Button01 onClick={props.onToggleEditMode}>취소</Button01>
+                      <Button02
+                        style={{ width: "fit-content" }}
+                        onClick={props.onToggleEditMode("confirm")}
+                      >
+                        변경
+                      </Button02>
+                      <Button01
+                        style={{ width: "fit-content" }}
+                        onClick={props.onToggleEditMode("cancel")}
+                      >
+                        취소
+                      </Button01>
                     </S.ButtonBoxEdit>
-                  </div>
-                ) : (
-                  <>
-                    <span>{props.data?.fetchUser.nickname ?? "유저 이름"}</span>
-                    <Button01 onClick={props.onToggleEditMode}>
-                      닉네임 변경
-                    </Button01>
-                  </>
-                )}
+                  ) : (
+                    <>
+                      <Button01 onClick={props.onToggleEditMode("open")}>
+                        닉네임 변경
+                      </Button01>
+                    </>
+                  )}
+                </div>
               </S.FormBox>
+              <Divider style={{ margin: "0" }} />
               <S.FormBox>
-                <Button01 onClick={props.onClickEditPassword}>
-                  비밀번호 변경
-                </Button01>
-                <Button02>변경 사항 저장</Button02>
+                <div></div>
+                <Button02 onClick={props.onClickEditName}>저장히기</Button02>
               </S.FormBox>
             </S.MyDetailEditBox>
           ) : (
             <S.MyPickBox>
               <S.PickComment>
-                {props.data?.fetchUser.nickname.slice(0, 8) ?? "아무개"}님이{" "}
-                <span>찜한</span> 아티스트들이에요!
+                {props.data?.fetchUser.nickname}님이 <span>찜한</span>{" "}
+                버스커들이에요!
               </S.PickComment>
               <S.PickedArtistBox>
                 {props.data?.fetchUser.liked_artist.map((artistsData) => (

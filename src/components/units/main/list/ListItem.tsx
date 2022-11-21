@@ -39,7 +39,7 @@ const ListItem = ({ board, onClickListItem }: IListItemProps) => {
             </span>
           </div>
           <ItemInfo>
-            장소 :
+            장소{" "}
             <span
               style={{
                 whiteSpace: "nowrap",
@@ -51,7 +51,7 @@ const ListItem = ({ board, onClickListItem }: IListItemProps) => {
             </span>
           </ItemInfo>
           <ItemInfo>
-            장르 :<span>{board?.category.name}</span>
+            장르 <span>{board?.category.name}</span>
           </ItemInfo>
         </ContentBox>
       </Wrapper>
