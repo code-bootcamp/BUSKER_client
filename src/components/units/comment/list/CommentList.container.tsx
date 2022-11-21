@@ -11,7 +11,7 @@ const CommentList = ({ boardId }: ICommentListProps) => {
   const { data } = useQuery<Pick<IQuery, "fetchComment">>(FETCH_COMMENT, {
     variables: { boardId },
   });
-  console.log(data);
+
   return <CommentListUI data={data} />;
 };
 

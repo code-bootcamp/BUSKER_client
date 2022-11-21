@@ -149,7 +149,7 @@ const MyPageDetailUI = (props: IMyPageProps) => {
               <Divider style={{ margin: "0" }} />
               <S.FormBox>
                 <div></div>
-                <Button02 onClick={props.onClickEditName}>저장히기</Button02>
+                <Button02 onClick={props.onClickEditName}>저장하기</Button02>
               </S.FormBox>
             </S.MyDetailEditBox>
           ) : (
