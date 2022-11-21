@@ -6,17 +6,9 @@ import {
 } from "../../../../commons/styles/globalStyles";
 
 export const Wrapper = styled.div`
-  @media ${breakPoints.desktop} {
-    padding: 0 80px;
-    max-width: 1440px;
-  }
-  @media ${breakPoints.tablet} {
-    padding: 0 40px;
-    max-width: 991px;
-  }
+  max-width: 700px;
   @media ${breakPoints.mobile} {
     padding: 0 10px;
-    max-width: 767px;
   }
 
   width: 100%;
@@ -121,7 +113,6 @@ export const FormBox = styled.div`
   min-width: 250px;
   width: auto;
   display: flex;
-
   justify-content: space-between;
   align-items: center;
   gap: 50px;

@@ -27,17 +27,32 @@ const ListItem = ({ board, onClickListItem }: IListItemProps) => {
           />
         </ImageBox>
         <ContentBox>
-          {/* <span style={{ minWidth: "70px" }}>{board?.artist.active_name}</span> */}
-          <span
-            style={{
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-            }}
-          >
-            {board?.boardAddress.address}
-          </span>
-          <span>{board?.category.name}</span>
+          <div>
+            <span
+              style={{
+                fontSize: "1.4rem",
+                fontWeight: "600",
+                color: "#9900ff",
+              }}
+            >
+              {board?.artist.active_name}
+            </span>
+          </div>
+          <ItemInfo>
+            장소 :
+            <span
+              style={{
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
+            >
+              {board?.boardAddress.address}
+            </span>
+          </ItemInfo>
+          <ItemInfo>
+            장르 :<span>{board?.category.name}</span>
+          </ItemInfo>
         </ContentBox>
       </Wrapper>
     </motion.div>
@@ -46,11 +61,21 @@ const ListItem = ({ board, onClickListItem }: IListItemProps) => {
 
 export default ListItem;
 
+const ItemInfo = styled.div`
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+`;
+
 const Wrapper = styled.div`
   max-width: 355px;
   width: 100%;
   aspect-ratio: 1 / 1.2;
   margin: 0 auto;
+  transition: filter 0.3s ease-in-out;
+  :hover {
+    filter: brightness(90%);
+  }
 `;
 
 const ImageBox = styled.div`
@@ -67,14 +92,12 @@ const Image = styled.img`
 `;
 
 const ContentBox = styled.div`
-  padding: 1rem 2rem;
-  padding-top: 1.5rem;
+  padding: 0.5rem 1rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
 
   & > span {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 `;
