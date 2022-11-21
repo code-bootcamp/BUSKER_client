@@ -1,5 +1,5 @@
 import { HeartFilled, YoutubeFilled } from "@ant-design/icons";
-import { Badge, Divider } from "antd";
+import { Divider } from "antd";
 import getDate from "../../../commons/libraries/getDate";
 import Button01 from "../../common/buttons/01";
 import Button02 from "../../common/buttons/02";

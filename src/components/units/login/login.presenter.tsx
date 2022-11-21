@@ -46,26 +46,7 @@ const LoginPageWriteUI = ({
                 </S.LoginOptionStyle>
               </S.LoginOptionWrapper>
             </S.LoginTopWrapper>
-            <S.LoginBottomWrapper>
-              <S.SocialLoginGoogleStyled>
-                <div>
-                  <S.IconStyle src="GoogleIcon.png" />
-                </div>
-                <S.SocialLogInText>구글로 로그인하기</S.SocialLogInText>
-              </S.SocialLoginGoogleStyled>
-              <S.SocialLoginGoogleStyled>
-                <div>
-                  <S.IconStyle src="NaverIcon.png" />
-                </div>
-                <S.SocialLogInText>네이버 로그인하기</S.SocialLogInText>
-              </S.SocialLoginGoogleStyled>
-              <S.SocialLoginGoogleStyled>
-                <div>
-                  <S.IconStyle src="AppleIcon.png" />
-                </div>
-                <S.SocialLogInText>애플로 로그인하기</S.SocialLogInText>
-              </S.SocialLoginGoogleStyled>
-            </S.LoginBottomWrapper>
+            <S.LoginBottomWrapper></S.LoginBottomWrapper>
           </S.LoginMainWrapper>
         </S.MainWrapper>
       </div>
