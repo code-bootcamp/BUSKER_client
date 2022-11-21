@@ -33,6 +33,7 @@ const ArtistSignupPageWriteUI = ({
   isMemberEdit,
   editData,
   setEditData,
+  editUrl,
 }: IArtistSignupPageWriteUI) => {
   return (
     <>
@@ -59,14 +60,14 @@ const ArtistSignupPageWriteUI = ({
                   />
                   {isEdit ? (
                     <>
-                      {data?.fetchArtist.artistImageURL ? (
+                      {editUrl === "" ? (
                         <>
                           <S.ImgBtn
                             style={{
                               backgroundImage: `url(https://storage.googleapis.com/busker-storage/${String(
-                                data?.fetchArtist.artistImageURL ?? ""
+                                data?.fetchArtist.artistImageURL
                               )})`,
-                              backgroundColor: "#fff",
+                              // backgroundColor: "#fff",
                               backgroundSize: "cover",
                             }}
                             htmlFor={"file"}
@@ -80,8 +81,14 @@ const ArtistSignupPageWriteUI = ({
                         </>
                       ) : (
                         <>
-                          <S.ImgBtn>
-                            +
+                          <S.ImgBtn
+                            style={{
+                              backgroundImage: `url(${imgUrl}
+                              )`,
+                              // backgroundColor: "#fff",
+                              backgroundSize: "cover",
+                            }}
+                          >
                             <S.FileInput
                               onChange={onCreateArtistImage}
                               type="file"

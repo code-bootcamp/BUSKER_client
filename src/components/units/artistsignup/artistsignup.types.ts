@@ -31,6 +31,7 @@ export interface IArtistSignupPageWriteUI {
   onClickMemberEdit: () => void;
   setEditData: any;
   editData: string[];
+  editUrl: string;
 }
 
 export interface IArtistSignupPageWrite {
