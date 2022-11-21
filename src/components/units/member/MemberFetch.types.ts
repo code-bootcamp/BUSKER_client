@@ -5,6 +5,7 @@ export interface IMemberFetchWrite {
   setIsMemberEdit: any;
   el: any;
   setGetId: any;
+  setEditData: any;
 }
 
 export interface IMemberFetchWriteUI {
@@ -14,4 +15,5 @@ export interface IMemberFetchWriteUI {
   onClickId: (event: MouseEvent<HTMLButtonElement>) => void;
   onClickGetId: (event: MouseEvent<HTMLButtonElement>) => void;
   onClickCancel: () => void;
+  setEditData: any;
 }

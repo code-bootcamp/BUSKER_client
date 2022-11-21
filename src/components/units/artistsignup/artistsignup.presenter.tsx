@@ -31,6 +31,8 @@ const ArtistSignupPageWriteUI = ({
   setGetId,
   onClickMemberEdit,
   isMemberEdit,
+  editData,
+  setEditData,
 }: IArtistSignupPageWriteUI) => {
   return (
     <>
@@ -178,11 +180,13 @@ const ArtistSignupPageWriteUI = ({
                     <>
                       <S.AddTeamInputWrapper>
                         <>
-                          {imgUrl ? (
+                          {imgUrl || editData[0] !== "" ? (
                             <>
                               <S.MemberImgBtn
                                 style={{
-                                  backgroundImage: `url(${imgUrl})`,
+                                  backgroundImage: imgUrl
+                                    ? `url(${imgUrl})`
+                                    : `url("https://storage.googleapis.com/busker-storage/${editData[0]}")`,
                                   backgroundColor: "#fff",
                                   backgroundSize: "cover",
                                 }}
@@ -212,11 +216,13 @@ const ArtistSignupPageWriteUI = ({
                           type="text"
                           placeholder="이름"
                           onChange={onChangeMemberName}
+                          defaultValue={editData[1]}
                         />
                         <Input01
                           type="text"
                           placeholder="역할"
                           onChange={onChangeRole}
+                          defaultValue={editData[2]}
                         />
                         <S.AddBtn
                           type="button"
@@ -235,11 +241,13 @@ const ArtistSignupPageWriteUI = ({
               ) : (
                 ""
               )}
-              {MemberData?.fetchMembers.map((el) => (
+              {MemberData?.fetchMembers.map((el, idx) => (
                 <MemberFetchWrite
                   el={el}
                   setGetId={setGetId}
                   setIsMemberEdit={setIsMemberEdit}
+                  key={idx}
+                  setEditData={setEditData}
                 />
               ))}
             </S.AddTeamWrapper>

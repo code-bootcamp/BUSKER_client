@@ -29,6 +29,8 @@ export interface IArtistSignupPageWriteUI {
   isMemberEdit: boolean;
   setGetId: any;
   onClickMemberEdit: () => void;
+  setEditData: any;
+  editData: string[];
 }
 
 export interface IArtistSignupPageWrite {
