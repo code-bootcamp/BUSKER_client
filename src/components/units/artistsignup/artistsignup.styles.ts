@@ -37,13 +37,16 @@ export const ArtistProfileWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: 300px;
-  width: 100%;
+  max-width: 100%;
+  min-width: 300px;
 `;
 
 export const PlaceGenreWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
   @media ${breakPoints.mobile} {
     display: flex;
     flex-direction: column;
@@ -65,15 +68,33 @@ export const ArtistPlaceWrapper = styled.div`
 export const MainPlaceGenreWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  &.map {
+    width: 70%;
+  }
+  &.select {
+    width: 30%;
+  }
+  .ant-select-single .ant-select-selector {
+    align-items: center !important;
+  }
+  .ant-select {
+    height: 50px;
+    div {
+      height: 100% !important;
+      span {
+        font-size: 1.5rem;
+      }
+    }
+  }
   input {
-    width: 200px;
+    width: 100%;
     margin-right: 20px;
   }
   button {
     height: 50px;
-    width: 80px;
-    border-radius: 1.5rem;
+    width: 200px;
+    border-radius: 10px;
+    font-size: 1.5rem;
     font-weight: 600;
     aspect-ratio: 1/1;
     cursor: pointer;
@@ -127,8 +148,9 @@ export const ContentsBottomWrapper = styled.div`
 `;
 
 export const TeamBtn = styled.button`
-  height: 3rem;
+  height: 50px;
   width: 30%;
+  font-size: 1.5rem;
   border-radius: 1.5rem;
   font-weight: 600;
   cursor: pointer;
@@ -155,7 +177,7 @@ export const AddTeamInputWrapper = styled.div`
   border-radius: 10px;
   margin: 20px 0;
   padding: 10px;
-  width: 80%;
+  width: 70%;
   max-width: 600px;
   @media ${breakPoints.mobile} {
     display: flex;
@@ -180,14 +202,17 @@ export const AddBtn = styled.button`
 
 export const ImgBtn = styled.label`
   display: inline-block;
-  width: 80px;
+  width: 150px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
   margin-right: 24px;
   background-color: #ccc;
   cursor: pointer;
-  text-align: center;
   line-height: 7.6rem;
   font-size: 2.5rem;
   aspect-ratio: 1/1;
+  justify-content: center;
 `;
 
 export const FileInput = styled.input`
@@ -233,4 +258,29 @@ export const ErrorMsg = styled.div`
   font-size: 1.5rem;
   color: red;
   padding: 0 20px;
+`;
+
+export const ImgNameWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+
+  img {
+    position: absolute;
+    border-radius: 50%;
+    padding: 10px;
+    background-color: #fff;
+    bottom: 0;
+    right: 25px;
+    border: 1px solid #aaa;
+  }
+`;
+
+export const Edit = styled.p`
+  font-size: 3rem;
+  font-weight: 600;
+  text-align: center;
+  margin: 0 auto;
 `;

@@ -6,17 +6,9 @@ import {
 } from "../../../../commons/styles/globalStyles";
 
 export const Wrapper = styled.div`
-  @media ${breakPoints.desktop} {
-    padding: 0 80px;
-    max-width: 1440px;
-  }
-  @media ${breakPoints.tablet} {
-    padding: 0 40px;
-    max-width: 991px;
-  }
+  max-width: 700px;
   @media ${breakPoints.mobile} {
     padding: 0 10px;
-    max-width: 767px;
   }
 
   width: 100%;
@@ -27,7 +19,6 @@ export const Wrapper = styled.div`
 `;
 
 export const Container = styled.div`
-  height: 100%;
   box-shadow: ${boxShadow};
   border-radius: 1rem;
   max-width: 1100px;
@@ -45,30 +36,40 @@ export const Title = styled.h1`
 
 export const Contents = styled.div`
   @media ${breakPoints.desktop} {
-    padding: 3em 5em;
+    padding: 3rem 5rem;
   }
   @media ${breakPoints.tablet} {
-    padding: 2em 4.5em;
+    padding: 2rem 4.5rem;
   }
   @media ${breakPoints.mobile} {
-    padding: 1em 2em;
+    padding: 1rem 0.5rem;
   }
 `;
 
 export const UserInfo = styled.div`
   display: flex;
   justify-content: start;
+  align-items: center;
+
+  @media ${breakPoints.mobile} {
+    justify-content: center;
+  }
 `;
 
 export const UserName = styled.span`
   font-size: 1.5em;
-  padding-left: 10px;
 `;
 
 export const ButtonBox = styled.div`
   display: flex;
   padding-top: 2.5rem;
+  flex-wrap: wrap;
   align-items: center;
+
+  @media ${breakPoints.mobile} {
+    font-size: 1.2rem;
+    justify-content: center;
+  }
 `;
 
 export const MyPickBox = styled.div``;
@@ -111,24 +112,36 @@ export const PickedArtistName = styled.span`
 `;
 
 export const MyDetailEditBox = styled.div`
+  width: fit-content;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   gap: 2.5rem;
 `;
 export const FormBox = styled.div`
-  min-width: 250px;
-  width: auto;
+  width: 100%;
+  min-width: 375px;
   display: flex;
-
   justify-content: space-between;
-  align-items: center;
-  gap: 50px;
+  flex-wrap: wrap;
+  gap: 20px;
 
-  & > span,
-  & > div {
-    font-size: 1.5rem;
+  font-size: 1.3rem;
+
+  span {
+    font-size: 1.3rem;
+  }
+
+  button {
+    width: 100px;
+    height: fit-content;
+  }
+
+  @media ${breakPoints.mobile} {
+    min-width: 100%;
+    gap: 5px;
   }
 `;
 
@@ -138,4 +151,9 @@ export const ButtonBoxEdit = styled.div`
   align-items: center;
   gap: 10px;
   padding-left: 10px;
+`;
+
+export const StyledInput = styled.input`
+  border: 1px solid #ddd;
+  padding: 0.5rem 1rem;
 `;

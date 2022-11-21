@@ -242,7 +242,7 @@ export type IMutationDeleteCommentArgs = {
 
 
 export type IMutationDeleteMemberArgs = {
-  artistId: Scalars['String'];
+  memberId: Scalars['String'];
 };
 
 
@@ -292,7 +292,7 @@ export type IMutationUpdateCommentArgs = {
 
 
 export type IMutationUpdateMemberArgs = {
-  artistId: Scalars['String'];
+  memberId: Scalars['String'];
   updateMemberInput: IUpdateMemberInput;
 };
 
@@ -315,6 +315,7 @@ export type IQuery = {
   __typename?: 'Query';
   districtList: Array<IDistrict>;
   fetchArtist: IArtist;
+  fetchArtistCount: Scalars['Int'];
   fetchArtistWithoutAuth: IArtist;
   fetchBoard: IBoards;
   fetchBoards: Array<IBoards>;
@@ -327,6 +328,11 @@ export type IQuery = {
   fetchMembers: Array<IMember>;
   fetchRecentBoards: Array<IBoards>;
   fetchUser: IUser;
+};
+
+
+export type IQueryFetchArtistCountArgs = {
+  artistId: Scalars['String'];
 };
 
 

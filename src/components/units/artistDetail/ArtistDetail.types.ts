@@ -9,4 +9,6 @@ export interface IArtistDetailProps {
   artistData?: Pick<IQuery, "fetchArtist">;
   fetchRecentBoards?: Pick<IQuery, "fetchRecentBoards">;
   memberData?: Pick<IQuery, "fetchMembers">;
+  likeCount?: Pick<IQuery, "fetchArtistCount">;
+  onClickMoveToRecent: (id: string) => () => void;
 }

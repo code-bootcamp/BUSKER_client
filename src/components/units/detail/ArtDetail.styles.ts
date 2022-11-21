@@ -71,6 +71,7 @@ export const ArtistInfoBox = styled.div`
     gap: 5px;
   }
   @media ${breakPoints.mobile} {
+    min-width: 100px;
     flex-direction: column;
     gap: 0px;
   }
@@ -110,6 +111,10 @@ export const Genre = styled.span`
   background-color: ${stylePrimaryColor};
   border-radius: 50px;
   color: white;
+
+  @media ${breakPoints.mobile} {
+    font-size: 1.5rem;
+  }
 `;
 
 export const KakaoBox = styled.div`
