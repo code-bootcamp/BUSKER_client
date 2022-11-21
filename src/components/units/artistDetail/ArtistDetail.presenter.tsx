@@ -45,13 +45,7 @@ const ArtistDetailUI = (props: IArtistDetailProps) => {
           <ImageBox
             width="150px"
             height="150px"
-            src={
-              props.data?.fetchArtistWithoutAuth.artistImageURL
-                ? `https://storage.googleapis.com/busker-storage/${String(
-                    props.data?.fetchArtistWithoutAuth.artistImageURL
-                  )}`
-                : ""
-            }
+            src={`https://storage.googleapis.com/busker-storage/${props.data?.fetchArtistWithoutAuth.artistImageURL}`}
           />
         </S.SummaryInfo>
         <S.TypingIntro>
@@ -84,12 +78,16 @@ const ArtistDetailUI = (props: IArtistDetailProps) => {
             <>
               <S.CommonTitle>저희 멤버들을 소개할게요!</S.CommonTitle>
               <S.TeamMemberBox>
-                {props.memberData?.fetchMembers.map((_, index) => (
+                {props.memberData?.fetchMembers.map((member, index) => (
                   <S.Member key={index}>
-                    <ImageBox width="50px" height="50px" src="" />
+                    <ImageBox
+                      width="50px"
+                      height="50px"
+                      src={`https://storage.googleapis.com/busker-storage/${member.memberImageURL}`}
+                    />
                     <S.MemberInfo>
-                      <span>멤버{index} </span>
-                      <span>멤버{index} 역할</span>
+                      <span>{member.name}</span>
+                      <span>{member.role}</span>
                     </S.MemberInfo>
                   </S.Member>
                 ))}
@@ -99,7 +97,18 @@ const ArtistDetailUI = (props: IArtistDetailProps) => {
         </S.ArtistContentsLeft>
         <S.ArtistContentsRight>
           <S.StickyBox>
-            <Button02 onClick={props.onClickLikeArtist}>찜하기</Button02>
+            {props.userData?.fetchUser.liked_artist.filter(
+              (busker) =>
+                busker.artist.id === props.data?.fetchArtistWithoutAuth.id
+            ).length === 1 ? (
+              <Button02 onClick={props.onClickLikeArtist(true)}>
+                찜 해제
+              </Button02>
+            ) : (
+              <Button02 onClick={props.onClickLikeArtist(false)}>
+                찜하기
+              </Button02>
+            )}
             <Button01 onClick={props.onClickGoBack}>돌아가기</Button01>
             {props.artistData?.fetchArtist.id === props.artistId && (
               <Button01 onClick={props.onClickMoveToEdit}>수정하기</Button01>
