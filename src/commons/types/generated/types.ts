@@ -242,7 +242,7 @@ export type IMutationDeleteCommentArgs = {
 
 
 export type IMutationDeleteMemberArgs = {
-  artistId: Scalars['String'];
+  memberId: Scalars['String'];
 };
 
 
@@ -292,7 +292,7 @@ export type IMutationUpdateCommentArgs = {
 
 
 export type IMutationUpdateMemberArgs = {
-  artistId: Scalars['String'];
+  memberId: Scalars['String'];
   updateMemberInput: IUpdateMemberInput;
 };
 

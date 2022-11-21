@@ -10,15 +10,19 @@ import {
   IMutationCreateArtistArgs,
   IMutationCreateMemberArgs,
   IMutationUpdateArtistArgs,
+  IMutationUpdateMemberArgs,
   IMutationUploadFileArgs,
   IQuery,
+  IQueryFetchMembersArgs,
 } from "../../../commons/types/generated/types";
+import { UPDATE_MEMBER } from "../member/MemberFetch.quries";
 import ArtistSignupPageWriteUI from "./artistsignup.presenter";
 import {
   CREATE_ARTIST,
   CREATE_MEMBER,
   FECTH_CATEGORIES,
   FETCH_ARTIST,
+  FETCH_MEMBERS,
   UPDATE_ARTIST,
   UPLOAD_FILE,
 } from "./ArtistSignup.Quries";
@@ -29,12 +33,13 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [isTeam, setIsTeam] = useState(false);
-  const [addCount, setAddCount] = useState(1);
+  const [isMemberEdit, setIsMemberEdit] = useState(false);
   const [address, setAddress] = useState("");
   const [imgUrl, setImgUrl] = useState("");
   const [name, setName] = useState("");
   const [role, setRole] = useState("");
   const [editUrl, setEditUrl] = useState("");
+  const [getId, setGetId] = useState("");
 
   const { register, handleSubmit, formState, setValue } = useForm<IFormData>({
     resolver: yupResolver(ArtistSignupYup),
@@ -62,6 +67,11 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
 
   const { data } = useQuery<Pick<IQuery, "fetchArtist">>(FETCH_ARTIST);
 
+  const { data: MemberData } = useQuery<
+    Pick<IQuery, "fetchMembers">,
+    IQueryFetchMembersArgs
+  >(FETCH_MEMBERS, { variables: { artistId: String(router.query.id) } });
+
   const { data: CategoryData } =
     useQuery<Pick<IQuery, "fetchCategories">>(FECTH_CATEGORIES);
 
@@ -82,6 +92,11 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
     setIsOpen(false);
   };
 
+  const [updateMember] = useMutation<
+    Pick<IMutation, "updateMember">,
+    IMutationUpdateMemberArgs
+  >(UPDATE_MEMBER);
+
   const onCompleteAddressSearch = (data: Address) => {
     setIsOpen((prev) => !prev);
     setAddress(data.address);
@@ -90,10 +105,6 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
 
   const onClickTeam = () => {
     setIsTeam((prev) => !prev);
-  };
-
-  const onClickAddTeam = () => {
-    setAddCount((prev) => prev + 1);
   };
 
   const onChangeMemberName = (event: ChangeEvent<HTMLInputElement>) => {
@@ -123,6 +134,11 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
         variables: {
           createArtistInput: data,
         },
+        refetchQueries: [
+          {
+            query: FETCH_ARTIST,
+          },
+        ],
       });
       await router.push(
         `/artistdetail/${String(result.data?.createArtist.id)}`
@@ -132,13 +148,7 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
     }
   };
 
-  const onClickEdit = async (data: IFormData) => {
-    const result = await updateArtist({
-      variables: {
-        updateArtistInput: data,
-      },
-    });
-
+  const onClickMember = async () => {
     await createMember({
       variables: {
         artistId: String(router.query.id),
@@ -148,9 +158,58 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
           memberImageURL: editUrl,
         },
       },
+      refetchQueries: [
+        {
+          query: FETCH_MEMBERS,
+          variables: {
+            artistId: router.query.id,
+          },
+        },
+      ],
     });
+  };
 
-    void router.push(`/artistdetail/${String(result.data?.updateArtist.id)}`);
+  const onClickMemberEdit = async () => {
+    await updateMember({
+      variables: {
+        memberId: getId,
+        updateMemberInput: {
+          name,
+          role,
+          memberImageURL: editUrl,
+        },
+      },
+      refetchQueries: [
+        {
+          query: FETCH_MEMBERS,
+          variables: {
+            artistId: router.query.id,
+          },
+        },
+      ],
+    });
+    setIsMemberEdit(false);
+  };
+
+  const onClickEdit = async (data: IFormData) => {
+    try {
+      const result = await updateArtist({
+        variables: {
+          updateArtistInput: data,
+        },
+        refetchQueries: [
+          {
+            query: FETCH_ARTIST,
+          },
+        ],
+      });
+
+      void router.push(`/artistdetail/${String(result.data?.updateArtist.id)}`);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error);
+      }
+    }
   };
 
   const onCreateArtistImage = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -170,14 +229,13 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
 
   return (
     <ArtistSignupPageWriteUI
+      MemberData={MemberData}
       onClickSearchAddress={onClickSearchAddress}
       isOpen={isOpen}
       onClickHandleCancel={onClickHandleCancel}
       onCompleteAddressSearch={onCompleteAddressSearch}
       onClickTeam={onClickTeam}
       isTeam={isTeam}
-      onClickAddTeam={onClickAddTeam}
-      addCount={addCount}
       isEdit={isEdit}
       handleSubmit={handleSubmit}
       register={register}
@@ -192,6 +250,11 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
       data={data}
       onChangeMemberName={onChangeMemberName}
       onChangeRole={onChangeRole}
+      onClickMember={onClickMember}
+      setIsMemberEdit={setIsMemberEdit}
+      isMemberEdit={isMemberEdit}
+      setGetId={setGetId}
+      onClickMemberEdit={onClickMemberEdit}
     />
   );
 };
