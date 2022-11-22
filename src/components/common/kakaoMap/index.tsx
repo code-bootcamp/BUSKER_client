@@ -131,10 +131,14 @@ const KakaoMap = ({
                         </div>
                         <div className="body">
                           <div className="img">
-                            <ImageBox width="75px" height="75px" src="" />
+                            <ImageBox
+                              width="75px"
+                              height="75px"
+                              src={`https://storage.googleapis.com/busker-storage/${board.artist.artistImageURL}`}
+                            />
                           </div>
                           <div className="desc">
-                            <div className="ellipsis">
+                            <div className="ellipsis category">
                               # {board.category.name}
                             </div>
                             <div className="jibun ellipsis">

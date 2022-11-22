@@ -77,6 +77,14 @@ export const globalStyles = css`
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+  .category {
+    color: white;
+    background-color: #9900ff;
+    width: fit-content;
+    padding: 0.1rem 1rem;
+    border-radius: 10px;
+    margin-bottom: 3px;
+  }
   .desc .jibun {
     font-size: 11px;
     color: #888;

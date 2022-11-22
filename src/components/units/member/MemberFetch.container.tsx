@@ -29,7 +29,7 @@ const MemberFetchWrite = (props: IMemberFetchWrite) => {
   const onClickGetId = (event: MouseEvent<HTMLButtonElement>) => {
     props.setIsMemberEdit((prev: boolean) => !prev);
     props.setGetId(event.currentTarget.id);
-    console.log(props.el.memberImageURL);
+
     props.setEditData([
       String(props.el.memberImageURL),
       String(props.el.name),

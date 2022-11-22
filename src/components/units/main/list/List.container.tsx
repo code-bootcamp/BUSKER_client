@@ -139,7 +139,6 @@ const MainList = () => {
           },
         },
         updateQuery: (prev, options) => {
-          console.log(prev, options);
           if (options.fetchMoreResult.fetchBoardsBySearch === undefined) {
             return { fetchBoardsBySearch: [...prev.fetchBoardsBySearch] };
           }
@@ -152,7 +151,8 @@ const MainList = () => {
         },
       });
     } catch (error) {
-      if (error instanceof Error) console.log(error);
+      if (error instanceof Error) {
+      }
     }
   };
 

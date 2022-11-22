@@ -35,8 +35,6 @@ const ArtistDetail = ({ artistId }: IArtistProps) => {
     IQueryFetchArtistWithoutAuthArgs
   >(FETCH_ARTIST_WITHOUT_AUTH, { variables: { artistId: artistId ?? "" } });
 
-  console.log(data);
-
   const { data: artistData } =
     useQuery<Pick<IQuery, "fetchArtist">>(FETCH_ARTIST);
 
