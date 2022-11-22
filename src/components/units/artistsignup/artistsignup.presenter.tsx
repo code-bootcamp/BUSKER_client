@@ -1,4 +1,5 @@
 import { Select } from "antd";
+import Button02 from "../../common/buttons/02";
 import Input01 from "../../common/inputs/01";
 import MemberFetchWrite from "../member/MemberFetch.container";
 import * as S from "./artistsignup.styles";
@@ -233,14 +234,15 @@ const ArtistSignupPageWriteUI = ({
                           onChange={onChangeRole}
                           defaultValue={editData[2]}
                         />
-                        <S.AddBtn
+                        <Button02
+                          style={{ width: "100px", padding: "1.3rem 1rem" }}
                           type="button"
                           onClick={
                             isMemberEdit ? onClickMemberEdit : onClickMember
                           }
                         >
                           {isMemberEdit ? "수정" : "등록"}
-                        </S.AddBtn>
+                        </Button02>
                       </S.AddTeamInputWrapper>
                     </>
                   ) : (
