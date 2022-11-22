@@ -81,7 +81,7 @@ export const ListBox = styled.ul`
     display: grid;
     grid-auto-flow: row dense;
     grid-auto-rows: minmax(min-content, max-content);
-    gap: 3%;
+    gap: 2%;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     padding: 0 30px;
     padding-top: 2rem;

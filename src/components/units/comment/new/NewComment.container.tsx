@@ -32,7 +32,7 @@ const NewComment = () => {
           });
         },
       });
-      console.log(result);
+
       setComment("");
     } catch (error) {
       if (error instanceof Error) alert(error.message);

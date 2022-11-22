@@ -197,23 +197,16 @@ const ArtRegisterPageWrite = ({ isEdit }: IArtRegisterPageWriteProps) => {
             boardImageURL: data.boardImageURL,
           },
         },
-        refetchQueries: [
-          {
-            query: FETCH_BOARD,
-            variables: {
-              boardId: router.query.id,
-            },
-          },
-          {
-            query: FETCH_BOARDS,
-          },
-        ],
+        update(cache) {
+          cache.modify({
+            fields: () => {},
+          });
+        },
       });
 
       await router.push(`/main/list/${String(result.data?.createBoards.id)}`);
     } catch (error) {
       if (error instanceof Error) {
-        console.log(error);
       }
     }
   };

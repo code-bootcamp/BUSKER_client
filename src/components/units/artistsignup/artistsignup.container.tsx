@@ -68,7 +68,7 @@ const ArtistSignupPageWrite = ({ isEdit }: IArtistSignupPageWrite) => {
   >(CREATE_MEMBER);
 
   const { data } = useQuery<Pick<IQuery, "fetchArtist">>(FETCH_ARTIST);
-  console.log(data);
+
   const { data: MemberData } = useQuery<
     Pick<IQuery, "fetchMembers">,
     IQueryFetchMembersArgs
