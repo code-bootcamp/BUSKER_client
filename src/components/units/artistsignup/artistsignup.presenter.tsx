@@ -60,7 +60,7 @@ const ArtistSignupPageWriteUI = ({
                   />
                   {isEdit ? (
                     <>
-                      {editUrl === "" ? (
+                      {data?.fetchArtist.artistImageURL ? (
                         <>
                           <S.ImgBtn
                             style={{
