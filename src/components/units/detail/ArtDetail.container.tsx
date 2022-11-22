@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from "@apollo/client";
+import { Modal } from "antd";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import getDate from "../../../commons/libraries/getDate";
@@ -9,6 +10,7 @@ import {
   IQuery,
   IQueryFetchBoardArgs,
 } from "../../../commons/types/generated/types";
+import { FETCH_BOARDS_BY_SEARCH } from "../main/list/List.queries";
 import ArtDetailUI from "./ArtDetail.presenter";
 import { DELETE_BOARD, FETCH_ARTIST, FETCH_BOARD } from "./ArtDetail.queries";
 
@@ -26,9 +28,6 @@ const ArtDetail = () => {
     variables: { boardId: String(router.query.id) },
   });
 
-  console.log("fetchArtist:", artistData?.fetchArtist.id);
-  console.log("fetchBoard:", artData?.fetchBoard.artist.id);
-  console.log(isArtist);
   const [deleteBoard] = useMutation<
     Pick<IMutation, "deleteBoard">,
     IMutationDeleteBoardArgs
@@ -52,9 +51,30 @@ const ArtDetail = () => {
 
   const onClickDelete = async () => {
     try {
-      await deleteBoard({ variables: { boardId: String(router.query.id) } });
-      alert("버스킹 정보가 삭제되었습니다.");
-      await router.push("/main/list");
+      Modal.confirm({
+        content: (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            정말로 삭제하시겠습니까?
+          </div>
+        ),
+        onOk: async () => {
+          await deleteBoard({
+            variables: { boardId: String(router.query.id) },
+            update(cache) {
+              cache.modify({
+                fields: () => {},
+              });
+            },
+          });
+          await router.push("/main/list");
+        },
+      });
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }

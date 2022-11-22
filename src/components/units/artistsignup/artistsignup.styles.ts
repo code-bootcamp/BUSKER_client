@@ -183,14 +183,14 @@ export const AddTeamWrapper = styled.div`
 
 export const AddTeamInputWrapper = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 10px;
   border: 1px solid ${stylePrimaryColor};
   border-radius: 10px;
   margin: 20px 0;
   padding: 10px;
-  width: 70%;
-  max-width: 600px;
+  max-width: 700px;
   @media ${breakPoints.mobile} {
     display: flex;
     flex-direction: column;
@@ -201,8 +201,6 @@ export const AddTeamInputWrapper = styled.div`
 `;
 
 export const AddBtn = styled.button`
-  height: 50px;
-  width: 50px;
   border-radius: 1.5rem;
   font-weight: 600;
   font-size: 1.7rem;
@@ -240,8 +238,8 @@ export const MemberImgBtn = styled.label`
   font-size: 2.5rem;
   border-radius: 100px;
   background-color: #ccc;
-  width: 50px;
-  height: 50px;
+  width: 75px;
+  height: 75px;
   aspect-ratio: 1/1;
 `;
 
@@ -279,7 +277,6 @@ export const ImgNameWrapper = styled.div`
   align-items: center;
   justify-content: flex-end;
   position: relative;
-
   img {
     position: absolute;
     border-radius: 50%;

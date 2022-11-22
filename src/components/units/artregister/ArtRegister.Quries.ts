@@ -60,3 +60,9 @@ export const FETCH_BOARD = gql`
     }
   }
 `;
+
+export const FETCH_BOARDS = gql`
+  query fetchBoards {
+    fetchBoards
+  }
+`;
