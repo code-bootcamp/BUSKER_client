@@ -46,7 +46,6 @@ const LoginPageWriteUI = ({
                 </S.LoginOptionStyle>
               </S.LoginOptionWrapper>
             </S.LoginTopWrapper>
-            <S.LoginBottomWrapper></S.LoginBottomWrapper>
           </S.LoginMainWrapper>
         </S.MainWrapper>
       </div>

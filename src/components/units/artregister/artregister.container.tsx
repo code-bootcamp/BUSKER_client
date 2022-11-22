@@ -19,11 +19,15 @@ import {
 import {
   CREATE_BOARDS,
   FETCH_BOARD,
+  FETCH_BOARDS,
   UPDATE_BOARD,
   UPLOAD_FILE,
 } from "./ArtRegister.Quries";
 import { useRouter } from "next/router";
-import { FETCH_CATEGORIES } from "../main/list/List.queries";
+import {
+  FETCH_BOARDS_BY_SEARCH,
+  FETCH_CATEGORIES,
+} from "../main/list/List.queries";
 
 interface IArtRegisterPageWriteProps {
   isEdit?: boolean;
@@ -199,6 +203,9 @@ const ArtRegisterPageWrite = ({ isEdit }: IArtRegisterPageWriteProps) => {
             variables: {
               boardId: router.query.id,
             },
+          },
+          {
+            query: FETCH_BOARDS,
           },
         ],
       });

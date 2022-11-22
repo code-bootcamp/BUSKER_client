@@ -279,7 +279,6 @@ export const ImgNameWrapper = styled.div`
   align-items: center;
   justify-content: flex-end;
   position: relative;
-
   img {
     position: absolute;
     border-radius: 50%;
