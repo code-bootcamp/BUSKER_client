@@ -1,6 +1,5 @@
 import { IMemberFetchWriteUI } from "./MemberFetch.types";
 import * as S from "./MemberFetch.styles";
-import Input01 from "../../common/inputs/01";
 
 const MemberFetchWriteUI = (props: IMemberFetchWriteUI) => {
   return (
