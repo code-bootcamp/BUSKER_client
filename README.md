@@ -2,7 +2,6 @@
   <img src="https://user-images.githubusercontent.com/110365852/205238042-468f7162-ae9d-4c47-b050-b07052a2e5fa.png"/>
 </div>
 
-BUSKER
 ======
 
 코드캠프 9기 프론트엔드 2 명, 백엔드 4 명이 함꼐 진행한 팀 프로젝트이자 길거리 버스킹 위치 정보 제공 플랫폼 입니다.
@@ -12,8 +11,9 @@ BUSKER
   1. [기획 의도](#-기획-의도)
   2. [팀원 소개](#-팀원-소개)
   3. [기술 스택](#-기술-스택)
-  4. [시연 영상](#-시연-영상)
-  5. [설치 및 실행 방법](#-설치-및-실행-방법)
+  4. [와이어 프레임](#-와이어-프레임)
+  5. [시연 영상](#-시연-영상)
+  6. [설치 및 실행 방법](#-설치-및-실행-방법)
 
 ---
 
@@ -56,6 +56,12 @@ Deploy
 Communication
 
 [![My Skills](https://skillicons.dev/icons?i=git,discord)](https://skillicons.dev)
+
+---
+
+### ⚙️ 와이어 프레임
+
+BUSKER<img width="1085" alt="스크린샷 2023-01-16 오전 11 54 57" src="https://user-images.githubusercontent.com/91879417/216976547-2109ff08-bbd7-4707-bfce-b7c239a2cdc5.png">
 
 ---
 
