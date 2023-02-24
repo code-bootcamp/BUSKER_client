@@ -8,19 +8,15 @@ export const Wrapper = styled.div`
 `;
 
 export const ImageBoxes = styled.div`
-  width: 400px;
+  max-width: 40rem;
   aspect-ratio: 1 / 1;
+  width: 100%;
   border-radius: 50%;
   overflow: hidden;
 
   @media ${breakPoints.mobile} {
-    width: 300px;
+    width: 35rem;
   }
-`;
-
-export const Image = styled.img`
-  width: 100%;
-  height: 100%;
 `;
 
 export const Title = styled.span`
@@ -51,7 +47,7 @@ export const Content = styled.div`
   }
 
   @media (max-width: 920px) {
-    flex-direction: column-reverse;
+    flex-direction: column;
   }
 `;
 
@@ -109,6 +105,12 @@ export const ContentBox = styled.div`
   width: 100%;
   margin: 0 auto;
   min-height: 100vh;
+
+  @media (max-width: 920px) {
+    div:nth-of-type(2) {
+      flex-direction: column-reverse;
+    }
+  }
 
   @media ${breakPoints.desktop} {
     padding: 0 3rem;

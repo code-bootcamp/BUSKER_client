@@ -6,9 +6,6 @@ import { useRouter } from "next/router";
 import { IKakaoMapProps } from "../../../commons/map/Map.types";
 import styled from "@emotion/styled";
 
-// 모바일 범위 0.008
-// 데탑 범위 0.005 -> 지도 밖 마커 표시 기능 넣으면 0.001 까지 가능..!
-
 const KakaoMap = ({
   position,
   address,
@@ -17,8 +14,6 @@ const KakaoMap = ({
   data,
 }: IKakaoMapProps) => {
   const router = useRouter();
-
-  // console.log("주변 버스킹 데이터:", data);
 
   const [isOpen, setIsOpen] = useState<boolean[]>([]);
   const [center, setCenter] = useState({
@@ -40,11 +35,8 @@ const KakaoMap = ({
 
         geocoder.addressSearch(address, function (result, status) {
           if (status === kakao.maps.services.Status.OK) {
-            // 정상적으로 검색이 완료됐으면
-
             const newSearch = result[0];
             setCenter({ lat: newSearch.y, lng: newSearch.x });
-
             setValue?.("boardAddressInput.lat", Number(newSearch.y));
             setValue?.("boardAddressInput.lng", Number(newSearch.x));
           }
@@ -103,7 +95,6 @@ const KakaoMap = ({
               lat: board.boardAddress.lat,
               lng: board.boardAddress.lng,
             };
-
             const startAt = new Intl.DateTimeFormat("ko-KR", {
               hour: "numeric",
               minute: "numeric",

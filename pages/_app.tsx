@@ -4,28 +4,25 @@ import { RecoilRoot } from "recoil";
 import ApolloSetting from "../src/commons/apollo";
 import { globalStyles } from "../src/commons/styles/globalStyles";
 import Layout from "../src/components/common/layout";
-import Script from "next/script";
-
 import "antd/dist/antd.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useEffect } from "react";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${String(
+      process.env.NEXT_PUBLIC_API_KEY
+    )}&libraries=services,clusterer&autoload=false`;
+    document.head.appendChild(script);
+  }, []);
   return (
     <RecoilRoot>
       <ApolloSetting>
         <>
           <Global styles={globalStyles} />
           <Layout>
-            <meta
-              name="viewport"
-              content="width=device-width, initial-scale=1"
-            ></meta>
-            <Script
-              type="text/javascript"
-              src="//dapi.kakao.com/v2/maps/sdk.js?appkey=742b7bcfe05cf57b5cb459032650c7af&libraries=services,clusterer&autoload=false"
-              strategy="beforeInteractive"
-            />
             <Component {...pageProps} />
           </Layout>
         </>
